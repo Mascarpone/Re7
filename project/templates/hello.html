@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Hello{% endblock %}
+{% block content %}
+
+{% if name %}
+    <h1>Hello {{ name }}!</h1>
+{% else %}
+    <h1>Hello World!</h1>
+
+    <p>Try modifying the url by adding a name : <a href="{{ url_for('hello') ~ "ok" }}">{{ url_for('hello') ~ "ok" }}</a>  </p>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}{% endblock %}
+{% block content %}
+
+
+<div class="row">
+    <div class="col-md-6">
+        <h1>Welcome on Re7 !</h1>
+        <br>
+        This website gather the best recipes the ENSEIRB-MATMECA students have ever cooked. <br>
+        Find your favorite meal and don't forget to grade it.<br>
+        <br>
+        <h4>Bon appétit !</h4>
+        <br>
+    </div>
+    <div class="col-md-6">
+        {% include "login.html" %}
+    </div>
+</div>
+
+<hr>
+
+<div class="row">
+    <div class="p-img-container">
+        <div class="parallax"></div>
+        <span class="p-content">
+            <span class="p-content-cell">
+                Search for a recipe
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for ...">
+                    <span class="input-group-btn">
+                        <a href="{{ url_for('index') }}">
+                            <button class="btn btn-default" type="button">
+                                <i class="icon-search"></i>
+                            </button>
+                        </a>
+                    </span>
+                </div>
+            </span>
+        </span>
+    </div>
+</div>
+
+<hr>
+
+
+
+<h1>The best recipes</h1>
+
+<br><br><br>
+
+{% include "bestrecipes.html" %}
+
+
+{% endblock %}

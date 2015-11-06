@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+    <title>Re7 {% block title %}{% endblock %}</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        
+    <meta name="keywords" content="Re7, re7, recette, étudiants, enseirb, enseirb-matmeca">
+    <meta name="description" content="Students love cooking">
+    <meta name="author" content="gbea scassiau flevern">
+        
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+        <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
+    {% endblock %}
+</head>
+
+<body>
+    <div id="masthead">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="lead"><a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='images/logo.png') }}"></a>Students love cooking</h1>
+                </div>
+            </div>
+        </div><!-- /cont -->
+    </div>
+
+    <div class="bar"></div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                {% block content %}
+                {% endblock %}
+            </div><!--/col-12-->
+        </div>
+    </div>
+
+    {% block footer %}
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <ul class="list-inline">
+                        <li>
+                            <div class="btn-facebook">
+                                <i class="icon-facebook icon-2x"></i>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="btn-twitter">
+                                <i class="icon-twitter icon-2x"></i>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="btn-google-plus">
+                                <i class="icon-google-plus icon-2x"></i>
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="col-sm-6">
+                    <p class="pull-right">Built with <i class="icon-heart-empty"></i> at <a href="http://www.bootply.com">Bootply</a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    {% endblock %}
+
+    {% block js_footer %}
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+        <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    {% endblock %}
+	</body>
+</html>

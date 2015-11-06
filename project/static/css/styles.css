@@ -1,0 +1,175 @@
+/* override bootstrap styles */
+@import url('http://fonts.googleapis.com/css?family=Oswald:300,400:latin,latin-ext');
+
+body {
+  color:#646464;
+  background-color:#fefeff;
+}
+
+h1,h2,h3,h4,.highlight,.navbar a,#masthead h4 {
+  font-family:'Oswald',arial narrow,sans-serif;
+}
+
+
+#masthead {
+  min-height:199px;
+  background-color:#2d8b00;
+  color:#aaaacc;
+}
+
+#masthead h1 {
+  font-size: 55px;
+  line-height: 1;
+  color:#fefeff;
+  margin-top:20px;
+}
+
+@media screen and (min-width: 768px) {
+    #masthead h1 {
+        font-size: 80px;
+    }
+}
+
+.bar {
+    min-height:2px;
+    background-color:#d9d130;
+}
+
+
+
+.p-img-container {
+    height:350px;
+    width:100%;
+    overflow:hidden;
+    position: relative;
+}
+
+.p-img-container div.parallax {
+    left: 0;
+    right: 0;
+    z-index: -1;
+    
+    padding-top:150px;
+    padding-bottom:200px;
+    
+    display: block;
+    background-color: transparent;
+    background-image: url("/static/images/test.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    
+    -webkit-filter: blur(2px);
+    -moz-filter: blur(2px);
+    -o-filter: blur(2px);
+    -ms-filter: blur(2px);
+    filter: blur(2px);
+}
+
+.p-img-container span.p-content {
+    display:table;
+    height:350px;
+    width:40%;
+    margin-right:30%;
+    margin-left:30%;
+    position:absolute;
+    top:0;
+    z-index:0;
+}
+
+.p-img-container span.p-content span.p-content-cell {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    
+    color:#ffffff;
+    font-family:'Oswald',arial narrow,sans-serif;
+    font-size: 25px;
+}
+
+
+
+
+.bestrecipes {
+    text-align: center;
+}
+
+.bestrecipes ul.img-list {
+    list-style-type: none;
+    margin-left: auto;
+    padding-left: 120px;
+}
+
+.bestrecipes ul.img-list li {
+    display: inline-block;
+    margin: 0 120px 120px 0;
+    position: relative;
+}
+
+.bestrecipes ul.img-list li div.img-container {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.bestrecipes ul.img-list li img {
+    height:200px;
+    margin-left: -50px;
+}
+
+.bestrecipes span.text-content span {
+    display: table-cell;
+    vertical-align: middle;
+    color:#ffffff;
+    font-family:'Oswald',arial narrow,sans-serif;
+    font-size: 20px;
+}
+
+.bestrecipes span.text-content {
+    background: rgba(0,0,0,0.3);
+    border-radius: 50%;
+    cursor: pointer;
+    display: table;
+    height: 200px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 200px;
+    opacity: 0;
+    -webkit-transition: opacity 500ms;
+    -moz-transition: opacity 500ms;
+    -o-transition: opacity 500ms;
+    transition: opacity 500ms;
+}
+
+.bestrecipes ul.img-list li:hover span.text-content {
+    opacity: 1;
+}
+
+
+footer {
+    margin-top:40px;
+    padding-top:40px;
+    padding-bottom:30px;
+    background-color:#cecece;
+}
+
+footer ul li {
+    margin-left:10px;
+}
+
+.btn-twitter {transition: color .3s;}
+.btn-facebook {transition: color .3s;}
+.btn-google-plus {transition: color .3s;}
+
+.btn-twitter:hover {color:#62BBFF; cursor:pointer;}
+.btn-facebook:hover {color:#4C6BBA; cursor:pointer;}
+.btn-google-plus:hover {color:#E45A58; cursor:pointer;}
+
+li.active{
+    text-decoration: none;
+    background-color: #eee;
+}
+
