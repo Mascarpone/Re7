@@ -7,9 +7,9 @@
 \f0\fs24 \cf0 \
 User (\ul userID\ulnone , login, password)\
 \
-Comment (\ul commentID\ulnone , #userID, #recipeID, comment, tasteScore, priceScore, instructionScore, dateComment)\
-\
 Recipe (\ul recipeID\ulnone , #userID, recipeName, budget, difficulty, preparationTime, cookingTime)\
+\
+Comment (\ul commentID\ulnone , #userID, #recipeID, comment, tasteScore, priceScore, instructionScore, commentDate)\
 \
 Step (\ul #recipeID, stepCount\ulnone , stepDescription)\
 \
@@ -17,8 +17,10 @@ Category (\ul categoryID\ulnone , categoryName)\
 \
 RecipeCategories (\ul #recipeID, #categoryID\ulnone )\
 \
+Unit (\ul unitID\ulnone , unitName)\
+\
 Ingredient (\ul ingredientID\ulnone , #unitID, ingredientName)\
 \
 RecipeIngredients (\ul #recipeID, #ingredientID\ulnone , quantity, isMain)\
 \
-Unit (\ul unitID\ulnone , unitName)}
+}
