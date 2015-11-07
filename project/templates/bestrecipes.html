@@ -1,62 +1,29 @@
+{% set items = [
+    ('Starter', 'Gyoza', 'images_db/0001.jpg'),
+    ('Main course', 'Ramen', 'images_db/0002.jpg'),
+    ('Dessert', 'Le Tiramisu de MascarponeSama', 'images_db/0003.jpg'),
+] -%}
 
 <div class="bestrecipes">
     <ul class="img-list">
+        {% for title, name, image in items %}
         <li>
             <div class="img-container">
                 <a href="#">
-                    <img src="{{ url_for('static', filename='images_db/0001.jpg') }}" />
+                    <img src="{{ url_for('static', filename=image) }}" />
                     <span class="text-content">
                         <span>
-                            Gyoza
+                            {{ name }} 
                             <br>
+                            {% for i in range(5) %}
                             <i class="icon-star"></i>
-                            <i class="icon-star"></i>
-                            <i class="icon-star"></i>
-                            <i class="icon-star-half-empty"></i>
-                            <i class="icon-star-empty"></i>
+                            {% endfor %}
                         </span>
                     </span>
                 </a>
             </div>
-            <h3>Starter</h3>
+            <h3>{{ title }}</h3>
         </li>
-        <li>
-            <div class="img-container">
-                <a href="#">
-                    <img src="{{ url_for('static', filename='images_db/0002.jpg') }}" />
-                    <span class="text-content">
-                        <span>
-                            Ramen
-                            <br>
-                            <i class="icon-star"></i>
-                            <i class="icon-star"></i>
-                            <i class="icon-star"></i>
-                            <i class="icon-star-empty"></i>
-                            <i class="icon-star-empty"></i>
-                        </span>
-                    </span>
-                </a>
-            </div>
-            <h3>Main course</h3>
-        </li>
-        <li>
-            <div class="img-container">
-                <a href="#">
-                    <img src="{{ url_for('static', filename='images_db/0003.jpg') }}" />
-                    <span class="text-content">
-                        <span>
-                            Le Tiramisu de MascarponeSama
-                            <br>
-                            <i class="icon-star"></i>
-                            <i class="icon-star"></i>
-                            <i class="icon-star"></i>
-                            <i class="icon-star"></i>
-                            <i class="icon-star"></i>
-                        </span>
-                    </span>
-                </a>
-            </div>
-            <h3>Dessert</h3>
-        </li>
+        {% endfor %}
     </ul>
 </div>
