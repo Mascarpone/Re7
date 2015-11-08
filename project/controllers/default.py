@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from project import app
 from flask import render_template, request
+from project.model import model
 
 
 @app.errorhandler(404)
@@ -15,7 +16,14 @@ def index():
 def about():
     return render_template("about.html")
 
-@app.route('/hello/')
-@app.route('/hello/<name>')
-def hello(name=None):
-    return render_template('hello.html', name=name)
+@app.route('/recipes')
+def recipes():
+    #rcs = model.getRecipes()
+    #return render_template('recipes.html', rcs=rcs)
+    pass
+
+@app.route('/recipe/<id>')
+def recipe(id):
+    #r = model.getRecipe(id)
+    #return render_template('recipes.html', r=r)
+    pass

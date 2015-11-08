@@ -1,14 +1,18 @@
 #RE7
 
 ##Install
+  $ sudo apt-get install libmysqlclient-dev
+
 Firstly, make you sure you installed the packet python-pip (http://pip.readthedocs.org/en/stable/installing/).
 Pip is a module installer for python.
 
-Now follow this tutorial: http://flask.pocoo.org/docs/0.10/installation/
 You will use virtualenv, so the modules you're using are not installed on your current system, but only in a directory. The virtual-env module is often used in python, because it creates a very clean environnement not depending on the system.
 
 Now if you want to run the project load your virtual environnement (where can install any module with pip):
     $ . /path_to_env/bin/activate
+
+Install the dependencies:
+    $ pip install -r requirements.txt
 
 And run the server:
     $ python app.py
