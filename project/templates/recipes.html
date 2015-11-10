@@ -1,13 +1,13 @@
 {% extends template %}
-{% block title %}À propos{% endblock %}
+{% block title %}Recettes{% endblock %}
 {% block content %}
 
 <h1>Liste des recettes</h1>
 <hr>
 
 <ul>
-{% for id, name in recipes %}
-    <li>{{ id }} - {{ name }}</li>
+{% for recipe in recipes %}
+    <li><a href="{{ url_for('recipe', id=recipe.recipeID) }}">{{ recipe.recipeName }}</a></li>
 {% endfor %}
 </ul>
 

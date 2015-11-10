@@ -1,0 +1,15 @@
+{% extends template %}
+{% block title %}{{ recipe.recipeName }}{% endblock %}
+{% block content %}
+
+<h1>{{ recipe.recipeName }}</h1>
+<hr>
+
+<ul>
+    <li>Prix : ~{{ recipe.budget }}€</li>
+    <li>Difficulté : {{ recipe.difficulty }}/5</li>
+    <li>Temps de préparation : ~{{ recipe.preparationTime }}min</li>
+    <li>Temps de cuisson : ~{{ recipe.cookingTime }}min</li>
+</ul>
+
+{% endblock %}

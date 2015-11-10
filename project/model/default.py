@@ -1,29 +1,39 @@
 # -*- coding: utf-8 -*-
+from  MySQLdb.cursors import DictCursor
 from project import mysql
 import sys
 
 class Model(object):
     def __init__(self, mysql):
         self.conn = mysql.connect()
-        self.cursor = self.conn.cursor()
+        self.cursor = self.conn.cursor(DictCursor)
         pass
 
     def getRecipes(self):
-        self.cursor.execute("SELECT recipeID, recipeName FROM Recipe")
+        sql = """
+            SELECT recipeID, recipeName
+            FROM Recipe"""
+        self.cursor.execute(sql)
         rows = self.cursor.fetchall()
         return rows
 
     def getRecipe(self, id):
-        self.cursor.execute("SELECT recipeID, recipeName FROM Recipe WHERE recipeID = %s", (id))
+        sql = """
+            SELECT recipeID, recipeName, budget, difficulty,
+            preparationTime, cookingTime
+            FROM Recipe
+            WHERE recipeID = %s"""
+        self.cursor.execute(sql, (id))
         row = self.cursor.fetchone()
         return row
 
     def insertRecipe(self, recipeName, budget, difficulty, preparationTime, cookingTime, userID, categoryID):
         try:
             sql = """
-            insert into re7.Recipe (recipeName, budget, difficulty, preparationTime, cookingTime, userID, categoryID)
-            values (%s, %s, %s, %s, %s, %s, %s)
-            """
+                INSERT INTO re7.Recipe (recipeName, budget, difficulty,
+                preparationTime, cookingTime, userID, categoryID)
+                VALUES (%s, %s, %s, %s, %s, %s, %s)
+                """
             res = self.cursor.execute(sql, (recipeName, budget, difficulty, preparationTime, cookingTime, userID, categoryID))
             self.conn.commit()
         except:

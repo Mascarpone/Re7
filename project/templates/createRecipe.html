@@ -1,13 +1,14 @@
 {% extends template %}
-{% block title %}À propos{% endblock %}
+{% block title %}Nouvelle recette{% endblock %}
 {% block content %}
 
 <h1>Ajouter une recette</h1>
 <hr>
 
 {% macro render_field(field) %}
-  <dt>{{ field.label }}
-  <dd>{{ field(**kwargs)|safe }}
+<div class="form-group">
+  {{ field.label }}
+  {{ field(class_="form-control", **kwargs)|safe }}
   {% if field.errors %}
     <ul class=errors>
     {% for error in field.errors %}
@@ -15,18 +16,20 @@
     {% endfor %}
     </ul>
   {% endif %}
-  </dd>
+</div>
 {% endmacro %}
 
-<form method="POST" action="{{ url_for('createRecipe') }}">
-    {{ form.hidden_tag() }}
-    {{ render_field(form.recipeName) }}
-    {{ render_field(form.budget) }}
-    {{ render_field(form.difficulty) }}
-    {{ render_field(form.preparationTime) }}
-    {{ render_field(form.cookingTime) }}
-    {{ render_field(form.categoryID) }}
-    <input type="submit" value="Go">
-</form>
+<div class='col-md-3'>
+    <form class="form-horizontal" method="POST" action="{{ url_for('createRecipe') }}">
+        {{ form.hidden_tag() }}
+        {{ render_field(form.recipeName) }}
+        {{ render_field(form.budget) }}
+        {{ render_field(form.difficulty) }}
+        {{ render_field(form.preparationTime) }}
+        {{ render_field(form.cookingTime) }}
+        {{ render_field(form.categoryID) }}
+        <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+</div>
 
 {% endblock %}
