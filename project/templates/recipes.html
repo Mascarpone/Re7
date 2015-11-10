@@ -1,0 +1,14 @@
+{% extends template %}
+{% block title %}À propos{% endblock %}
+{% block content %}
+
+<h1>Liste des recettes</h1>
+<hr>
+
+<ul>
+{% for id, name in recipes %}
+    <li>{{ id }} - {{ name }}</li>
+{% endfor %}
+</ul>
+
+{% endblock %}

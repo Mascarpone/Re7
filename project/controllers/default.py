@@ -1,8 +1,21 @@
 # -*- coding: utf-8 -*-
 from project import app
-from flask import render_template, request
-from project.model import model
+from flask import render_template, request, redirect, url_for
+from project.model.default import model
+from flask.ext.wtf import Form
+from wtforms import SelectField, TextField, IntegerField, validators
 
+class RecipeForm(Form):
+    recipeName = TextField(u'Nom de la recette', [validators.Required()])
+    budget = IntegerField(u'Budget', [validators.Required()])
+    difficulty = IntegerField(u'Difficulté', [validators.Required()])
+    preparationTime = IntegerField(u'Temps de préparation', [validators.Required()])
+    cookingTime = IntegerField(u'Temps de cuisson', [validators.Required()])
+    categoryID = SelectField(u'Type de plat', choices= model.getCategories(), coerce=int, validators=[validators.Required()])
+
+@app.context_processor
+def config_template():
+    return dict(template = "base.html")
 
 @app.errorhandler(404)
 def page_not_found(e):
@@ -18,8 +31,8 @@ def about():
 
 @app.route('/recipes')
 def recipes():
-    #rcs = model.getRecipes()
-    #return render_template('recipes.html', rcs=rcs)
+    recipes = model.getRecipes()
+    return render_template('recipes.html', recipes=recipes)
     pass
 
 @app.route('/recipe/<id>')
@@ -27,3 +40,14 @@ def recipe(id):
     #r = model.getRecipe(id)
     #return render_template('recipes.html', r=r)
     pass
+
+
+@app.route('/createRecipe', methods=('GET', 'POST'))
+def createRecipe():
+    form = RecipeForm()
+    if form.validate_on_submit():
+        model.insertRecipe(form.recipeName.data, form.budget.data,
+                            form.difficulty.data, form.preparationTime.data,
+                            form.cookingTime.data, 1, form.categoryID.data)
+        return redirect(url_for('recipes'))
+    return render_template('createRecipe.html', form=form)
