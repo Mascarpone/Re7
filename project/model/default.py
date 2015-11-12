@@ -9,6 +9,17 @@ class Model(object):
         self.cursor = self.conn.cursor(DictCursor)
         pass
 
+    def getUnits(self):
+        self.cursor.execute("SELECT unitID, unitName FROM Unit")
+        rows = self.cursor.fetchall()
+        return rows
+
+    def getCategories(self):
+        self.cursor.execute("SELECT categoryID, categoryName FROM Category")
+        rows = self.cursor.fetchall()
+        return rows
+
+    ########################### Recipe ###########################
     def getRecipes(self):
         sql = """
             SELECT recipeID, recipeName
@@ -23,14 +34,14 @@ class Model(object):
             preparationTime, cookingTime
             FROM Recipe
             WHERE recipeID = %s"""
-        self.cursor.execute(sql, (id))
+        self.cursor.execute(sql, (id,))
         row = self.cursor.fetchone()
         return row
 
     def insertRecipe(self, recipeName, budget, difficulty, preparationTime, cookingTime, userID, categoryID):
         try:
             sql = """
-                INSERT INTO re7.Recipe (recipeName, budget, difficulty,
+                INSERT INTO Recipe (recipeName, budget, difficulty,
                 preparationTime, cookingTime, userID, categoryID)
                 VALUES (%s, %s, %s, %s, %s, %s, %s)
                 """
@@ -40,14 +51,32 @@ class Model(object):
             print("Error in {0}".format(sql))
             self.conn.rollback()
 
-    def getUnits(self):
-        self.cursor.execute("SELECT unitID, unitName FROM Unit")
-        rows = self.cursor.fetchall()
-        return rows
+    ########################### User ###########################
+    def getUserById(self, id):
+        sql = """SELECT userID, login, password FROM User WHERE userID = %s"""
+        self.cursor.execute(sql, (id,))
+        row = self.cursor.fetchone()
+        return row
 
-    def getCategories(self):
-        self.cursor.execute("SELECT categoryID, categoryName FROM Category")
-        rows = self.cursor.fetchall()
-        return rows
+    def getUserByLogin(self, login):
+        sql = """SELECT userID, login, password FROM User WHERE login = %s"""
+        self.cursor.execute(sql, (login,))
+        row = self.cursor.fetchone()
+        return row
+
+    def getUserByLoginAndPassword(self, login, password):
+        sql = """SELECT userID, login, password FROM User WHERE login = %s AND password = %s"""
+        self.cursor.execute(sql, (login, password))
+        row = self.cursor.fetchone()
+        return row
+
+    def insertUser(self, login, password):
+        try:
+            sql = """INSERT INTO User (login, password) VALUES (%s, %s)"""
+            res = self.cursor.execute(sql, (login, password))
+            self.conn.commit()
+        except:
+            print("Error in {0}".format(sql))
+            self.conn.rollback()
 
 model = Model(mysql)

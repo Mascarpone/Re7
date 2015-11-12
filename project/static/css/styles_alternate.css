@@ -27,7 +27,7 @@ footer {
 
 #masthead {
   min-height:199px;
-  background-image: url('/static/img/chip2.jpg');
+  background-image: url('/static/images/head.jpg');
   color:#aaaacc;
 }
 
@@ -185,7 +185,7 @@ li.active{
 
     display: block;
     background-color: transparent;
-    background-image: url("/static/images/head.jpg");
+    background-image: url("/static/images/test.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;

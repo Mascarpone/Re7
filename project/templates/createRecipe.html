@@ -1,23 +1,10 @@
+{% from "_macros.html" import render_field %}
 {% extends template %}
 {% block title %}Nouvelle recette{% endblock %}
 {% block content %}
 
 <h1>Ajouter une recette</h1>
 <hr>
-
-{% macro render_field(field) %}
-<div class="form-group">
-  {{ field.label }}
-  {{ field(class_="form-control", **kwargs)|safe }}
-  {% if field.errors %}
-    <ul class=errors>
-    {% for error in field.errors %}
-      <li>{{ error }}</li>
-    {% endfor %}
-    </ul>
-  {% endif %}
-</div>
-{% endmacro %}
 
 <div class='col-md-3'>
     <form class="form-horizontal" method="POST" action="{{ url_for('createRecipe') }}">

@@ -2,17 +2,8 @@
 from project import app
 from flask import render_template, request, redirect, url_for
 from project.model.default import model
-from flask.ext.wtf import Form
-from wtforms import SelectField, TextField, IntegerField, validators
+from project.model.forms import RecipeForm
 
-class RecipeForm(Form):
-    recipeName = TextField(u'Nom de la recette', [validators.Required()])
-    budget = IntegerField(u'Budget', [validators.Required()])
-    difficulty = IntegerField(u'Difficulté', [validators.Required(), validators.NumberRange(min=1, max=5)])
-    preparationTime = IntegerField(u'Temps de préparation', [validators.Required()])
-    cookingTime = IntegerField(u'Temps de cuisson', [validators.Required()])
-    categoryID = SelectField(u'Type de plat', choices = [a.values() for a in model.getCategories()],
-        coerce=int, validators=[validators.Required()])
 
 @app.context_processor
 def config_template():
