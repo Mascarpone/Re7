@@ -318,11 +318,15 @@ span.content span.content-cell {
 
 
 
+
+.form-inline > * {
+    margin:2px 5px;
+}
+
 .ck-button {
     display:block;
     background-color:#cecece;
-    margin: 2px 3px 2px 3px;
-    padding: 1px 5px 1px 5px;
+    padding: 2px 6px 2px 6px;
     border-radius:4px;
     border:1px solid #D0D0D0;
     overflow:auto;
@@ -358,7 +362,6 @@ input[type=checkbox] {
 input[type=checkbox] + label {
     display:block;
     background-color:#cecece;
-    margin: 2px 3px 2px 3px;
     padding: 1px 5px 1px 5px;
     border-radius:4px;
     border:1px solid #D0D0D0;
@@ -388,7 +391,8 @@ input[type=checkbox] + label {
     transition: background-color 300ms;
 }
 
-input[type=checkbox]:checked + label {
+input[type=checkbox]:checked + label,
+input[type=checkbox]:checked + label:hover {
     background-color:#2d8b00;
     cursor: pointer;
     color: #ffffff;
