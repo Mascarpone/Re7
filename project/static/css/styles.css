@@ -1,24 +1,33 @@
 /* override bootstrap styles */
 @import url('http://fonts.googleapis.com/css?family=Oswald:300,400:latin,latin-ext');
 
-body {
-  color:#646464;
-  background-color:#fefeff;
+.navbar-form input, .form-inline input {
+  width:auto;
 }
 
-h1,h2,h3,h4,.highlight,.navbar a,#masthead h4 {
+body {
+  padding-top:50px;
+  color:#646464;
+  background-color:#efefef;
+}
+
+h1,h2,h3,.highlight,.navbar a,#masthead h4 {
   font-family:'Oswald',arial narrow,sans-serif;
 }
 
-h5 {
-    font-size: 20px;
-    font-family: arial, sans-serif;
+footer {
+
+  margin-top:40px;
+  padding-top:40px;
+  padding-bottom:40px;
+  background-color:#cecece;
+
 }
 
 
 #masthead {
   min-height:199px;
-  background-color:#2d8b00;
+  background-image: url('/static/images/head.jpg');
   color:#aaaacc;
 }
 
@@ -26,18 +35,123 @@ h5 {
   font-size: 55px;
   line-height: 1;
   color:#fefeff;
-  margin-top:20px;
+}
+
+#masthead .well {
+  margin-top:34px;
+  background-color:#111166;
+  border-color:#000022;
+  opacity: 0.8;
+  color:#efefff;
+}
+
+#topPanel {
+  padding-top:0px;
+  padding-left:22px;
+  padding-right:22px;
+}
+#topPanel .panel-body {
+  padding-top:0px;
+}
+
+.navbar.affix {
+  position:fixed;
+  top:0;
+  width:100%;
+}
+
+.top-spacer {
+  margin-top: 34px;
+  background-color:#ffffff;
+  height:40px;
+}
+
+
+.icon-bar {
+  background-color:#fff;
 }
 
 @media screen and (min-width: 768px) {
-    #masthead h1 {
-        font-size: 80px;
-    }
+  #masthead h1 {
+    font-size: 30px;
+  }
 }
 
-.bar {
-    min-height:2px;
-    background-color:#d9d130;
+.navbar-bright {
+  background-color:#111166;
+  color:#fff;
+  margin-bottom: 0;
+  border-width: 0;
+}
+
+.navbar-bright a, .navbar-bright .navbar-brand, #masthead h4 {
+  color:#ccccdd;
+  font-size:14px;
+  text-transform: uppercase;
+  letter-spacing:.08em;
+}
+
+.navbar-bright li > a:hover {
+  background-color:#000044;
+}
+
+.dropdown-menu {
+  min-width: 250px;
+}
+
+.caret {
+  color:#fff;
+}
+
+.navbar-toggle {
+  color:#fff;
+  border-width:0;
+}
+
+.navbar-toggle:hover {
+  background-color:#fff;
+}
+
+.panel {
+  border-color:transparent;
+  border-radius:0;
+}
+
+.thumbnail {
+  margin-bottom:8px;
+}
+
+.img-container {
+  overflow:hidden;
+  height:170px;
+}
+
+.img-container img {
+  min-width:280px;
+  min-height:180px;
+  max-width:380px;
+  max-height:280px;
+}
+
+.txt-container {
+  overflow:hidden;
+  height:100px;
+}
+
+.panel .lead {
+  overflow:hidden;
+  height:90px;
+}
+
+.label-float{
+  margin:0 auto;
+  position: absolute;
+  top: 0;
+  z-index: 1;
+  width:100%;
+  opacity:.9;
+  padding:6px;
+  color:#fff;
 }
 
 .form-group div.alert {
@@ -56,7 +170,6 @@ h5 {
 .form-group textarea.form-control {
     resize: none;
 }
-
 
 
 .p-img-container {
@@ -177,10 +290,6 @@ h5 {
     opacity: 1;
 }
 
-
-
-
-
 span.content {
     display:table;
     width:40%;
@@ -192,7 +301,7 @@ span.content span.content-cell {
     display: table-cell;
     vertical-align: middle;
     text-align: center;
-    
+
     color:#ffffff;
     font-family:'Oswald',arial narrow,sans-serif;
     font-size: 25px;
@@ -209,17 +318,17 @@ span.content span.content-cell {
     border:1px solid #D0D0D0;
     overflow:auto;
     float:left;
-    
+
     font-family:arial, sans-serif;
     font-weight:bold;
     font-size:15px;
     color: #646464;
-    
+
     -webkit-transition: color 300ms;
     -moz-transition: color 300ms;
     -o-transition: color 300ms;
     transition: color 300ms;
-    
+
     -webkit-transition: background-color 300ms;
     -moz-transition: background-color 300ms;
     -o-transition: background-color 300ms;
@@ -246,24 +355,24 @@ input[type=checkbox] + label {
     border:1px solid #D0D0D0;
     overflow:auto;
     float:left;
-    
+
     font-family:arial, sans-serif;
     font-weight:bold;
     font-size:15px;
     color: #646464;
-    
+
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    
+
     -webkit-transition: color 300ms;
     -moz-transition: color 300ms;
     -o-transition: color 300ms;
     transition: color 300ms;
-    
+
     -webkit-transition: background-color 300ms;
     -moz-transition: background-color 300ms;
     -o-transition: background-color 300ms;
@@ -284,10 +393,6 @@ input[type=checkbox] + label:hover {
 
 
 
-
-
-
-
 footer {
     margin-top:40px;
     padding-top:40px;
@@ -299,13 +404,6 @@ footer ul li {
     margin-left:10px;
 }
 
-.btn-twitter {transition: color .3s;}
-.btn-facebook {transition: color .3s;}
-.btn-google-plus {transition: color .3s;}
-
-.btn-twitter:hover {color:#62BBFF; cursor:pointer;}
-.btn-facebook:hover {color:#4C6BBA; cursor:pointer;}
-.btn-google-plus:hover {color:#E45A58; cursor:pointer;}
 
 li.active{
     text-decoration: none;
