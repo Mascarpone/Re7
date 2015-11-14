@@ -1,6 +1,6 @@
 {% from "_macros.html" import render_field %}
 {% extends template %}
-{% block title %}Nouvelle recette{% endblock %}
+{% block title %}- Nouvelle recette{% endblock %}
 {% block content %}
 
 <h1>Ajouter une recette</h1>
@@ -19,12 +19,12 @@
             <div class="form-group">
                 <label for="steps-0" class="col-sm-2 control-label">Etape 1 </label>
                 <div class="col-sm-4">
-                    <input class="form-control" type="text" name="steps-0">
+                    <textarea class="form-control" id="" rows="3"></textarea>
                 </div>
             </div>
         </div>
         <div class="col-sm-offset-2">
-            <input class="add_field_button btn btn-primary btn-sm" type="button" value="Ajouter une étape">
+            &nbsp;<input class="add_field_button btn btn-primary btn-sm-1" type="button" value="Ajouter une étape">
         </div>
         <hr>
         <div class="col-sm-offset-3">

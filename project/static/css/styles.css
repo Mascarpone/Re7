@@ -40,6 +40,23 @@ h5 {
     background-color:#d9d130;
 }
 
+.form-group div.alert {
+    padding: 7px;
+    margin-bottom: 0px;
+    margin-top: 5px;
+}
+
+.alert-dismissable .close, .alert-dismissible .close {
+    color: inherit;
+    position: relative;
+    top: -2px;
+    right: 0px;
+}
+
+.form-group textarea.form-control {
+    resize: none;
+}
+
 
 
 .p-img-container {
@@ -93,6 +110,13 @@ h5 {
     font-size: 25px;
 }
 
+.p-img-container span.p-content span.p-content-cell a {
+    text-decoration:none;
+    font-size:15px;
+    font-weight:bold;
+    color:#ffffff;
+    text-align:right;
+}
 
 
 
@@ -253,7 +277,7 @@ input[type=checkbox]:checked + label {
 }
 
 input[type=checkbox] + label:hover {
-    background-color:#2d8b00;
+    background-color:#B0CC99;
     cursor: pointer;
     color: #ffffff;
 }
