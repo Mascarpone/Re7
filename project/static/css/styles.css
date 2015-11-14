@@ -8,11 +8,16 @@
 body {
   padding-top:50px;
   color:#646464;
-  background-color:#efefef;
+  background-color:#ffffff;
 }
 
-h1,h2,h3,.highlight,.navbar a,#masthead h4 {
+h1,h2,h3, h4,.highlight,.navbar a,#masthead h4 {
   font-family:'Oswald',arial narrow,sans-serif;
+}
+
+h5 {
+    font-size: 20px;
+    font-family: arial, sans-serif;
 }
 
 footer {
@@ -20,29 +25,25 @@ footer {
   margin-top:40px;
   padding-top:40px;
   padding-bottom:40px;
-  background-color:#cecece;
+  background-color:#ffffff;
 
 }
 
 
 #masthead {
-  min-height:199px;
-  background-image: url('/static/images/head.jpg');
-  color:#aaaacc;
+    min-height:199px;
+    background-color:#2d8b00;
 }
 
 #masthead h1 {
-  font-size: 55px;
-  line-height: 1;
-  color:#fefeff;
+    line-height: 1;
+    margin-top:20px;
 }
 
-#masthead .well {
-  margin-top:34px;
-  background-color:#111166;
-  border-color:#000022;
-  opacity: 0.8;
-  color:#efefff;
+#masthead h1 a {
+    font-size: 55px;
+    text-decoration:none;
+    color:#fefeff;
 }
 
 #topPanel {
@@ -72,27 +73,31 @@ footer {
 }
 
 @media screen and (min-width: 768px) {
-  #masthead h1 {
-    font-size: 30px;
+  #masthead h1 a {
+    font-size: 70px;
   }
 }
 
 .navbar-bright {
-  background-color:#111166;
+  background-color:#2d8b00;
   color:#fff;
   margin-bottom: 0;
   border-width: 0;
 }
 
 .navbar-bright a, .navbar-bright .navbar-brand, #masthead h4 {
-  color:#ccccdd;
+  color:#ffffff;
   font-size:14px;
   text-transform: uppercase;
   letter-spacing:.08em;
 }
 
 .navbar-bright li > a:hover {
-  background-color:#000044;
+  background-color:#B0CC99;
+}
+
+.navbar-bright li.active {
+    background-color:#B0CC99;
 }
 
 .dropdown-menu {
@@ -109,7 +114,7 @@ footer {
 }
 
 .navbar-toggle:hover {
-  background-color:#fff;
+  background-color:#ffffff;
 }
 
 .panel {
