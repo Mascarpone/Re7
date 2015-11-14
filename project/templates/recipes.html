@@ -2,8 +2,42 @@
 {% block title %}Recettes{% endblock %}
 {% block content %}
 
-<h1>Liste des recettes</h1>
-<hr>
+<h1>Advanced research</h1>
+
+<h2>Filter by categories</h2>
+<br>
+        
+<h2>Filter by ingredients</h2>
+{% for ingredient in ingredients %}
+<form class="form-inline">
+    <input type="checkbox" value="{{ ingredient.ingredientID }}" name="{{ ingredient.ingredientID }}" id="{{ ingredient.ingredientID }}">
+    <label for="{{ ingredient.ingredientID }}">{{ ingredient.ingredientName }}</label>
+</form>
+{% endfor %}
+
+<br>
+<br>
+<br>
+
+<div class="row">
+    <span class="content">
+        <span class="content-cell">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Filter by title ...">
+                <span class="input-group-btn">
+                    <a href="{{ url_for('recipes') }}">
+                        <button class="btn btn-default" type="button">
+                            <i class="icon-search"></i>
+                        </button>
+                    </a>
+                </span>
+            </div>
+        </span>
+    </span>
+</div>
+
+<br>
+<br>
 
 <ul>
 {% for recipe in recipes %}
