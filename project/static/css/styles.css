@@ -92,12 +92,16 @@ footer {
   letter-spacing:.08em;
 }
 
-.navbar-bright li > a:hover {
+.navbar-bright li > a:hover,
+.navbar-bright li.active,
+.nav > li.dropdown > a:hover,
+.nav > li.dropdown.open.active > a:hover,
+.nav > li.dropdown.open > a {
   background-color:#B0CC99;
 }
 
-.navbar-bright li.active {
-    background-color:#B0CC99;
+.nav > li.dropdown > a {
+    background-color:#2d8b00;
 }
 
 .dropdown-menu {
