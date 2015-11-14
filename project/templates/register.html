@@ -9,7 +9,7 @@
         {{ form.hidden_tag() }}
         {{ render_field(form.login, required="true") }}
         {{ render_field(form.password, required="true") }}
-        {{ render_field(form.confirm, required="true", **{'data-match' : 'password', 'data-error' : 'Les mots de passe ne correspondent pas'}) }}
+        {{ render_field(form.confirm, required="true", **{'data-match' : '#password', 'data-error' : 'Les mots de passe ne correspondent pas'}) }}
         <hr>
         <div class="col-sm-offset-3">
             <button type="submit" class="btn btn-success btn-lg">Créer le compte</button>
