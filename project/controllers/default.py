@@ -25,7 +25,8 @@ def about():
 def recipes():
     recipes = model.getRecipes()
     ingredients = model.getIngredients()
-    return render_template('recipes.html', recipes=recipes, ingredients=ingredients)
+    categories = model.getCategories()
+    return render_template('recipes.html', recipes=recipes, ingredients=ingredients, categories=categories)
     pass
 
 @app.route('/recipe/<id>')

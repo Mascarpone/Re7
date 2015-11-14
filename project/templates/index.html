@@ -4,11 +4,15 @@
 
 
 <div class="row">
-    <div class="col-md-6">
-        <h1>Welcome on Re7 !</h1>
+    <div class="col-md-8">
+        <h1>Bienvenue sur Re7 !</h1>
         <br>
+        Ce site internet rassemble les meilleures recettes que les étudiants de l'ENSEIRB-MATMECA ont jamais cuisinées. <br>
+        Trouve ton plat favoris et n'oublie pas de lui donner une note. <br>
+        <!--
         This website gather the best recipes the ENSEIRB-MATMECA students have ever cooked. <br>
         Find your favorite meal and don't forget to grade it.<br>
+         -->
         <br>
         <h4>Bon appétit !</h4>
         <br>
@@ -22,9 +26,9 @@
         <div class="parallax"></div>
         <span class="p-content">
             <span class="p-content-cell">
-                Search for a recipe
+                Rechercher une recette
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for ...">
+                    <input type="text" class="form-control" placeholder="Rechercher ...">
                     <span class="input-group-btn">
                         <a href="{{ url_for('index') }}">
                             <button class="btn btn-default" type="button">
@@ -33,6 +37,7 @@
                         </a>
                     </span>
                 </div>
+                <p align="right"><a href="{{ url_for('recipes') }}"><u>Recherche avancée</u></a></p>
             </span>
         </span>
     </div>
@@ -42,7 +47,7 @@
 
 
 
-<h1>The best recipes</h1>
+<h1>Les meilleures recettes</h1>
 
 <br><br><br>
 

@@ -1,17 +1,23 @@
 {% extends template %}
-{% block title %}Recettes{% endblock %}
+{% block title %}- Recettes{% endblock %}
 {% block content %}
 
-<h1>Advanced research</h1>
+<h1>Recherche avancée</h1>
 
-<h2>Filter by categories</h2>
+<h2>Filtrer par catégories</h2>
+{% for category in categories %}
+<form class="form-inline">
+    <input type="checkbox" value="cat{{ category.categoryID }}" name="cat{{ category.categoryID }}" id="cat{{ category.categoryID }}">
+        <label for="cat{{ category.categoryID }}">{{ category.categoryName }}</label>
+</form>
+{% endfor %}
 <br>
 
-<h2>Filter by ingredients</h2>
+<h2>Filtrer par ingrédients principaux</h2>
 {% for ingredient in ingredients %}
 <form class="form-inline">
-    <input type="checkbox" value="{{ ingredient.ingredientID }}" name="{{ ingredient.ingredientID }}" id="{{ ingredient.ingredientID }}">
-    <label for="{{ ingredient.ingredientID }}">{{ ingredient.ingredientName }}</label>
+    <input type="checkbox" value="ing{{ ingredient.ingredientID }}" name="ing{{ ingredient.ingredientID }}" id="ing{{ ingredient.ingredientID }}">
+    <label for="ing{{ ingredient.ingredientID }}">{{ ingredient.ingredientName }}</label>
 </form>
 {% endfor %}
 
@@ -23,7 +29,7 @@
     <span class="content">
         <span class="content-cell">
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Filter by title ...">
+                <input type="text" class="form-control" placeholder="Filtrer par titre ou auteur ...">
                 <span class="input-group-btn">
                     <a href="{{ url_for('recipes') }}">
                         <button class="btn btn-default" type="button">
