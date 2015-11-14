@@ -10,6 +10,11 @@ h1,h2,h3,h4,.highlight,.navbar a,#masthead h4 {
   font-family:'Oswald',arial narrow,sans-serif;
 }
 
+h5 {
+    font-size: 20px;
+    font-family: arial, sans-serif;
+}
+
 
 #masthead {
   min-height:199px;
@@ -147,6 +152,116 @@ h1,h2,h3,h4,.highlight,.navbar a,#masthead h4 {
 .bestrecipes ul.img-list li:hover span.text-content {
     opacity: 1;
 }
+
+
+
+
+
+span.content {
+    display:table;
+    width:40%;
+    margin-right:30%;
+    margin-left:30%;
+}
+
+span.content span.content-cell {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    
+    color:#ffffff;
+    font-family:'Oswald',arial narrow,sans-serif;
+    font-size: 25px;
+}
+
+
+
+.ck-button {
+    display:block;
+    background-color:#cecece;
+    margin: 2px 3px 2px 3px;
+    padding: 1px 5px 1px 5px;
+    border-radius:4px;
+    border:1px solid #D0D0D0;
+    overflow:auto;
+    float:left;
+    
+    font-family:arial, sans-serif;
+    font-weight:bold;
+    font-size:15px;
+    color: #646464;
+    
+    -webkit-transition: color 300ms;
+    -moz-transition: color 300ms;
+    -o-transition: color 300ms;
+    transition: color 300ms;
+    
+    -webkit-transition: background-color 300ms;
+    -moz-transition: background-color 300ms;
+    -o-transition: background-color 300ms;
+    transition: background-color 300ms;
+}
+
+.ck-button:hover {
+    background-color:#2d8b00;
+    cursor: pointer;
+    color: #ffffff;
+}
+
+input[type=checkbox] {
+    position:absolute;
+    opacity:0;
+}
+
+input[type=checkbox] + label {
+    display:block;
+    background-color:#cecece;
+    margin: 2px 3px 2px 3px;
+    padding: 1px 5px 1px 5px;
+    border-radius:4px;
+    border:1px solid #D0D0D0;
+    overflow:auto;
+    float:left;
+    
+    font-family:arial, sans-serif;
+    font-weight:bold;
+    font-size:15px;
+    color: #646464;
+    
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    
+    -webkit-transition: color 300ms;
+    -moz-transition: color 300ms;
+    -o-transition: color 300ms;
+    transition: color 300ms;
+    
+    -webkit-transition: background-color 300ms;
+    -moz-transition: background-color 300ms;
+    -o-transition: background-color 300ms;
+    transition: background-color 300ms;
+}
+
+input[type=checkbox]:checked + label {
+    background-color:#2d8b00;
+    cursor: pointer;
+    color: #ffffff;
+}
+
+input[type=checkbox] + label:hover {
+    background-color:#2d8b00;
+    cursor: pointer;
+    color: #ffffff;
+}
+
+
+
+
+
 
 
 footer {

@@ -14,7 +14,7 @@ login_manager.login_view = 'login'
 mysql = MySQL()
 # MySQL configurations
 app.config['MYSQL_DATABASE_USER'] = 'root'
-app.config['MYSQL_DATABASE_PASSWORD'] = 'toor'
+app.config['MYSQL_DATABASE_PASSWORD'] = 'root'
 app.config['MYSQL_DATABASE_DB'] = 're7'
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 mysql.init_app(app)

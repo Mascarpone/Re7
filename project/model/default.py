@@ -79,4 +79,13 @@ class Model(object):
             print("Error in {0}".format(sql))
             self.conn.rollback()
 
+    ########################### Ingredient ###########################
+    def getIngredients(self):
+        sql = """
+        SELECT ingredientID, ingredientName
+        FROM Ingredient"""
+        self.cursor.execute(sql)
+        rows = self.cursor.fetchall()
+        return rows
+
 model = Model(mysql)

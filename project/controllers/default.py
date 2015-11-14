@@ -7,7 +7,7 @@ from project.model.forms import RecipeForm
 
 @app.context_processor
 def config_template():
-    return dict(template = "alternate.html")
+    return dict(template = "base.html")
 
 @app.errorhandler(404)
 def page_not_found(e):
@@ -24,7 +24,8 @@ def about():
 @app.route('/recipes')
 def recipes():
     recipes = model.getRecipes()
-    return render_template('recipes.html', recipes=recipes)
+    ingredients = model.getIngredients()
+    return render_template('recipes.html', recipes=recipes, ingredients=ingredients)
     pass
 
 @app.route('/recipe/<id>')
