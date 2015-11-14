@@ -5,10 +5,10 @@ from wtforms import SelectField, TextField, IntegerField, FieldList, PasswordFie
 
 class RecipeForm(Form):
     recipeName = TextField(u'Nom de la recette', [validators.Required()])
-    budget = IntegerField(u'Budget', [validators.Required()])
+    budget = IntegerField(u'Budget')
     difficulty = IntegerField(u'Difficulté', [validators.Required(), validators.NumberRange(min=1, max=5)])
-    preparationTime = IntegerField(u'Temps de préparation', [validators.Required()])
-    cookingTime = IntegerField(u'Temps de cuisson', [validators.Required()])
+    preparationTime = IntegerField(u'Temps de préparation')
+    cookingTime = IntegerField(u'Temps de cuisson')
     categoryID = SelectField(u'Type de plat', choices = [a.values() for a in model.getCategories()],
         coerce=int, validators=[validators.Required()])
 

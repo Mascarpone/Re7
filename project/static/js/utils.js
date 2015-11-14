@@ -5,6 +5,7 @@ $(document).ready(function() {
     var wrapper         = $(".input_fields_wrap"); //Fields wrapper
     var add_button      = $(".add_field_button"); //Add button ID
 
+
     function numbering(){
         $('.input_fields_wrap .form-group').each(function( i ) {
              $(this).find('label').attr('for', 'steps-'+i);
@@ -13,13 +14,26 @@ $(document).ready(function() {
              $(this).find('input').attr('id', 'steps-'+i);
         });
     }
-
+    /*$(wrapper).sortable({
+        cancel: ".ui-state-disabled",
+        stop: function( event, ui ) {numbering();}
+    });*/
+    $(wrapper).sortable({
+        items: '.sort',
+        stop: function( event, ui ) {
+            numbering();
+        }
+    });
 
     var c = 1; //initlal text box count
     $(add_button).click(function(e){ //on add input button click
         e.preventDefault();
         if(c < max_fields){ //max input box allowed
+<<<<<<< HEAD
             $(wrapper).append('<div class="form-group"><label for="" class="col-sm-2 control-label"></label><div class="col-sm-4"><textarea class="form-control" id="" rows="3"></textarea></div><a href="#" class="remove_field btn btn-primary btn-danger col-sm-1">Supprimer</a></div>'); //add input box
+=======
+            $(wrapper).append('<div class="form-group sort"><label for="" class="col-sm-2 control-label"></label><div class="col-sm-4"><input class="form-control" id="" name="" type="text" value=""></div><a href="#" class="remove_field btn btn-primary btn-danger col-sm-1">Remove</a></div>'); //add input box
+>>>>>>> 23ca7e3c0981b995a6bb29b5401acd2945b392d1
             c++; //text box increment
         }
         numbering();

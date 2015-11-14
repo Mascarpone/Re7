@@ -7,15 +7,16 @@
 <hr>
 
 <div class='col-md-12'>
-    <form class="form-horizontal" method="POST" action="{{ url_for('createRecipe') }}">
+    <form data-toggle="validator" role=form class="form-horizontal" method="POST" action="{{ url_for('createRecipe') }}">
         {{ form.hidden_tag() }}
-        {{ render_field(form.recipeName) }}
-        {{ render_field(form.budget) }}
-        {{ render_field(form.difficulty) }}
-        {{ render_field(form.preparationTime) }}
-        {{ render_field(form.cookingTime) }}
-        {{ render_field(form.categoryID) }}
+        {{ render_field(form.recipeName, required="true") }}
+        {{ render_field(form.budget, required="true", type="number") }}
+        {{ render_field(form.difficulty, required="true", type="number", min="1", max="5") }}
+        {{ render_field(form.preparationTime, required="true", type="number") }}
+        {{ render_field(form.cookingTime, required="true", type="number") }}
+        {{ render_field(form.categoryID, required="true") }}
         <div class="input_fields_wrap">
+            <p class="text-primary">Triez les étapes en les faisant glisser. <i class="fa fa-hand-pointer-o"></i></p>
             <div class="form-group">
                 <label for="steps-0" class="col-sm-2 control-label">Etape 1 </label>
                 <div class="col-sm-4">
@@ -33,4 +34,9 @@
     </form>
 </div>
 
+{% endblock %}
+
+{% block js_footer %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
 {% endblock %}

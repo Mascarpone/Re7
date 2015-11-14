@@ -5,12 +5,15 @@
 <h1>Créér un compte</h1>
 
 <div class='col-md-12'>
-    <form class="form-horizontal" method="POST" action="{{ url_for('register') }}">
+    <form data-toggle="validator" role=form class="form-horizontal" method="POST" action="{{ url_for('register') }}">
         {{ form.hidden_tag() }}
-        {{ render_field(form.login) }}
-        {{ render_field(form.password) }}
-        {{ render_field(form.confirm) }}
-        <button type="submit" class="btn btn-default">Submit</button>
+        {{ render_field(form.login, required="true") }}
+        {{ render_field(form.password, required="true") }}
+        {{ render_field(form.confirm, required="true", **{'data-match' : 'password', 'data-error' : 'Les mots de passe ne correspondent pas'}) }}
+        <hr>
+        <div class="col-sm-offset-3">
+            <button type="submit" class="btn btn-success btn-lg">Créer le compte</button>
+        </div>
     </form>
 </div>
 {% endblock %}
