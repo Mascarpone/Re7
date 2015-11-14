@@ -80,6 +80,7 @@ footer {
 
 .navbar-bright {
   background-color:#2d8b00;
+  opacity: 0.75;
   color:#fff;
   margin-bottom: 0;
   border-width: 0;

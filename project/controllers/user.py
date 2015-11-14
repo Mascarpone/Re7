@@ -14,12 +14,12 @@ def user_loader(user_id):
         return g.user
     return None
 
-@app.route('/logout')
+@app.route('/user/logout')
 def logout():
     logout_user()
     return redirect(url_for('index'))
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/user/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
@@ -38,7 +38,7 @@ def login():
 
     return render_template('login.html', form = form)
 
-@app.route('/register', methods=['GET', 'POST'])
+@app.route('/user/register', methods=['GET', 'POST'])
 def register():
     form = RegisterForm()
     if form.validate_on_submit():
@@ -55,3 +55,12 @@ def register():
             return redirect(url_for('register'))
 
     return render_template('register.html', form = form)
+
+@app.route('/user/<int:id>')
+def user(id):
+    user = model.getUserById(id)
+    if user is not None:
+        recipes = model.getRecipesByUserID(id)
+        return render_template('user.html', user=user, recipes=recipes)
+
+    return redirect(url_for('index'))

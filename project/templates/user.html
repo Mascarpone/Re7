@@ -1,0 +1,16 @@
+{% extends template %}
+{% block title %}- {{ user.login }}{% endblock %}
+{% block content %}
+
+<h1>{{ user.login }}</h1>
+<hr>
+
+<h2>Toutes les recettes de {{ user.login }}</h2>
+
+<ul>
+{% for recipe in recipes %}
+    <li><a href="{{ url_for('recipe', id=recipe.recipeID) }}">{{ recipe.recipeName }}</a></li>
+{% endfor %}
+</ul>
+
+{% endblock %}

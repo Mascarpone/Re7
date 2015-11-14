@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 from project import app
-from flask import render_template, redirect, url_for
-from project.model.default import model
-from project.model.forms import RecipeForm
+from flask import render_template
+
 
 
 @app.context_processor
@@ -20,29 +19,3 @@ def index():
 @app.route("/about")
 def about():
     return render_template("about.html")
-
-@app.route('/recipes')
-def recipes():
-    recipes = model.getRecipes()
-    ingredients = model.getIngredients()
-    categories = model.getCategories()
-    return render_template('recipes.html', recipes=recipes, ingredients=ingredients, categories=categories)
-    pass
-
-@app.route('/recipe/<id>')
-def recipe(id):
-    recipe = model.getRecipe(id)
-    return render_template('recipe.html', recipe=recipe)
-
-
-@app.route('/createRecipe', methods=('GET', 'POST'))
-def createRecipe():
-    form = RecipeForm()
-
-    if form.validate_on_submit():
-        assert False
-        model.insertRecipe(form.recipeName.data, form.budget.data,
-                            form.difficulty.data, form.preparationTime.data,
-                            form.cookingTime.data, 1, form.categoryID.data)
-        return redirect(url_for('recipes'))
-    return render_template('createRecipe.html', form=form)
