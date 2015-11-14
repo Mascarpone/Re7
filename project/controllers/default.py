@@ -7,7 +7,7 @@ from project.model.forms import RecipeForm
 
 @app.context_processor
 def config_template():
-    return dict(template = "base.html")
+    return dict(template = "alternate.html")
 
 @app.errorhandler(404)
 def page_not_found(e):

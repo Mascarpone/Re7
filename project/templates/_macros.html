@@ -2,7 +2,8 @@
     <div class="form-group">
         {{ field.label(class="col-sm-2 control-label") }}
         <div class="col-sm-4">
-        {{ field(class_="form-control", **kwargs)|safe }}
+        {{ field(class_="form-control",  **kwargs)|safe }}
+        <div class="help-block with-errors"></div>
         {% if field.errors %}
             <ul class=errors>
                 {% for error in field.errors %}
