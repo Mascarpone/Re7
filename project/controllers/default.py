@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from project import app
-from flask import render_template, request, redirect, url_for
+from flask import render_template, redirect, url_for
 from project.model.default import model
 from project.model.forms import RecipeForm
 
@@ -37,7 +37,9 @@ def recipe(id):
 @app.route('/createRecipe', methods=('GET', 'POST'))
 def createRecipe():
     form = RecipeForm()
+
     if form.validate_on_submit():
+        assert False
         model.insertRecipe(form.recipeName.data, form.budget.data,
                             form.difficulty.data, form.preparationTime.data,
                             form.cookingTime.data, 1, form.categoryID.data)

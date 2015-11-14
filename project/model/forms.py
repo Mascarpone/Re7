@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from default import model
 from flask.ext.wtf import Form
-from wtforms import SelectField, TextField, IntegerField, PasswordField, validators
+from wtforms import SelectField, TextField, IntegerField, FieldList, PasswordField, validators
 
 class RecipeForm(Form):
     recipeName = TextField(u'Nom de la recette', [validators.Required()])
@@ -11,6 +11,8 @@ class RecipeForm(Form):
     cookingTime = IntegerField(u'Temps de cuisson', [validators.Required()])
     categoryID = SelectField(u'Type de plat', choices = [a.values() for a in model.getCategories()],
         coerce=int, validators=[validators.Required()])
+
+    steps = FieldList(TextField('Etape', [validators.required()]), min_entries=1)
 
 class RegisterForm(Form):
     login = TextField(u'Login', [validators.Required()])
