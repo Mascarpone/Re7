@@ -3,11 +3,12 @@
 {% block title %}- Nouvelle recette{% endblock %}
 {% block content %}
 
+<div class='col-md-offset-2'>
 <h1>Ajouter une recette</h1>
 <hr>
 
-<div class='col-md-12'>
     <form data-toggle="validator" role=form class="form-horizontal" method="POST" action="{{ url_for('createRecipe') }}">
+        <h2>Description</h2>
         {{ form.hidden_tag() }}
         {{ render_field(form.recipeName, required="true") }}
         {{ render_field(form.budget, required="true", type="number") }}
@@ -15,6 +16,11 @@
         {{ render_field(form.preparationTime, required="true", type="number") }}
         {{ render_field(form.cookingTime, required="true", type="number") }}
         {{ render_field(form.categoryID, required="true") }}
+
+        <h2>Ingrédients</h2>
+
+
+        <h2>Préparation</h2>
         <div class="input_fields_wrap">
             <p class="text-primary">Triez les étapes en les faisant glisser (l'étape 1 ne peut pas bouger) <i class="fa fa-hand-pointer-o"></i></p>
             <div class="form-group">

@@ -4,7 +4,7 @@ from flask import g, render_template, request, redirect, url_for, abort, flash
 from project.model.default import model
 from project.model.user import User
 from project.model.forms import RegisterForm, LoginForm
-from flask.ext.login import login_user, logout_user
+from flask.ext.login import login_user, logout_user, login_required
 
 @login_manager.user_loader
 def user_loader(user_id):
@@ -15,6 +15,7 @@ def user_loader(user_id):
     return None
 
 @app.route('/user/logout')
+@login_required
 def logout():
     logout_user()
     return redirect(url_for('index'))
@@ -30,7 +31,7 @@ def login():
         if user is not None:
             g.user = User(user['userID'], user['login'], user['password'])
             login_user(g.user)
-            flash('Welcome back {0}'.format(login))
+            flash('Bienvenue {0}'.format(login))
             return redirect(url_for('index'))
         else:
             flash('Invalid login')
@@ -63,4 +64,4 @@ def user(id):
         recipes = model.getRecipesByUserID(id)
         return render_template('user.html', user=user, recipes=recipes)
 
-    return redirect(url_for('index'))
+    return abort(404)

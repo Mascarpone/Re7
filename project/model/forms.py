@@ -12,7 +12,7 @@ class RecipeForm(Form):
     categoryID = SelectField(u'Type de plat', choices = [a.values() for a in model.getCategories()],
         coerce=int, validators=[validators.Required()])
 
-    steps = FieldList(TextField('Etape', [validators.required()]), min_entries=1)
+    steps = FieldList(TextField('Etape', [validators.required()]))
 
 class RegisterForm(Form):
     login = TextField(u'Login', [validators.Required()])
