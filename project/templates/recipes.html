@@ -30,28 +30,40 @@
 <br>
 
 <div class="row">
-    <span class="content">
-        <span class="content-cell">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Filtrer par titre ou auteur ...">
-                <span class="input-group-btn">
-                    <a href="{{ url_for('recipes') }}">
-                        <button class="btn btn-default" type="button">
-                            <i class="fa fa-search"></i>
-                        </button>
-                    </a>
-                </span>
+    <div class="col-md-6 col-md-offset-3">
+        <form role="form">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Filtrer par titre ou auteur ..." id="usr" />
             </div>
-        </span>
-    </span>
+        </form>
+    </div>
+</div>
+
+<br>
+
+<div class="row">
+    <div class="col-md-6 col-md-offset-3" align="center">
+        <button type="submit" class="btn btn-primary btn-sm-1">Rechercher</button>
+    </div>
 </div>
 
 <br>
 <hr>
 
-<ul>
+<ul class="recipelist">
 {% for recipe in recipes %}
-    <li><a href="{{ url_for('recipe', id=recipe.recipeID) }}">{{ recipe.recipeName }}</a></li>
+    <li>
+        <a href="{{ url_for('recipe', id=recipe.recipeID) }}">
+            <img src="{{ url_for('static', filename='image_db/' + recipe.recipeID|string + '.jpg') }}" />
+            <span class="recipeName">{{ recipe.recipeName }}</span>
+            <br>
+            <span class="recipeAuthor">Auteur</span>
+            <br>
+            {% for i in range(5) %}
+            <i class="fa fa-star"></i>
+            {% endfor %}
+        </a>
+    </li>
 {% endfor %}
 </ul>
 
