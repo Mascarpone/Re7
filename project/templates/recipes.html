@@ -5,47 +5,49 @@
 <h1>Recherche avancée</h1>
 <hr>
 
-<h2>Filtrer par catégories</h2>
+<form>
+    <h2>Filtrer par catégories</h2>
 
-<form class="form-inline">
-{% for category in categories %}
-    <input type="checkbox" value="cat{{ category.categoryID }}" name="cat{{ category.categoryID }}" id="cat{{ category.categoryID }}">
-    <label for="cat{{ category.categoryID }}">{{ category.categoryName }}</label>
-    &nbsp;
-{% endfor %}
-</form>
-<br>
+    <div class="form-inline">
+    {% for category in categories %}
+        <input type="checkbox" value="cat{{ category.categoryID }}" name="cat{{ category.categoryID }}" id="cat{{ category.categoryID }}">
+        <label for="cat{{ category.categoryID }}">{{ category.categoryName }}</label>
+        &nbsp;
+    {% endfor %}
+    </div>
+    
+    <br>
 
-<h2>Filtrer par ingrédients principaux</h2>
+    <h2>Filtrer par ingrédients principaux</h2>
 
-<form class="form-inline">
-{% for ingredient in ingredients %}
-    <input type="checkbox" value="ing{{ ingredient.ingredientID }}" name="ing{{ ingredient.ingredientID }}" id="ing{{ ingredient.ingredientID }}">
-    <label for="ing{{ ingredient.ingredientID }}">{{ ingredient.ingredientName }}</label>
-{% endfor %}
-</form>
+    <div class="form-inline">
+    {% for ingredient in ingredients %}
+        <input type="checkbox" value="ing{{ ingredient.ingredientID }}" name="ing{{ ingredient.ingredientID }}" id="ing{{ ingredient.ingredientID }}">
+        <label for="ing{{ ingredient.ingredientID }}">{{ ingredient.ingredientName }}</label>
+    {% endfor %}
+    </div>
+    
+    <br>
+    <br>
+    <br>
 
-<br>
-<br>
-<br>
-
-<div class="row">
-    <div class="col-md-6 col-md-offset-3">
-        <form role="form">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
             <div class="form-group">
                 <input type="text" class="form-control" placeholder="Filtrer par titre ou auteur ..." id="usr" />
             </div>
-        </form>
+        </div>
     </div>
-</div>
 
-<br>
+    <br>
 
-<div class="row">
-    <div class="col-md-6 col-md-offset-3" align="center">
-        <button type="submit" class="btn btn-primary btn-sm-1">Rechercher</button>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3" align="center">
+            <button type="submit" class="btn btn-primary btn-sm-1">Rechercher</button>
+        </div>
     </div>
-</div>
+
+</form>
 
 <br>
 <hr>
