@@ -17,7 +17,6 @@
     <![endif]-->
     <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
     <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static', filename='css/lightbox.css') }}" rel="stylesheet">
     {% endblock %}
 </head>
 
@@ -86,7 +85,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h1 class="lead"><a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='images/logo.png') }}">Students love cooking</a></h1>
+                    <h1 class="lead"><a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='images/logo.png') }}" width="150px">&nbsp;&nbsp;Students love cooking</a></h1>
                 </div>
                 {% with messages = get_flashed_messages() %}
                     {% if messages %}
@@ -120,17 +119,23 @@
                     <ul class="list-inline">
                         <li>
                             <div class="btn-facebook">
-                                <i class="fa fa-facebook fa-2x"></i>
+                                <a target="_blank" href="https://www.facebook.com/sylvain.cassiau?fref=ts">
+                                    <i class="fa fa-facebook fa-2x"></i>
+                                </a>
                             </div>
                         </li>
                         <li>
                             <div class="btn-twitter">
-                                <i class="fa fa-twitter fa-2x"></i>
+                                <a target="_blank" href="https://twitter.com/guillaume_bea">
+                                    <i class="fa fa-twitter fa-2x"></i>
+                                </a>
                             </div>
                         </li>
                         <li>
                             <div class="btn-google-plus">
-                                <i class="fa fa-google-plus fa-2x"></i>
+                                <a target="_blank" href="https://plus.google.com/u/0/101315220672404473103/posts">
+                                    <i class="fa fa-google-plus fa-2x"></i>
+                                </a>
                             </div>
                         </li>
                     </ul>

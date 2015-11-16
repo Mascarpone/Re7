@@ -80,7 +80,7 @@ footer {
 
 .navbar-bright {
   background-color:#2d8b00;
-  opacity: 0.75;
+  box-shadow: 0px -2px 10px #000000;
   color:#fff;
   margin-bottom: 0;
   border-width: 0;
@@ -423,3 +423,12 @@ li.active{
     text-decoration: none;
     background-color: #eee;
 }
+
+.btn-facebook a {text-decoration:none; color:inherit;}
+.btn-facebook a:hover {color:#3b5998;}
+
+.btn-twitter a {text-decoration:none; color:inherit;}
+.btn-twitter a:hover {color:#4099FF ;}
+
+.btn-google-plus a {text-decoration:none; color:inherit;}
+.btn-google-plus a:hover {color:#d34836;}
