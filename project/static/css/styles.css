@@ -423,3 +423,12 @@ li.active{
     text-decoration: none;
     background-color: #eee;
 }
+
+.btn-facebook a {text-decoration:none; color:inherit;}
+.btn-facebook a:hover {color:#3b5998;}
+
+.btn-twitter a {text-decoration:none; color:inherit;}
+.btn-twitter a:hover {color:#4099FF ;}
+
+.btn-google-plus a {text-decoration:none; color:inherit;}
+.btn-google-plus a:hover {color:#d34836;}
