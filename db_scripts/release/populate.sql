@@ -1,3 +1,5 @@
+use re7;
+
 LOCK TABLES Category WRITE;
 INSERT INTO Category VALUES (1,'Apéritif'),(2,'Entrée'),(3,'Plat'),(4,'Dessert');
 UNLOCK TABLES;
@@ -11,9 +13,5 @@ INSERT INTO Unit VALUES (1,'(Rien)'),(2,'grammes (gr)'),(3,'kilogrammes (kg)'),(
 UNLOCK TABLES;
 
 LOCK TABLES Ingredient WRITE;
-INSERT INTO Ingredient VALUES (1,'lait',4),(2,'huile',5),(3,'sel',6),(4,'farine',1);
-UNLOCK TABLES;
-
-LOCK TABLES Recipe WRITE;
-INSERT INTO Recipe VALUES (1,'Ptit dej\'',4,1,5,0,1,1),(2,'Jambon coquillettes',3,1,5,10,1,2),(3,'Steack haché frites',5,1,5,15,1,3),(4,'Test',10,2,12,12,1,1);
+INSERT INTO Ingredient VALUES (1,'lait'),(2,'huile'),(3,'sel'),(4,'farine');
 UNLOCK TABLES;

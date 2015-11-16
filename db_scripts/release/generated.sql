@@ -125,12 +125,7 @@ DROP TABLE IF EXISTS re7.Ingredient ;
 CREATE TABLE IF NOT EXISTS re7.Ingredient (
   ingredientID INT NOT NULL AUTO_INCREMENT,
   ingredientName VARCHAR(45) NOT NULL,
-  unitID INT NOT NULL,
-  PRIMARY KEY (ingredientID) ,
-  INDEX fk_Ingredient_Unit1_idx (unitID ASC) ,
-  CONSTRAINT fk_Ingredient_Unit1
-    FOREIGN KEY (unitID)
-    REFERENCES re7.Unit (unitID));
+  PRIMARY KEY (ingredientID));
 
 
 -- -----------------------------------------------------
@@ -143,15 +138,20 @@ CREATE TABLE IF NOT EXISTS re7.Contain (
   ingredientID INT NOT NULL,
   quantity FLOAT NOT NULL,
   isMain TINYINT(1) NOT NULL,
-  PRIMARY KEY (Recipe_recipeID, ingredientID) ,
+  Unit_unitID INT NOT NULL,
+  PRIMARY KEY (Recipe_recipeID, ingredientID, Unit_unitID) ,
   INDEX fk_Recipe_has_Ingredient_Ingredient1_idx (ingredientID ASC) ,
   INDEX fk_Recipe_has_Ingredient_Recipe1_idx (Recipe_recipeID ASC) ,
+  INDEX fk_Contain_Unit1_idx (Unit_unitID ASC) ,
   CONSTRAINT fk_Recipe_has_Ingredient_Recipe1
     FOREIGN KEY (Recipe_recipeID)
     REFERENCES re7.Recipe (recipeID),
   CONSTRAINT fk_Recipe_has_Ingredient_Ingredient1
     FOREIGN KEY (ingredientID)
-    REFERENCES re7.Ingredient (ingredientID));
+    REFERENCES re7.Ingredient (ingredientID),
+  CONSTRAINT fk_Contain_Unit1
+    FOREIGN KEY (Unit_unitID)
+    REFERENCES re7.Unit (unitID));
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
