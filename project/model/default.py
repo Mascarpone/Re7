@@ -39,7 +39,7 @@ class Model(object):
 
     def getRecipe(self, id):
         sql = """
-            SELECT recipeID, recipeName, budget, difficulty, categoryName,
+            SELECT recipeID, recipeName, image, budget, difficulty, categoryName,
             preparationTime, cookingTime, Recipe.userID, login
             FROM Recipe
             JOIN User on User.userID = Recipe.userID
@@ -49,14 +49,14 @@ class Model(object):
         row = self.cursor.fetchone()
         return row
 
-    def insertRecipe(self, recipeName, budget, difficulty, preparationTime, cookingTime, userID, categoryID):
+    def insertRecipe(self, recipeName, image, budget, difficulty, preparationTime, cookingTime, userID, categoryID):
         try:
             sql = """
-                INSERT INTO Recipe (recipeName, budget, difficulty,
+                INSERT INTO Recipe (recipeName, image, budget, difficulty,
                 preparationTime, cookingTime, userID, categoryID)
-                VALUES (%s, %s, %s, %s, %s, %s, %s)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
                 """
-            self.cursor.execute(sql, (recipeName, budget, difficulty, preparationTime, cookingTime, userID, categoryID))
+            self.cursor.execute(sql, (recipeName, image, budget, difficulty, preparationTime, cookingTime, userID, categoryID))
             self.conn.commit()
             return self.cursor.lastrowid
         except:
