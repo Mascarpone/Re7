@@ -77,15 +77,15 @@ CREATE TABLE IF NOT EXISTS re7.Comment (
   instructionScore INT(1) NOT NULL,
   commentDate TIMESTAMP NOT NULL,
   userID INT NOT NULL,
-  Recipe_recipeID INT NOT NULL,
+  recipeID INT NOT NULL,
   PRIMARY KEY (commentID) ,
   INDEX fk_Comment_User1_idx (userID ASC) ,
-  INDEX fk_Comment_Recipe1_idx (Recipe_recipeID ASC) ,
+  INDEX fk_Comment_Recipe1_idx (recipeID ASC) ,
   CONSTRAINT fk_Comment_User1
     FOREIGN KEY (userID)
     REFERENCES re7.User (userID),
   CONSTRAINT fk_Comment_Recipe1
-    FOREIGN KEY (Recipe_recipeID)
+    FOREIGN KEY (recipeID)
     REFERENCES re7.Recipe (recipeID));
 
 
@@ -134,23 +134,23 @@ CREATE TABLE IF NOT EXISTS re7.Ingredient (
 DROP TABLE IF EXISTS re7.Contain ;
 
 CREATE TABLE IF NOT EXISTS re7.Contain (
-  Recipe_recipeID INT NOT NULL,
+  recipeID INT NOT NULL,
   ingredientID INT NOT NULL,
   quantity FLOAT NOT NULL,
   isMain TINYINT(1) NOT NULL,
-  Unit_unitID INT NOT NULL,
-  PRIMARY KEY (Recipe_recipeID, ingredientID, Unit_unitID) ,
+  unitID INT NOT NULL,
+  PRIMARY KEY (recipeID, ingredientID, unitID) ,
   INDEX fk_Recipe_has_Ingredient_Ingredient1_idx (ingredientID ASC) ,
-  INDEX fk_Recipe_has_Ingredient_Recipe1_idx (Recipe_recipeID ASC) ,
-  INDEX fk_Contain_Unit1_idx (Unit_unitID ASC) ,
+  INDEX fk_Recipe_has_Ingredient_Recipe1_idx (recipeID ASC) ,
+  INDEX fk_Contain_Unit1_idx (unitID ASC) ,
   CONSTRAINT fk_Recipe_has_Ingredient_Recipe1
-    FOREIGN KEY (Recipe_recipeID)
+    FOREIGN KEY (recipeID)
     REFERENCES re7.Recipe (recipeID),
   CONSTRAINT fk_Recipe_has_Ingredient_Ingredient1
     FOREIGN KEY (ingredientID)
     REFERENCES re7.Ingredient (ingredientID),
   CONSTRAINT fk_Contain_Unit1
-    FOREIGN KEY (Unit_unitID)
+    FOREIGN KEY (unitID)
     REFERENCES re7.Unit (unitID));
 
 

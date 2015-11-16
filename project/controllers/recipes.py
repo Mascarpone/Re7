@@ -33,8 +33,10 @@ def recipe(id):
 @login_required
 def createRecipe():
     form = RecipeForm()
-
+    #csrf
+    assert False
     if form.validate_on_submit():
+        assert False
         try:
             filename = gallery.save(form.image.data)
         except UploadNotAllowed:

@@ -16,20 +16,50 @@
     {{ render_field(form.preparationTime, required="true", type="number") }}
     {{ render_field(form.cookingTime, required="true", type="number") }}
     {{ render_field(form.categoryID, required="true") }}
-
     <h2>Ingrédients</h2>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-6">
+                <div class="col-md-2">{{ form.ingredients[0].isMain.label }}</div>
+                <div class="col-md-2">{{ form.ingredients[0].quantity.label }}</div>
+                <div class="col-md-3">{{ form.ingredients[0].unitID.label }}</div>
+                <div class="col-md-2">{{ form.ingredients[0].ingredientID.label }}</div>
+            </div>
+        </div>
+    </div>
+    <div class="row input_ingredients">
+        <div class="form-group col-md-12">
+            <div class="col-md-6">
+                <div class="col-md-1 col-md-offset-1">
+                    {{ form.ingredients[0].isMain(class_="checkbox") }}
+                </div>
+                <div class="col-md-2">
+                    {{ form.ingredients[0].quantity(class_="form-control", required="true", type="number") }}
+                </div>
+                <div class="col-md-3">
+                    {{ form.ingredients[0].unitID(class_="form-control") }}
+                </div>
+                <div class="col-md-2">
+                    {{ form.ingredients[0].ingredientID(class_="form-control") }}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-offset-2">
+            &nbsp;<input class="repeat-ingredient btn btn-primary btn-sm-1" type="button" value="Ajouter un ingrédient">
+        </div>
+    </div>
     <h2>Préparation</h2>
-    <div class="input_fields_wrap">
-        <p class="text-primary">Triez les étapes en les faisant glisser (l'étape 1 ne peut pas bouger) <i class="fa fa-hand-pointer-o"></i></p>
+    <p class="text-primary">Triez les étapes en les faisant glisser (l'étape 1 ne peut pas bouger) <i class="fa fa-hand-pointer-o"></i></p>
+    <div class="input_steps">
         <div class="form-group">
             <label for="steps-0" class="col-sm-2 control-label">Etape 1 </label>
             <div class="col-sm-4">
                 <textarea class="form-control" id="" rows="3" required="true"></textarea>
             </div>
         </div>
-    </div>
-    <div class="col-md-offset-2">
-        &nbsp;<input class="add_field_button btn btn-primary btn-sm-1" type="button" value="Ajouter une étape">
+        <div class="col-md-offset-2">
+            &nbsp;<input class="repeat-step btn btn-primary btn-sm-1" type="button" value="Ajouter une étape">
+        </div>
     </div>
     <hr>
     <div class="col-md-6 col-md-offset-3" align="center">

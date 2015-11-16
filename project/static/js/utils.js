@@ -1,10 +1,19 @@
 $(document).ready(function() {
     var max_fields      = 10;
-    var wrapper         = $(".input_fields_wrap");
-    var add_button      = $(".add_field_button");
+    var wrapperSteps    = $(".input_steps");
+    var wrapperIngredient    = $(".input_ingredients");
+    var c = 1;
+    var v = 1;
 
-    function numbering(){
-        $('.input_fields_wrap .form-group').each(function( i ) {
+    $(wrapperSteps).sortable({
+        items: '.sort',
+        stop: function( event, ui ) {
+            numberingSteps();
+        }
+    });
+
+    function numberingSteps(){
+        $('.input_steps .form-group').each(function( i ) {
              $(this).find('label').attr('for', 'steps-'+i);
              $(this).find('label').text('Etape '+(i+1));
              $(this).find('textarea').attr('name', 'steps-'+i);
@@ -12,26 +21,55 @@ $(document).ready(function() {
         });
     }
 
-    $(wrapper).sortable({
-        items: '.sort',
-        stop: function( event, ui ) {
-            numbering();
-        }
-    });
+    function numberingIngredients(){
+        $('.input_ingredients .form-group').each(function( i ) {
+             $(this).find("input[name$='isMain']").attr('name', 'ingredients-'+i+'-isMain')
+             $(this).find("input[name$='isMain']").attr('id', 'ingredients-'+i+'-isMain')
+             $(this).find("input[name$='quantity']").attr('name', 'ingredients-'+i+'-quantity')
+             $(this).find("input[name$='quantity']").attr('id', 'ingredients-'+i+'-quantity')
+             $(this).find("select[name$='ingredientID']").attr('name', 'ingredients-'+i+'-ingredientID')
+             $(this).find("select[name$='ingredientID']").attr('id', 'ingredients-'+i+'-ingredientID')
+             $(this).find("select[name$='unitID']").attr('name', 'ingredients-'+i+'-unitID')
+             $(this).find("select[name$='unitID']").attr('id', 'ingredients-'+i+'-unitID')
+        });
+    }
 
-    var c = 1;
-    $(add_button).click(function(e){
+    $(".repeat-step").on('click', function (e) {
         e.preventDefault();
         if(c < max_fields){
-            $(wrapper).append('<div class="form-group sort"><label for="" class="col-sm-2 control-label"></label><div class="col-sm-4"><textarea class="form-control" id="" rows="3" required="true"></textarea></div><a href="#" class="remove_field btn btn-primary btn-danger col-sm-1">Supprimer</a></div>');
+            var $self = $(this);
+            var block = $self.parent().prev().clone();
+            $(block).addClass('sort');
+            $(block).find('textarea').val('');
+            if(c == 1)
+                $(block).append('<a href="#" class="remove_field btn btn-primary btn-danger col-sm-1">Supprimer</a>')
+            $self.parent().before(block);
             c++;
         }
-        numbering();
+        numberingSteps()
     });
 
-    $(wrapper).on("click",".remove_field", function(e){
+    $(".repeat-ingredient").on('click', function (e) {
+        e.preventDefault();
+        if(v < max_fields){
+            var $self = $(this);
+            var block = $self.parent().prev().clone();
+            if(v == 1)
+                $(block).append('<a href="#" class="remove_field btn btn-primary btn-danger col-sm-1">Supprimer</a>')
+            $self.parent().before(block);
+            v++;
+        }
+        numberingIngredients();
+    });
+
+    $(wrapperIngredient).on("click",".remove_field", function(e){
+        e.preventDefault(); $(this).parent('div').remove(); v--;
+        numberingIngredients();
+    })
+
+    $(wrapperSteps).on("click",".remove_field", function(e){
         e.preventDefault(); $(this).parent('div').remove(); c--;
-        numbering();
+        numberingSteps();
     })
 
     function previewFile() {

@@ -355,12 +355,12 @@ span.content span.content-cell {
     color: #ffffff;
 }
 
-input[type=checkbox] {
+.filter input[type=checkbox] {
     position:absolute;
     opacity:0;
 }
 
-input[type=checkbox] + label {
+.filter input[type=checkbox] + label {
     display:block;
     background-color:#cecece;
     padding: 1px 5px 1px 5px;
@@ -392,14 +392,14 @@ input[type=checkbox] + label {
     transition: background-color 300ms;
 }
 
-input[type=checkbox]:checked + label,
-input[type=checkbox]:checked + label:hover {
+.filter input[type=checkbox]:checked + label,
+.filter input[type=checkbox]:checked + label:hover {
     background-color:#2d8b00;
     cursor: pointer;
     color: #ffffff;
 }
 
-input[type=checkbox] + label:hover {
+.filter input[type=checkbox] + label:hover {
     background-color:#B0CC99;
     cursor: pointer;
     color: #ffffff;

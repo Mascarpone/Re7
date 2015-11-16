@@ -1,9 +1,17 @@
 # -*- coding: utf-8 -*-
 from default import model
 from flask.ext.wtf import Form
-from wtforms import SelectField, TextField, IntegerField, FieldList, PasswordField, validators
+from wtforms import FormField, SelectField, TextField, TextAreaField, IntegerField, FieldList, PasswordField, BooleanField, validators
 from flask_wtf.file import FileField, FileAllowed
 from project import gallery
+
+class IngredientsForm(Form):
+    isMain = BooleanField(u'Principal')
+    quantity = IntegerField(u'Quantité')
+    unitID = SelectField(u'Mesure', choices = [(a['unitID'], a['unitName']) for a in model.getUnits()],
+        coerce=int, validators=[validators.Required()])
+    ingredientID = SelectField(u'Ingrédient', choices = [a.values() for a in model.getIngredients()],
+        coerce=int, validators=[validators.Required()])
 
 class RecipeForm(Form):
     image = FileField('Image', [validators.optional(), FileAllowed(gallery, "Images only!")])
@@ -15,7 +23,8 @@ class RecipeForm(Form):
     categoryID = SelectField(u'Type de plat', choices = [a.values() for a in model.getCategories()],
         coerce=int, validators=[validators.Required()])
 
-    steps = FieldList(TextField('Etape', [validators.required()]))
+    steps = FieldList(TextAreaField('Etape', [validators.required()]))
+    ingredients = FieldList(FormField(IngredientsForm), min_entries=1)
 
 class RegisterForm(Form):
     login = TextField(u'Login', [validators.Required()])

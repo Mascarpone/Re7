@@ -8,25 +8,25 @@
 <form>
     <h2>Filtrer par catégories</h2>
 
-    <div class="form-inline">
+    <div class="form-inline filter">
     {% for category in categories %}
         <input type="checkbox" value="cat{{ category.categoryID }}" name="cat{{ category.categoryID }}" id="cat{{ category.categoryID }}">
         <label for="cat{{ category.categoryID }}">{{ category.categoryName }}</label>
         &nbsp;
     {% endfor %}
     </div>
-    
+
     <br>
 
     <h2>Filtrer par ingrédients principaux</h2>
 
-    <div class="form-inline">
+    <div class="form-inline filter">
     {% for ingredient in ingredients %}
         <input type="checkbox" value="ing{{ ingredient.ingredientID }}" name="ing{{ ingredient.ingredientID }}" id="ing{{ ingredient.ingredientID }}">
         <label for="ing{{ ingredient.ingredientID }}">{{ ingredient.ingredientName }}</label>
     {% endfor %}
     </div>
-    
+
     <br>
     <br>
     <br>
