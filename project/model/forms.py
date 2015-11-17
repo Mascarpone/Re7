@@ -6,6 +6,10 @@ from flask_wtf.file import FileField, FileAllowed
 from project import gallery
 
 class IngredientsForm(Form):
+    def __init__(self, *args, **kwargs):
+        kwargs['csrf_enabled'] = False
+        Form.__init__(self, *args, **kwargs)
+
     isMain = BooleanField(u'Principal')
     quantity = IntegerField(u'Quantité')
     unitID = SelectField(u'Mesure', choices = [(a['unitID'], a['unitName']) for a in model.getUnits()],

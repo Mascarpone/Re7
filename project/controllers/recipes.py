@@ -32,9 +32,7 @@ def recipe(id):
 @app.route('/recipes/create', methods=('GET', 'POST'))
 @login_required
 def createRecipe():
-    form = RecipeForm()
-    #csrf
-    assert False
+    form = RecipeForm(csrf_enabled=False)
     if form.validate_on_submit():
         assert False
         try:

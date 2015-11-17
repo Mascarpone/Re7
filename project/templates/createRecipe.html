@@ -29,6 +29,7 @@
     </div>
     <div class="row input_ingredients">
         <div class="form-group col-md-12">
+            {{ form.ingredients[0].hidden_tag() }}
             <div class="col-md-6">
                 <div class="col-md-1 col-md-offset-1">
                     {{ form.ingredients[0].isMain(class_="checkbox") }}
