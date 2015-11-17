@@ -21,9 +21,10 @@ def recipe(id):
     if recipe is not None:
         steps = model.getStepsByRecipeID(id)
         image = gallery.url(recipe['image'])
+        ingredients = model.getContainsByRecipeID(id)
         if not recipe['image']:
             image += 'recipe.png'
-        return render_template('recipe.html', recipe=recipe, steps=steps, image=image)
+        return render_template('recipe.html', recipe=recipe, steps=steps, image=image, ingredients=ingredients)
 
     return abort(404)
 
@@ -34,19 +35,28 @@ def recipe(id):
 def createRecipe():
     form = RecipeForm(csrf_enabled=False)
     if form.validate_on_submit():
-        assert False
-        try:
-            filename = gallery.save(form.image.data)
-        except UploadNotAllowed:
-            flash("Le format d'image n'est pas authorisé.")
+        if form.image.data.filename:
+            try:
+                filename = gallery.save(form.image.data)
+            except UploadNotAllowed:
+                flash(u"Le format d'image n'est pas authorisé.")
         else:
-            recipeID = model.insertRecipe(form.recipeName.data, filename, form.budget.data,
-                        form.difficulty.data, form.preparationTime.data,
-                        form.cookingTime.data, current_user.get_id(), form.categoryID.data)
-            i = 1;
-            for step in form.steps.data:
-                model.insertStep(i, step, recipeID)
-                i += 1;
+            filename = ''
+
+        recipeID = model.insertRecipe(form.recipeName.data, filename,
+                    form.budget.data, form.difficulty.data,
+                    form.preparationTime.data, form.cookingTime.data,
+                    current_user.get_id(), form.categoryID.data)
+        i = 1;
+        for step in form.steps.data:
+            model.insertStep(i, step, recipeID)
+            i += 1;
+
+        for ingredient in form.ingredients.data:
+            model.insertContain(recipeID, ingredient['ingredientID'],
+                    ingredient['quantity'], ingredient['isMain'],
+                    ingredient['unitID'] )
+
 
         return redirect(url_for('recipes'))
     return render_template('createRecipe.html', form=form)

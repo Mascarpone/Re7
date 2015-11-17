@@ -86,6 +86,41 @@ class Model(object):
         except:
             print("Error in {0}".format(sql))
             self.conn.rollback()
+
+    ########################### Contain ###########################
+    def insertContain(self, recipeID, ingredientID, quantity, isMain, unitID):
+        try:
+            sql = """
+                INSERT INTO Contain (recipeID, ingredientID, quantity, isMain, unitID)
+                VALUES (%s, %s, %s, %s, %s)
+                """
+            self.cursor.execute(sql, (recipeID, ingredientID, quantity, isMain, unitID))
+            self.conn.commit()
+            return self.cursor.lastrowid
+        except:
+            print("Error in {0}".format(sql))
+            self.conn.rollback()
+
+    def getContainsByRecipeID(self, recipeID):
+        sql = """
+            SELECT recipeID, quantity, isMain, ingredientName, unitName
+            FROM Contain
+            JOIN Ingredient ON Ingredient.ingredientID = Contain.ingredientID
+            JOIN Unit ON Unit.unitID = Contain.unitID
+            WHERE recipeID = %s
+            ORDER BY recipeID"""
+        self.cursor.execute(sql, (recipeID,))
+        rows = self.cursor.fetchall()
+        return rows
+    ########################### Ingredient ###########################
+    def getIngredients(self):
+        sql = """
+        SELECT ingredientID, ingredientName
+        FROM Ingredient"""
+        self.cursor.execute(sql)
+        rows = self.cursor.fetchall()
+        return rows
+
     ########################### User ###########################
     def getUsers(self):
         sql = """SELECT userID, login FROM User"""
@@ -121,13 +156,5 @@ class Model(object):
             print("Error in {0}".format(sql))
             self.conn.rollback()
 
-    ########################### Ingredient ###########################
-    def getIngredients(self):
-        sql = """
-        SELECT ingredientID, ingredientName
-        FROM Ingredient"""
-        self.cursor.execute(sql)
-        rows = self.cursor.fetchall()
-        return rows
 
 model = Model(mysql)

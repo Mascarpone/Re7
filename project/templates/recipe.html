@@ -11,7 +11,7 @@
         <div class="col-md-2">
             <img class="img-responsive" src="{{ image }}" alt="{{ recipe.image }}" />
         </div>
-        <div class="col-md-2">
+        <div class="col-md-4">
             <ul>
                 <li>Auteur : <a href="{{ url_for('user', id=recipe.userID) }}">{{ recipe.login }}</a></li>
                 <li>Catégorie : {{ recipe.categoryName }}</li>
@@ -23,15 +23,13 @@
         </div>
     </div>
     <div class=row>
-        <div class="col-md-2">
+        <div class="col-md-3">
             <div class="panel panel-default">
                 <div class="panel-heading"><strong>Ingrédients</strong></div>
                 <ul class="list-group">
-                    <li class="list-group-item">Cras justo odio</li>
-                    <li class="list-group-item">Dapibus ac facilisis in</li>
-                    <li class="list-group-item">Morbi leo risus</li>
-                    <li class="list-group-item">Porta ac consectetur ac</li>
-                    <li class="list-group-item">Vestibulum at eros</li>
+                    {% for ingredient in ingredients %}
+                        <li class="list-group-item">{{ ingredient.quantity }} {{ ingredient.unitName }} de {{ ingredient.ingredientName }}</li>
+                    {% endfor %}
                   </ul>
             </div>
         </div>
