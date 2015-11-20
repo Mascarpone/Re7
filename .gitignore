@@ -6,6 +6,10 @@ __pycache__/
 # C extensions
 *.so
 
+# Images
+project/static/gallery/
+!project/static/gallery/recipe.png
+
 # Distribution / packaging
 .Python
 env/

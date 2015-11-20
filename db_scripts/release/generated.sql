@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS re7.Recipe (
   recipeID INT NOT NULL AUTO_INCREMENT,
   recipeName VARCHAR(45) NOT NULL,
   image VARCHAR(60) NOT NULL,
-  numberPerson INT(3) NOT NULL,
+  numberPerson INT(3),
   budget INT(3) NOT NULL,
   difficulty INT(1) NOT NULL,
   preparationTime INT NOT NULL,
