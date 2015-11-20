@@ -22,7 +22,7 @@ class Model(object):
     ########################### Recipe ###########################
     def getRecipes(self):
         sql = """
-            SELECT recipeID, recipeName
+            SELECT recipeID, recipeName, image
             FROM Recipe"""
         self.cursor.execute(sql)
         rows = self.cursor.fetchall()
