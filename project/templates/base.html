@@ -87,20 +87,20 @@
                 <div class="col-md-12">
                     <h1 class="lead"><a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='images/logo.png') }}" width="150px">&nbsp;&nbsp;Students love cooking</a></h1>
                 </div>
-                {% with messages = get_flashed_messages() %}
-                    {% if messages %}
-                        {% for message in messages %}
-                            <div class="col-md-12">
-                                <div class="alert alert-info" role="alert">{{ message }}</div>
-                            </div>
-                        {% endfor %}
-                    {% endif %}
-                {% endwith %}
             </div>
         </div><!-- /cont -->
     </div>
 
-    <div class="bar"></div>
+    <br />
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="col-md-12">
+                    <div class="alert alert-info" role="alert">{{ message }}</div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
 
     <div class="container-fluid">
         <div class="row">

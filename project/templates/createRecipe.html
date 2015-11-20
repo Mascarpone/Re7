@@ -18,36 +18,34 @@
     {{ render_field(form.categoryID, required="true") }}
     <h2>Ingrédients</h2>
     <div class="row">
-        <div class="col-md-12">
-            <div class="col-md-6">
-                <div class="col-md-2">{{ form.ingredients[0].isMain.label }}</div>
-                <div class="col-md-2">{{ form.ingredients[0].quantity.label }}</div>
-                <div class="col-md-3">{{ form.ingredients[0].unitID.label }}</div>
-                <div class="col-md-2">{{ form.ingredients[0].ingredientID.label }}</div>
-            </div>
-        </div>
+      <div class="col-md-8 col-md-offset-1">
+        <div class="col-md-2">{{ form.ingredients[0].isMain.label }}</div>
+        <div class="col-md-2">{{ form.ingredients[0].quantity.label }}</div>
+        <div class="col-md-3">{{ form.ingredients[0].unitID.label }}</div>
+        <div class="col-md-4">{{ form.ingredients[0].ingredientID.label }}</div>
+      </div>
     </div>
-    <div class="row input_ingredients">
-        <div class="form-group col-md-12">
-            {{ form.ingredients[0].hidden_tag() }}
-            <div class="col-md-6">
-                <div class="col-md-1 col-md-offset-1">
-                    {{ form.ingredients[0].isMain(class_="checkbox") }}
-                </div>
-                <div class="col-md-2">
-                    {{ form.ingredients[0].quantity(class_="form-control", required="true", type="number") }}
-                </div>
-                <div class="col-md-3">
-                    {{ form.ingredients[0].unitID(class_="form-control") }}
-                </div>
-                <div class="col-md-2">
-                    {{ form.ingredients[0].ingredientID(class_="form-control") }}
-                </div>
-            </div>
+    <div class="input_ingredients">
+      <div class="row input_ingredients">
+        <div class="col-md-8 col-md-offset-1">
+          {{ form.ingredients[0].hidden_tag() }}
+          <div class="col-md-1">
+            {{ form.ingredients[0].isMain(class_="checkbox") }}
+          </div>
+          <div class="col-md-2 col-md-offset-1">
+            {{ form.ingredients[0].quantity(class_="form-control", required="true", type="number") }}
+          </div>
+          <div class="col-md-3">
+            {{ form.ingredients[0].unitID(class_="form-control") }}
+          </div>
+          <div class="col-md-4">
+            {{ form.ingredients[0].ingredientID(class_="form-control") }}
+          </div>
         </div>
-        <div class="col-md-offset-2">
-            &nbsp;<input class="repeat-ingredient btn btn-primary btn-sm-1" type="button" value="Ajouter un ingrédient">
-        </div>
+      </div>
+      <div class="col-md-offset-2">
+        &nbsp;<input class="repeat-ingredient btn btn-primary btn-sm-1" type="button" value="Ajouter un ingrédient">
+      </div>
     </div>
     <h2>Préparation</h2>
     <p class="text-primary">Triez les étapes en les faisant glisser (l'étape 1 ne peut pas bouger) <i class="fa fa-hand-pointer-o"></i></p>
