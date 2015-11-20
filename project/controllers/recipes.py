@@ -47,7 +47,7 @@ def createRecipe():
             try:
                 filename = gallery.save(form.image.data)
             except UploadNotAllowed:
-                flash(u"Le format d'image n'est pas authorisé.")
+                flash(u"Le format d'image n'est pas autorisé.")
         else:
             filename = ''
 
