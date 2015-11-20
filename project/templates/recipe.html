@@ -1,49 +1,49 @@
 {% extends template %}
 {% block title %}- {{ recipe.recipeName }}{% endblock %}
 {% block content %}
+    <div class="container">
+        <h1>{{ recipe.recipeName }}</h1>
+        <hr>
 
-    <h1>{{ recipe.recipeName }}</h1>
-    <hr>
-
-    <h2>Description</h2>
-    <div class=row>
-        <div class="col-md-2">
-            <img class="img-responsive" src="{{ image }}" alt="{{ recipe.image }}" />
-        </div>
-        <div class="col-md-4">
-            <ul>
-                <li>Auteur : <a href="{{ url_for('user', id=recipe.userID) }}">{{ recipe.login }}</a></li>
-                <li>Catégorie : {{ recipe.categoryName }}</li>
-                <li>Prix : ~{{ recipe.budget }}€</li>
-                <li>Difficulté : {{ recipe.difficulty }}/5</li>
-                <li>Temps de préparation : ~{{ recipe.preparationTime }}min</li>
-                <li>Temps de cuisson : ~{{ recipe.cookingTime }}min</li>
-            </ul>
-        </div>
-    </div>
-    <div class=row>
-        <div class="col-md-3">
-            <div class="panel panel-default">
-                <div class="panel-heading"><strong>Ingrédients</strong></div>
-                <ul class="list-group">
-                    {% for ingredient in ingredients %}
-                        <li class="list-group-item">{{ ingredient.quantity }} {{ ingredient.unitName }} de {{ ingredient.ingredientName }}</li>
-                    {% endfor %}
-                  </ul>
+        <h2>Description</h2>
+        <div class=row>
+            <div class="col-md-2">
+                <img class="img-responsive" src="{{ image }}" alt="{{ recipe.image }}" />
+            </div>
+            <div class="col-md-4">
+                <ul>
+                    <li>Auteur : <a href="{{ url_for('user', id=recipe.userID) }}">{{ recipe.login }}</a></li>
+                    <li>Catégorie : {{ recipe.categoryName }}</li>
+                    <li>Prix : ~{{ recipe.budget }}€</li>
+                    <li>Difficulté : {{ recipe.difficulty }}/5</li>
+                    <li>Temps de préparation : ~{{ recipe.preparationTime }}min</li>
+                    <li>Temps de cuisson : ~{{ recipe.cookingTime }}min</li>
+                </ul>
             </div>
         </div>
-        
-        <div class="col-md-4">
-            <div class="panel panel-primary">
-                <div class="panel-heading"><strong>Préparation</strong></div>
-                <div class="panel-body">
-                    {% for step in steps %}
-                        <strong class="text-uppercase">Étape {{ step.stepCount }}</strong><br>
-                        {{ step.stepDescription }}<br><br>
-                    {% endfor %}
+        <div class=row>
+            <div class="col-md-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><strong>Ingrédients</strong></div>
+                    <ul class="list-group">
+                        {% for ingredient in ingredients %}
+                            <li class="list-group-item">{{ ingredient.quantity }} {{ ingredient.unitName }} de {{ ingredient.ingredientName }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="panel panel-primary">
+                    <div class="panel-heading"><strong>Préparation</strong></div>
+                    <div class="panel-body">
+                        {% for step in steps %}
+                            <strong class="text-uppercase">Étape {{ step.stepCount }}</strong><br>
+                            {{ step.stepDescription }}<br><br>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
 {% endblock %}

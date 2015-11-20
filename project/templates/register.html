@@ -2,18 +2,20 @@
 {% extends template %}
 {% block title %} - Créér un compte{% endblock %}
 {% block content %}
-<h1>Créér un compte</h1>
+    <div class="container">
+        <h1>Créér un compte</h1>
 
-<div class='col-md-12'>
-    <form data-toggle="validator" role=form class="form-horizontal" method="POST" action="{{ url_for('register') }}">
-        {{ form.hidden_tag() }}
-        {{ render_field(form.login, required="true") }}
-        {{ render_field(form.password, required="true") }}
-        {{ render_field(form.confirm, required="true", **{'data-match' : '#password', 'data-error' : 'Les mots de passe ne correspondent pas'}) }}
-        <hr>
-        <div class="col-sm-offset-3">
-            <button type="submit" class="btn btn-success btn-lg">Créer le compte</button>
+        <div class='col-md-12'>
+            <form data-toggle="validator" role=form class="form-horizontal" method="POST" action="{{ url_for('register') }}">
+                {{ form.hidden_tag() }}
+                {{ render_field(form.login, required="true") }}
+                {{ render_field(form.password, required="true") }}
+                {{ render_field(form.confirm, required="true", **{'data-match' : '#password', 'data-error' : 'Les mots de passe ne correspondent pas'}) }}
+                <hr>
+                <div class="col-sm-offset-3">
+                    <button type="submit" class="btn btn-success btn-lg">Créer le compte</button>
+                </div>
+            </form>
         </div>
-    </form>
-</div>
+    </div>
 {% endblock %}
