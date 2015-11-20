@@ -1,3 +1,19 @@
+function previewFile() {
+    var preview = document.querySelector('#preview');
+    var file    = document.querySelector('input[type=file]').files[0];
+    var reader  = new FileReader();
+
+    reader.onloadend = function () {
+        preview.src = reader.result;
+    }
+
+    if (file) {
+        reader.readAsDataURL(file);
+    } else {
+        preview.src = "";
+    }
+}
+
 $(document).ready(function() {
     var max_fields      = 10;
     var wrapperSteps    = $(".input_steps");
@@ -72,19 +88,5 @@ $(document).ready(function() {
         numberingSteps();
     })
 
-    function previewFile() {
-        var preview = document.querySelector('img');
-        var file    = document.querySelector('input[type=file]').files[0];
-        var reader  = new FileReader();
 
-        reader.onloadend = function () {
-            preview.src = reader.result;
-        }
-
-        if (file) {
-            reader.readAsDataURL(file);
-        } else {
-            preview.src = "";
-        }
-    }
 });
