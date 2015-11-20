@@ -12,7 +12,15 @@ def recipes():
     recipes = model.getRecipes()
     ingredients = model.getIngredients()
     categories = model.getCategories()
-    return render_template('recipes.html', recipes=recipes, ingredients=ingredients, categories=categories)
+
+    images = {}
+    for recipe in recipes:
+        image = gallery.url(recipe['image'])
+        if not recipe['image']:
+            image += 'recipe.png'
+        images[recipe['recipeID']] = image
+
+    return render_template('recipes.html', recipes=recipes, ingredients=ingredients, categories=categories, images=images)
     pass
 
 @app.route('/recipes/recipe/<int:id>')

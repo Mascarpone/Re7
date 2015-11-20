@@ -51,12 +51,11 @@
 
 <br>
 <hr>
-
 <ul class="recipelist">
 {% for recipe in recipes %}
     <li>
         <a href="{{ url_for('recipe', id=recipe.recipeID) }}">
-            <img src="{{ url_for('static', filename='image_db/' + recipe.recipeID|string + '.jpg') }}" />
+            <img width="100" class="img-responsive" src="{{ images[recipe.recipeID] }}" />
             <span class="recipeName">{{ recipe.recipeName }}</span>
             <br>
             <span class="recipeAuthor">Auteur</span>
