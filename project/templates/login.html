@@ -2,17 +2,19 @@
 {% extends template %}
 {% block title %} - Se connecter{% endblock %}
 {% block content %}
-<h1>Se connecter</h1>
+    <div class="container">
+        <h1>Se connecter</h1>
 
-<div class='col-md-12'>
-    <form data-toggle="validator" role=form class="form-horizontal" method="POST" action="{{ url_for('login') }}">
-        {{ form.hidden_tag() }}
-        {{ render_field(form.login, required="true") }}
-        {{ render_field(form.password, required="true") }}
-        <hr>
-        <div class="col-sm-offset-3">
-            <button type="submit" class="btn btn-success btn-lg">Se connecter</button>
+        <div class='col-md-12'>
+            <form data-toggle="validator" role=form class="form-horizontal" method="POST" action="{{ url_for('login') }}">
+                {{ form.hidden_tag() }}
+                {{ render_field(form.login, required="true") }}
+                {{ render_field(form.password, required="true") }}
+                <hr>
+                <div class="col-sm-offset-3">
+                    <button type="submit" class="btn btn-success btn-lg">Se connecter</button>
+                </div>
+            </form>
         </div>
-    </form>
-</div>
+    </div>
 {% endblock %}

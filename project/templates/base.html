@@ -103,12 +103,8 @@
     {% endwith %}
 
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                {% block content %}
-                {% endblock %}
-            </div><!--/col-12-->
-        </div>
+        {% block content %}
+        {% endblock %}
     </div>
 
     {% block footer %}

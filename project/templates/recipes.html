@@ -1,71 +1,71 @@
 {% extends template %}
 {% block title %}- Recettes{% endblock %}
 {% block content %}
+<div class="container">
+    <h1>Recherche avancée</h1>
+    <hr>
 
-<h1>Recherche avancée</h1>
-<hr>
+    <form>
+        <h2>Filtrer par catégories</h2>
 
-<form>
-    <h2>Filtrer par catégories</h2>
+        <div class="form-inline filter">
+            {% for category in categories %}
+            <input type="checkbox" value="cat{{ category.categoryID }}" name="cat{{ category.categoryID }}" id="cat{{ category.categoryID }}">
+            <label for="cat{{ category.categoryID }}">{{ category.categoryName }}</label>
+            &nbsp;
+            {% endfor %}
+        </div>
 
-    <div class="form-inline filter">
-    {% for category in categories %}
-        <input type="checkbox" value="cat{{ category.categoryID }}" name="cat{{ category.categoryID }}" id="cat{{ category.categoryID }}">
-        <label for="cat{{ category.categoryID }}">{{ category.categoryName }}</label>
-        &nbsp;
-    {% endfor %}
-    </div>
+        <br>
 
-    <br>
+        <h2>Filtrer par ingrédients principaux</h2>
 
-    <h2>Filtrer par ingrédients principaux</h2>
+        <div class="form-inline filter">
+            {% for ingredient in ingredients %}
+            <input type="checkbox" value="ing{{ ingredient.ingredientID }}" name="ing{{ ingredient.ingredientID }}" id="ing{{ ingredient.ingredientID }}">
+            <label for="ing{{ ingredient.ingredientID }}">{{ ingredient.ingredientName }}</label>
+            {% endfor %}
+        </div>
 
-    <div class="form-inline filter">
-    {% for ingredient in ingredients %}
-        <input type="checkbox" value="ing{{ ingredient.ingredientID }}" name="ing{{ ingredient.ingredientID }}" id="ing{{ ingredient.ingredientID }}">
-        <label for="ing{{ ingredient.ingredientID }}">{{ ingredient.ingredientName }}</label>
-    {% endfor %}
-    </div>
+        <br>
+        <br>
+        <br>
 
-    <br>
-    <br>
-    <br>
-
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Filtrer par titre ou auteur ..." id="usr" />
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Filtrer par titre ou auteur ..." id="usr" />
+                </div>
             </div>
         </div>
-    </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3" align="center">
+                <button type="submit" class="btn btn-primary btn-sm-1">Rechercher</button>
+            </div>
+        </div>
+
+    </form>
 
     <br>
-
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3" align="center">
-            <button type="submit" class="btn btn-primary btn-sm-1">Rechercher</button>
-        </div>
-    </div>
-
-</form>
-
-<br>
-<hr>
-<ul class="recipelist">
-{% for recipe in recipes %}
-    <li>
-        <a href="{{ url_for('recipe', id=recipe.recipeID) }}">
-            <img width="100" class="img-responsive" src="{{ images[recipe.recipeID] }}" />
-            <span class="recipeName">{{ recipe.recipeName }}</span>
-            <br>
-            <span class="recipeAuthor">Auteur</span>
-            <br>
-            {% for i in range(5) %}
-            <i class="fa fa-star"></i>
-            {% endfor %}
-        </a>
-    </li>
-{% endfor %}
-</ul>
-
+    <hr>
+    <ul class="recipelist">
+        {% for recipe in recipes %}
+        <li>
+            <a href="{{ url_for('recipe', id=recipe.recipeID) }}">
+                <img width="100" class="img-responsive" src="{{ images[recipe.recipeID] }}" />
+                <span class="recipeName">{{ recipe.recipeName }}</span>
+                <br>
+                <span class="recipeAuthor">Auteur</span>
+                <br>
+                {% for i in range(5) %}
+                <i class="fa fa-star"></i>
+                {% endfor %}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
 {% endblock %}
