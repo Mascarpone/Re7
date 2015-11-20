@@ -2,7 +2,7 @@
 from project import app, gallery
 from flask import render_template, redirect, url_for, flash
 from project.model.default import model
-from project.model.forms import RecipeForm
+from project.model.forms import RecipeForm, CommentForm
 from flask.ext.login import current_user, login_required
 from werkzeug import secure_filename
 from flask.ext.uploads import UploadNotAllowed
@@ -23,16 +23,18 @@ def recipes():
     return render_template('recipes.html', recipes=recipes, ingredients=ingredients, categories=categories, images=images)
     pass
 
-@app.route('/recipes/recipe/<int:id>')
+@app.route('/recipes/<int:id>')
 def recipe(id):
     recipe = model.getRecipe(id)
     if recipe is not None:
+        form = CommentForm()
+
         steps = model.getStepsByRecipeID(id)
         image = gallery.url(recipe['image'])
         ingredients = model.getContainsByRecipeID(id)
         if not recipe['image']:
             image += 'recipe.png'
-        return render_template('recipe.html', recipe=recipe, steps=steps, image=image, ingredients=ingredients)
+        return render_template('recipe.html', recipe=recipe, steps=steps, image=image, ingredients=ingredients, form=form)
 
     return abort(404)
 
@@ -56,7 +58,9 @@ def createRecipe():
                     form.preparationTime.data, form.cookingTime.data,
                     current_user.get_id(), form.categoryID.data)
         i = 1;
+        print form.steps.data
         for step in form.steps.data:
+            print step
             model.insertStep(i, step, recipeID)
             i += 1;
 

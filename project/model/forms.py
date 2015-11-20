@@ -41,3 +41,10 @@ class RegisterForm(Form):
 class LoginForm(Form):
     login = TextField(u'Login', [validators.Required()])
     password = PasswordField('Mot de passe', [validators.Required()])
+
+
+class CommentForm(Form):
+    comment = TextAreaField('Commentaire')
+    tasteScore = IntegerField(u'Qualité gastronomique', [validators.Required(), validators.NumberRange(min=1, max=5)])
+    priceScore = IntegerField(u'Respect du budget', [validators.Required(), validators.NumberRange(min=1, max=5)])
+    instructionScore = IntegerField(u'Clareté des instructions', [validators.Required(), validators.NumberRange(min=1, max=5)])
