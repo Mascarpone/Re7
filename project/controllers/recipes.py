@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from project import app, gallery
-from flask import render_template, redirect, url_for, flash
+from flask import render_template, redirect, url_for, flash, jsonify
 from project.model.default import model
 from project.model.forms import RecipeForm, CommentForm
 from flask.ext.login import current_user, login_required
@@ -44,6 +44,7 @@ def recipe(id):
 @login_required
 def createRecipe():
     form = RecipeForm(csrf_enabled=False)
+    ingredients = [i['ingredientName'] for i in model.getIngredients()]
     if form.validate_on_submit():
         if form.image.data.filename:
             try:
@@ -57,6 +58,19 @@ def createRecipe():
                     form.budget.data, form.difficulty.data,
                     form.preparationTime.data, form.cookingTime.data,
                     current_user.get_id(), form.categoryID.data)
+
+
+        for contain in form.contains.data:
+            ingredient = model.getIngredientByName(contain['ingredientName'])
+            if ingredient is not None:
+                ingredientID = ingredient['ingredientID']
+            else:
+                ingredientID = model.insertIngredient(contain['ingredientName'])
+
+            model.insertContain(recipeID, ingredientID,
+                    contain['quantity'], contain['isMain'],
+                    contain['unitID'] )
+
         i = 1;
         print form.steps.data
         for step in form.steps.data:
@@ -64,11 +78,5 @@ def createRecipe():
             model.insertStep(i, step, recipeID)
             i += 1;
 
-        for ingredient in form.ingredients.data:
-            model.insertContain(recipeID, ingredient['ingredientID'],
-                    ingredient['quantity'], ingredient['isMain'],
-                    ingredient['unitID'] )
-
-
         return redirect(url_for('recipes'))
-    return render_template('createRecipe.html', form=form)
+    return render_template('createRecipe.html', form=form, ingredients=ingredients)

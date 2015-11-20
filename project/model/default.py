@@ -121,6 +121,25 @@ class Model(object):
         rows = self.cursor.fetchall()
         return rows
 
+    def getIngredientByName(self, ingredientName):
+        sql = """
+        SELECT ingredientID, ingredientName
+        FROM Ingredient
+        WHERE ingredientName = %s"""
+        self.cursor.execute(sql, (ingredientName,))
+        row = self.cursor.fetchone()
+        return row
+
+    def insertIngredient(self, ingredientName):
+        try:
+            sql = """INSERT INTO Ingredient (ingredientName) VALUES (%s)"""
+            self.cursor.execute(sql, (ingredientName,))
+            self.conn.commit()
+            return self.cursor.lastrowid
+        except:
+            print("Error in {0}".format(sql))
+            self.conn.rollback()
+
     ########################### User ###########################
     def getUsers(self):
         sql = """SELECT userID, login FROM User"""

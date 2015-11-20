@@ -5,7 +5,7 @@ from wtforms import FormField, SelectField, TextField, TextAreaField, IntegerFie
 from flask_wtf.file import FileField, FileAllowed
 from project import gallery
 
-class IngredientsForm(Form):
+class ContainForm(Form):
     def __init__(self, *args, **kwargs):
         kwargs['csrf_enabled'] = False
         Form.__init__(self, *args, **kwargs)
@@ -14,8 +14,9 @@ class IngredientsForm(Form):
     quantity = IntegerField(u'Quantité')
     unitID = SelectField(u'Mesure', choices = [(a['unitID'], a['unitName']) for a in model.getUnits()],
         coerce=int, validators=[validators.Required()])
-    ingredientID = SelectField(u'Ingrédient', choices = [a.values() for a in model.getIngredients()],
-        coerce=int, validators=[validators.Required()])
+    #ingredientID = SelectField(u'Ingrédient', choices = [a.values() for a in model.getIngredients()],
+    #    coerce=int, validators=[validators.Required()])
+    ingredientName = TextField(u'Ingrédient', validators=[validators.Required()])
 
 class RecipeForm(Form):
     image = FileField('Image', [validators.optional(), FileAllowed(gallery, "Images only!")])
@@ -28,7 +29,7 @@ class RecipeForm(Form):
         coerce=int, validators=[validators.Required()])
 
     steps = FieldList(TextAreaField('Etape', [validators.required()]))
-    ingredients = FieldList(FormField(IngredientsForm), min_entries=1)
+    contains = FieldList(FormField(ContainForm), min_entries=1)
 
 class RegisterForm(Form):
     login = TextField(u'Login', [validators.Required()])

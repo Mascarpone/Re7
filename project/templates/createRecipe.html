@@ -24,27 +24,27 @@
             <h2>Ingrédients</h2>
             <div class="row">
                 <div class="col-md-8 col-md-offset-1">
-                    <div class="col-md-2">{{ form.ingredients[0].isMain.label }}</div>
-                    <div class="col-md-2">{{ form.ingredients[0].quantity.label }}</div>
-                    <div class="col-md-3">{{ form.ingredients[0].unitID.label }}</div>
-                    <div class="col-md-4">{{ form.ingredients[0].ingredientID.label }}</div>
+                    <div class="col-md-2">{{ form.contains[0].isMain.label }}</div>
+                    <div class="col-md-2">{{ form.contains[0].quantity.label }}</div>
+                    <div class="col-md-3">{{ form.contains[0].unitID.label }}</div>
+                    <div class="col-md-4">{{ form.contains[0].ingredientName.label }}</div>
                 </div>
             </div>
             <div class="input_ingredients">
                 <div class="row input_ingredients">
                     <div class="col-md-8 col-md-offset-1">
-                        {{ form.ingredients[0].hidden_tag() }}
+                        {{ form.contains[0].hidden_tag() }}
                         <div class="col-md-1">
-                            {{ form.ingredients[0].isMain(class_="checkbox") }}
+                            {{ form.contains[0].isMain(class_="checkbox") }}
                         </div>
                         <div class="col-md-2 col-md-offset-1">
-                            {{ form.ingredients[0].quantity(class_="form-control", required="true", type="number") }}
+                            {{ form.contains[0].quantity(class_="form-control", required="true", type="number") }}
                         </div>
                         <div class="col-md-3">
-                            {{ form.ingredients[0].unitID(class_="form-control") }}
+                            {{ form.contains[0].unitID(class_="form-control") }}
                         </div>
                         <div class="col-md-4">
-                            {{ form.ingredients[0].ingredientID(class_="form-control") }}
+                            {{ form.contains[0].ingredientName(class_="form-control autocomplete") }}
                         </div>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                 <div class="form-group">
                     <label for="steps-0" class="col-sm-2 control-label">Etape 1 </label>
                     <div class="col-sm-4">
-                        <textarea class="form-control" id="" rows="3" required="true"></textarea>
+                        <textarea class="form-control" name="steps-0" id="steps-0" rows="3" required="true"></textarea>
                     </div>
                 </div>
                 <div class="col-md-offset-2">
@@ -74,6 +74,10 @@
 {% endblock %}
 
 {% block js_footer %}
+
     {{ super() }}
+    <script>
+        var ingredients = {{ ingredients|tojson }};
+    </script>
     <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
 {% endblock %}

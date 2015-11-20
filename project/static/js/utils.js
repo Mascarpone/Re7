@@ -21,6 +21,7 @@ $(document).ready(function() {
     var c = 1;
     var v = 1;
 
+
     $(wrapperSteps).sortable({
         items: '.sort',
         stop: function( event, ui ) {
@@ -38,18 +39,24 @@ $(document).ready(function() {
     }
 
     function numberingIngredients(){
-        $('.input_ingredients .form-group').each(function( i ) {
-             $(this).find("input[name$='isMain']").attr('name', 'ingredients-'+i+'-isMain')
-             $(this).find("input[name$='isMain']").attr('id', 'ingredients-'+i+'-isMain')
-             $(this).find("input[name$='quantity']").attr('name', 'ingredients-'+i+'-quantity')
-             $(this).find("input[name$='quantity']").attr('id', 'ingredients-'+i+'-quantity')
-             $(this).find("select[name$='ingredientID']").attr('name', 'ingredients-'+i+'-ingredientID')
-             $(this).find("select[name$='ingredientID']").attr('id', 'ingredients-'+i+'-ingredientID')
-             $(this).find("select[name$='unitID']").attr('name', 'ingredients-'+i+'-unitID')
-             $(this).find("select[name$='unitID']").attr('id', 'ingredients-'+i+'-unitID')
+        $('.input_ingredients .input_ingredients').each(function( i ) {
+             $(this).find("input[name$='isMain']").attr('name', 'contains-'+i+'-isMain')
+             $(this).find("input[name$='isMain']").attr('id', 'contains-'+i+'-isMain')
+             $(this).find("input[name$='quantity']").attr('name', 'contains-'+i+'-quantity')
+             $(this).find("input[name$='quantity']").attr('id', 'contains-'+i+'-quantity')
+             $(this).find("input[name$='ingredientName']").attr('name', 'contains-'+i+'-ingredientName')
+             $(this).find("input[name$='ingredientName']").attr('id', 'contains-'+i+'-ingredientName')
+             $(this).find("select[name$='unitID']").attr('name', 'contains-'+i+'-unitID')
+             $(this).find("select[name$='unitID']").attr('id', 'contains-'+i+'-unitID')
+
+             console.log("sa mere");
+             $('#contains-'+i+'-ingredientName').autocomplete({
+                 source: ingredients,
+                 delay: 0
+             });
         });
     }
-
+    numberingIngredients();
     $(".repeat-step").on('click', function (e) {
         e.preventDefault();
         if(c < max_fields){
