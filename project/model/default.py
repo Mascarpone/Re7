@@ -140,10 +140,35 @@ class Model(object):
             print("Error in {0}".format(sql))
             self.conn.rollback()
 
+    ########################### Comment ###########################
+    def insertComment(self, comment, tasteScore, priceScore, instructionScore, userID, recipeID):
+        try:
+            sql = """
+            INSERT INTO Comment (comment, tasteScore, priceScore, instructionScore, userID, recipeID)
+            VALUES (%s, %s, %s, %s, %s, %s)"""
+            self.cursor.execute(sql, (comment, tasteScore, priceScore, instructionScore, userID, recipeID))
+            self.conn.commit()
+            return self.cursor.lastrowid
+        except:
+            print("Error in {0}".format(sql))
+            self.conn.rollback()
+
+    def getCommentsByRecipeID(self, recipeID):
+        sql = """
+        SELECT comment, tasteScore, priceScore, instructionScore, commentDate, login
+        FROM Comment
+        JOIN User on User.userID = Comment.userID
+        WHERE recipeID = %s
+        ORDER BY commentDate DESC"""
+        self.cursor.execute(sql, (recipeID,))
+        rows = self.cursor.fetchall()
+        return rows
+
+
     ########################### User ###########################
     def getUsers(self):
         sql = """SELECT userID, login FROM User"""
-        self.cursor.execute(sql, (id,))
+        self.cursor.execute(sql)
         rows = self.cursor.fetchall()
         return rows
 
