@@ -181,7 +181,18 @@ class Model(object):
 
     ########################### Ranking ###########################
     def getRanking_QP(self, id):
-        return []
+        sql = """
+              SELECT Recipe.recipeID, recipeName, image, login, ((IFNULL(AVG(tasteScore), 0) + IFNULL(AVG(priceScore), 0) + IFNULL(AVG(instructionScore), 0)) / (3 * budget)) AS QP
+              FROM Recipe
+              JOIN User ON User.userID = Recipe.userID
+              LEFT OUTER JOIN Comment ON Comment.recipeID = Recipe.recipeID
+              GROUP BY Recipe.recipeID
+              ORDER BY QP DESC
+              LIMIT %s
+              """
+        self.cursor.execute(sql, (id,))
+        rows = self.cursor.fetchall()
+        return rows
 
     def getRanking_FastDesserts(self, id):
         sql = """
