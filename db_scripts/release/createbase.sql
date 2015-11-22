@@ -154,6 +154,15 @@ CREATE TABLE IF NOT EXISTS re7.Contain (
     REFERENCES re7.Unit (unitID));
 
 
+-- -----------------------------------------------------
+-- View re7.Contain
+-- -----------------------------------------------------
+DROP VIEW IF EXISTS Average;
+CREATE VIEW Average AS
+SELECT recipeID, (AVG(tasteScore)+AVG(priceScore)+AVG(instructionScore))/3 AS averageScore
+FROM Comment
+GROUP BY recipeID;
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

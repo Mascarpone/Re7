@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from project import app, gallery
-from flask import render_template, redirect, url_for, flash, jsonify
+from flask import render_template, redirect, url_for, abort, flash, jsonify
 from project.model.default import model
 from project.model.forms import RecipeForm, CommentForm
 from flask.ext.login import current_user, login_required
@@ -14,13 +14,17 @@ def recipes():
     categories = model.getCategories()
 
     images = {}
+    averages = {}
     for recipe in recipes:
         image = gallery.url(recipe['image'])
         if not recipe['image']:
             image += 'recipe.png'
         images[recipe['recipeID']] = image
 
-    return render_template('recipes.html', recipes=recipes, ingredients=ingredients, categories=categories, images=images)
+        averages[recipe['recipeID']] = model.getAverageByRecipeID(recipe['recipeID'])
+
+
+    return render_template('recipes.html', recipes=recipes, ingredients=ingredients, categories=categories, images=images, averages=averages)
     pass
 
 
@@ -31,7 +35,7 @@ def recipe(id):
     if recipe is not None:
         form = CommentForm()
         if form.validate_on_submit():
-            if current_user.is_authenticated():
+            if current_user.is_authenticated:
                 model.insertComment(form.comment.data, form.tasteScore.data,
                     form.priceScore.data, form.instructionScore.data,
                      current_user.get_id(), id)
@@ -44,9 +48,13 @@ def recipe(id):
         image = gallery.url(recipe['image'])
         ingredients = model.getContainsByRecipeID(id)
         comments = model.getCommentsByRecipeID(id)
+        average = model.getAverageByRecipeID(id)
+
         if not recipe['image']:
             image += 'recipe.png'
-        return render_template('recipe.html', recipe=recipe, steps=steps, image=image, ingredients=ingredients, form=form, comments=comments)
+
+        return render_template('recipe.html', recipe=recipe, steps=steps, image=image,
+            ingredients=ingredients, form=form, comments=comments, average=average)
 
     return abort(404)
 

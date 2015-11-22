@@ -1,3 +1,4 @@
+{% from "_macros.html" import render_stars %}
 {% extends template %}
 {% block title %}- Recettes{% endblock %}
 {% block content %}
@@ -60,9 +61,7 @@
                 <br>
                 <span class="recipeAuthor">Auteur</span>
                 <br>
-                {% for i in range(5) %}
-                <i class="fa fa-star"></i>
-                {% endfor %}
+                {{ "Pas encore de note" if averages[recipe.recipeID] is none else render_stars(5, averages[recipe.recipeID].averageScore) }}
             </a>
         </li>
         {% endfor %}

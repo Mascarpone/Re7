@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 from  MySQLdb.cursors import DictCursor
 from project import mysql
 import sys
@@ -62,6 +63,16 @@ class Model(object):
         except:
             print("Error in {0}".format(sql))
             self.conn.rollback()
+
+    ########################### Average ###########################
+    def getAverageByRecipeID(self, recipeID):
+        sql = """
+            SELECT averageScore
+            FROM Average
+            WHERE recipeID = %s"""
+        self.cursor.execute(sql, (recipeID,))
+        row = self.cursor.fetchone()
+        return row
 
     ########################### Step ###########################
     def getStepsByRecipeID(self, recipeID):

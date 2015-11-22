@@ -3,7 +3,7 @@
 {% block title %}- {{ recipe.recipeName }}{% endblock %}
 {% block content %}
     <div class="container">
-        <h1>{{ recipe.recipeName }}</h1>
+        <h1>{{ recipe.recipeName }} - {{ "Pas encore de note" if average is none else render_stars(5, average.averageScore) ~ average.averageScore|round(2)~"/5" }}</h1>
         <hr>
 
         <h2>Description</h2>
@@ -46,7 +46,7 @@
                 </div>
             </div>
         </div>
-            <hr>
+        <hr>
         <div class="row">
             <h2>Commentaires</h2>
             {% for comment in comments %}
@@ -73,7 +73,9 @@
             </div>
             {% endfor %}
         </div>
+        <hr>
         <div class="row">
+            <h2>Ajouter un commentaire</h2>
             <div class='col-md-12'>
                 <form data-toggle="validator" role=form class="form-horizontal" method="POST" action="{{ url_for('recipe', id=recipe.recipeID) }}">
                     {{ form.hidden_tag() }}
@@ -105,7 +107,6 @@
                     </div>
                     {{ render_field(form.comment) }}
 
-                    <hr>
                     <div class="col-sm-offset-3">
                         <button type="submit" class="btn btn-success btn-lg">Commenter</button>
                     </div>
