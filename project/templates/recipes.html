@@ -13,10 +13,10 @@
             {% for category in categories %}
             <input type="checkbox" value="cat{{ category.categoryID }}" name="cat{{ category.categoryID }}" id="cat{{ category.categoryID }}">
             <label for="cat{{ category.categoryID }}">{{ category.categoryName }}</label>
-            &nbsp;
             {% endfor %}
         </div>
 
+        <br>
         <br>
 
         <h2>Filtrer par ingrédients principaux</h2>
@@ -26,6 +26,22 @@
             <input type="checkbox" value="ing{{ ingredient.ingredientID }}" name="ing{{ ingredient.ingredientID }}" id="ing{{ ingredient.ingredientID }}">
             <label for="ing{{ ingredient.ingredientID }}">{{ ingredient.ingredientName }}</label>
             {% endfor %}
+        </div>
+
+        <br>
+        <br>
+
+        <h2>Filtrer par intervalle de prix</h2>
+
+        <div class="form-inline filter">
+            <div class="form-group">
+                <label>min</label>
+                <input type="number" class="form-control" id="minprice">
+            </div>
+            <div class="form-group">
+                <label>max</label>
+                <input type="number" class="form-control" id="maxprice">
+            </div>
         </div>
 
         <br>
@@ -52,14 +68,16 @@
 
     <br>
     <hr>
-    <ul class="recipelist">
+    <ul class="media-list list-inline recipelist">
         {% for recipe in recipes %}
-        <li>
+        <li class="media">
             <a href="{{ url_for('recipe', id=recipe.recipeID) }}">
-                <img width="100" class="img-responsive" src="{{ images[recipe.recipeID] }}" />
-                <span class="recipeName">{{ recipe.recipeName }}</span>
-                <br>
-                <span class="recipeAuthor">Auteur</span>
+              <div class="media-left">
+                <img width="100" class="media-object img-responsive img-circle" src="{{ images[recipe.recipeID] }}" />
+              </div>
+              <div class="media-body">
+                <h4 class="media-heading">{{ recipe.recipeName }}</h4>
+                <span class="recipeAuthor">{{ recipe.login }}</span>
                 <br>
                 {{ "Pas encore de note" if averages[recipe.recipeID] is none else render_stars(5, averages[recipe.recipeID].averageScore) }}
             </a>

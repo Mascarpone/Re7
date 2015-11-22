@@ -23,8 +23,12 @@ class Model(object):
     ########################### Recipe ###########################
     def getRecipes(self):
         sql = """
-            SELECT recipeID, recipeName, image
-            FROM Recipe"""
+            SELECT Recipe.recipeID, recipeName, image, login, ((IFNULL(AVG(tasteScore), 0) + IFNULL(AVG(priceScore), 0) + IFNULL(AVG(instructionScore), 0)) / 3) AS avgScore
+            FROM Recipe
+            JOIN User ON User.userID = Recipe.userID
+            LEFT OUTER JOIN Comment ON Comment.recipeID = Recipe.recipeID
+            GROUP BY Recipe.recipeID
+            """
         self.cursor.execute(sql)
         rows = self.cursor.fetchall()
         return rows
@@ -211,5 +215,47 @@ class Model(object):
             print("Error in {0}".format(sql))
             self.conn.rollback()
 
+    ########################### Ranking ###########################
+    def getRanking_QP(self, id):
+        sql = """
+              SELECT Recipe.recipeID, recipeName, image, login, ((IFNULL(AVG(tasteScore), 0) + IFNULL(AVG(priceScore), 0) + IFNULL(AVG(instructionScore), 0)) / (3 * budget)) AS QP
+              FROM Recipe
+              JOIN User ON User.userID = Recipe.userID
+              LEFT OUTER JOIN Comment ON Comment.recipeID = Recipe.recipeID
+              GROUP BY Recipe.recipeID
+              ORDER BY QP DESC
+              LIMIT %s
+              """
+        self.cursor.execute(sql, (id,))
+        rows = self.cursor.fetchall()
+        return rows
+
+    def getRanking_FastDesserts(self, id):
+        sql = """
+              SELECT recipeID, recipeName, image, login, (preparationTime + cookingTime) AS totalTime
+              FROM Recipe
+              JOIN User ON User.userID = Recipe.userID
+              JOIN Category ON Category.categoryID = Recipe.categoryID
+              WHERE Category.categoryName = 'Dessert'
+              ORDER BY totalTime ASC
+              LIMIT %s
+              """
+        self.cursor.execute(sql, (id,))
+        rows = self.cursor.fetchall()
+        return rows
+
+    def getRanking_MostCommented(self, id):
+        sql = """
+              SELECT Recipe.recipeID, recipeName, image, login, count(*) AS nbCom
+              FROM Recipe
+              JOIN User ON User.userID = Recipe.userID
+              JOIN Comment ON Comment.recipeID = Recipe.recipeID
+              GROUP BY Recipe.recipeID
+              ORDER BY nbCom DESC
+              LIMIT %s
+              """
+        self.cursor.execute(sql, (id,))
+        rows = self.cursor.fetchall()
+        return rows
 
 model = Model(mysql)
