@@ -407,6 +407,25 @@ span.content span.content-cell {
 
 
 
+ul.recipelist li {
+  margin: 30px;
+}
+
+ul.recipelist li.media .media-body {
+  width:100px;
+  vertical-align: middle;
+}
+
+ul.recipelist li a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul.recipelist li a:hover {
+  color: #000000;
+}
+
+
 .input_ingredients {
   padding-bottom: 15px;
 }

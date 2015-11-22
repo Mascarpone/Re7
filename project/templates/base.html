@@ -26,6 +26,7 @@
     ('/', 'index', 'Accueil'),
     ('/recipes', 'recipes', 'Recettes'),
     ('/createRecipe', 'createRecipe', 'Nouvelle recette'),
+    ('/ranking', 'ranking', 'Classements'),
     ('/about', 'about', 'À propos')
 ] -%}
 {% set active_page = request.path|default('index') -%}
@@ -45,7 +46,7 @@
             <nav class="collapse navbar-collapse" role="navigation">
                 <ul class="nav navbar-nav">
                     {% for route, view, caption in navigation_bar %}
-                        <li{% if route == active_page %} class="active"{% endif%}>
+                        <li{% if route == active_page %} class="active"{% endif %}>
                             <a href="{{ url_for(view)|e }}">{{ caption|e }}</a>
                         </li>
                     {% endfor %}

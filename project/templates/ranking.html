@@ -1,0 +1,55 @@
+{% extends template %}
+{% block title %}- Classements{% endblock %}
+{% block content %}
+<div class="container">
+    <h1>Classements</h1>
+    Vous pouvez trouver ici les {{ id }} meilleures recettes qui se distinguent dans nos trois classements.
+    <hr>
+
+    <h2>Les meilleurs rapports qualité-prix</h2>
+
+    <hr>
+
+    <h2>Les desserts les plus rapides à réaliser</h2>
+    <br>
+    <ul class="media-list list-inline recipelist">
+        {% for recipe in FastDesserts %}
+        <li class="media">
+            <a href="{{ url_for('recipe', id=recipe.recipeID) }}">
+              <div class="media-left">
+                <img width="100" class="media-object img-responsive img-circle" src="{{ images[recipe.recipeID] }}" />
+              </div>
+              <div class="media-body">
+                <h4 class="media-heading">{{ recipe.recipeName }}</h4>
+                <span class="recipeAuthor">{{ recipe.login }}</span>
+                <br>
+                {{ recipe.totalTime }} min
+              </div>
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+    <hr>
+
+    <h2>Les plats les plus commentés</h2>
+    <br>
+    <ul class="media-list list-inline recipelist">
+        {% for recipe in MostCommented %}
+        <li class="media">
+            <a href="{{ url_for('recipe', id=recipe.recipeID) }}">
+              <div class="media-left">
+                <img width="100" class="media-object img-responsive img-circle" src="{{ images[recipe.recipeID] }}" />
+              </div>
+              <div class="media-body">
+                <h4 class="media-heading">{{ recipe.recipeName }}</h4>
+                <span class="recipeAuthor">{{ recipe.login }}</span>
+                <br>
+                {{ recipe.nbCom }} commentaire{% if recipe.nbCom > 1 %}s{% endif %}
+              </div>
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+
+</div>
+{% endblock %}

@@ -12,10 +12,10 @@
             {% for category in categories %}
             <input type="checkbox" value="cat{{ category.categoryID }}" name="cat{{ category.categoryID }}" id="cat{{ category.categoryID }}">
             <label for="cat{{ category.categoryID }}">{{ category.categoryName }}</label>
-            &nbsp;
             {% endfor %}
         </div>
 
+        <br>
         <br>
 
         <h2>Filtrer par ingrédients principaux</h2>
@@ -25,6 +25,22 @@
             <input type="checkbox" value="ing{{ ingredient.ingredientID }}" name="ing{{ ingredient.ingredientID }}" id="ing{{ ingredient.ingredientID }}">
             <label for="ing{{ ingredient.ingredientID }}">{{ ingredient.ingredientName }}</label>
             {% endfor %}
+        </div>
+
+        <br>
+        <br>
+
+        <h2>Filtrer par intervalle de prix</h2>
+
+        <div class="form-inline filter">
+            <div class="form-group">
+                <label>min</label>
+                <input type="number" class="form-control" id="minprice">
+            </div>
+            <div class="form-group">
+                <label>max</label>
+                <input type="number" class="form-control" id="maxprice">
+            </div>
         </div>
 
         <br>
@@ -51,18 +67,27 @@
 
     <br>
     <hr>
-    <ul class="recipelist">
+    <ul class="media-list list-inline recipelist">
         {% for recipe in recipes %}
-        <li>
+        <li class="media">
             <a href="{{ url_for('recipe', id=recipe.recipeID) }}">
-                <img width="100" class="img-responsive" src="{{ images[recipe.recipeID] }}" />
-                <span class="recipeName">{{ recipe.recipeName }}</span>
+              <div class="media-left">
+                <img width="100" class="media-object img-responsive img-circle" src="{{ images[recipe.recipeID] }}" />
+              </div>
+              <div class="media-body">
+                <h4 class="media-heading">{{ recipe.recipeName }}</h4>
+                <span class="recipeAuthor">{{ recipe.login }}</span>
                 <br>
-                <span class="recipeAuthor">Auteur</span>
-                <br>
-                {% for i in range(5) %}
+                {% for i in range(recipe.avgScore) %}
                 <i class="fa fa-star"></i>
                 {% endfor %}
+                {% if recipe.avgScore > recipe.avgScore|round %}
+                <i class="fa fa-star-half-o"></i>
+                {% endif %}
+                {% for i in range(5 - recipe.avgScore) %}
+                <i class="fa fa-star-o"></i>
+                {% endfor %}
+              </div>
             </a>
         </li>
         {% endfor %}
