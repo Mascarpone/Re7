@@ -49,13 +49,42 @@
 
 <div class="container">
 
+  <h1>Les meilleures recettes</h1>
 
+  <br><br>
 
-<h1>Les meilleures recettes</h1>
+  <div class="bestrecipes">
+      <ul class="img-list">
+          {% for recipe in bestRecipes %}
+          <li>
+              <div class="img-container">
+                  <a href="{{ url_for('recipe', id=recipe.recipeID) }}">
+                      <img src="{{ images[recipe.recipeID] }}" />
+                      <span class="text-content">
+                          <span>
+                              {{ recipe.recipeName }}
+                              <br>
+                              {{ recipe.login }}
+                              <br>
+                              {% for i in range(recipe.avgScore) %}
+                              <i class="fa fa-star"></i>
+                              {% endfor %}
+                              {% if recipe.avgScore > recipe.avgScore|round %}
+                              <i class="fa fa-star-half-o"></i>
+                              {% endif %}
+                              {% for i in range(5 - recipe.avgScore) %}
+                              <i class="fa fa-star-o"></i>
+                              {% endfor %}
+                          </span>
+                      </span>
+                  </a>
+              </div>
+              <h3>{{ recipe.category }} <span class="badge">{{ recipe.categoryCount }}</span></h3>
+          </li>
+          {% endfor %}
+      </ul>
+  </div>
 
-<br><br><br>
-
-{% include "bestrecipes.html" %}
 </div>
 
 {% endblock %}

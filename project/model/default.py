@@ -9,15 +9,24 @@ class Model(object):
         self.cursor = self.conn.cursor(DictCursor)
         pass
 
+    ########################### Unit ###########################
+
     def getUnits(self):
         self.cursor.execute("SELECT unitID, unitName FROM Unit")
         rows = self.cursor.fetchall()
         return rows
 
+    ########################### Category ###########################
+
     def getCategories(self):
         self.cursor.execute("SELECT categoryID, categoryName FROM Category")
         rows = self.cursor.fetchall()
         return rows
+
+    def getCategoriesNb(self):
+        self.cursor.execute("SELECT count(*) FROM Category")
+        row = self.cursor.fetchone()
+        return row['count(*)']
 
     ########################### Recipe ###########################
     def getRecipes(self):
@@ -34,21 +43,50 @@ class Model(object):
 
     def getRecipesByUserID(self, userID):
         sql = """
-            SELECT recipeID, recipeName
-            FROM Recipe
-            WHERE userID = %s"""
+              SELECT Recipe.recipeID, recipeName, image, ((IFNULL(AVG(tasteScore), 0) + IFNULL(AVG(priceScore), 0) + IFNULL(AVG(instructionScore), 0)) / 3) AS avgScore
+              FROM Recipe
+              LEFT OUTER JOIN Comment ON Comment.recipeID = Recipe.recipeID
+              WHERE Recipe.userID = %s
+              GROUP BY Recipe.recipeID
+              """
         self.cursor.execute(sql, (userID,))
         rows = self.cursor.fetchall()
         return rows
 
     def getRecipe(self, id):
         sql = """
-            SELECT recipeID, recipeName, image, budget, difficulty, categoryName,
-            preparationTime, cookingTime, Recipe.userID, login
-            FROM Recipe
-            JOIN User on User.userID = Recipe.userID
-            JOIN Category on Category.categoryID = Recipe.categoryID
-            WHERE recipeID = %s"""
+              SELECT recipeID, recipeName, image, budget, difficulty, categoryName,
+              preparationTime, cookingTime, Recipe.userID, login
+              FROM Recipe
+              JOIN User on User.userID = Recipe.userID
+              JOIN Category on Category.categoryID = Recipe.categoryID
+              WHERE recipeID = %s
+              """
+        self.cursor.execute(sql, (id,))
+        row = self.cursor.fetchone()
+        return row
+
+    def getBestRecipeByCategoryId(self, id):
+        sql = """
+              SELECT Recipe.recipeID, recipeName, image, categoryName, login
+              FROM Recipe
+              JOIN
+              (
+              SELECT recipeID, avgScore
+              FROM
+              (
+               SELECT recipeID, ((IFNULL(AVG(tasteScore), 0) + IFNULL(AVG(priceScore), 0) + IFNULL(AVG(instructionScore), 0)) / 3) AS avgScore
+               FROM Comment
+               ORDER BY recipeID
+              ) commentScore
+              GROUP BY avgScore
+              HAVING avgScore = MAX(avgScore)
+              ) bestScore
+              ON Recipe.recipeID = bestScore.recipeID
+              JOIN User ON User.userID = Recipe.userID
+              JOIN Category ON Category.categoryID = Recipe.categoryID
+              WHERE Recipe.categoryID = %s
+              """
         self.cursor.execute(sql, (id,))
         row = self.cursor.fetchone()
         return row
@@ -157,6 +195,16 @@ class Model(object):
         row = self.cursor.fetchone()
         return row
 
+    def getUserPriceAvg(self, id):
+        sql = """
+              SELECT AVG(budget) as priceAvg
+              FROM Recipe
+              WHERE userID = %s
+              """
+        self.cursor.execute(sql, (id,))
+        row = self.cursor.fetchone()
+        return row
+
     def getUserByLogin(self, login):
         sql = """SELECT userID, login, password FROM User WHERE login = %s"""
         self.cursor.execute(sql, (login,))
@@ -182,7 +230,7 @@ class Model(object):
     ########################### Ranking ###########################
     def getRanking_QP(self, id):
         sql = """
-              SELECT Recipe.recipeID, recipeName, image, login, ((IFNULL(AVG(tasteScore), 0) + IFNULL(AVG(priceScore), 0) + IFNULL(AVG(instructionScore), 0)) / (3 * budget)) AS QP
+              SELECT Recipe.recipeID, recipeName, image, login, ((IFNULL(AVG(tasteScore), 0) + IFNULL(AVG(priceScore), 0) + IFNULL(AVG(instructionScore), 2)) / (3 * budget)) AS QP
               FROM Recipe
               JOIN User ON User.userID = Recipe.userID
               LEFT OUTER JOIN Comment ON Comment.recipeID = Recipe.recipeID

@@ -5,11 +5,33 @@
         <h1>{{ user.login }}</h1>
         <hr>
 
+        {{ user.login }} propose des recettes qui valent en moyenne <b>{{ priceAvg.priceAvg|round(2, 'floor') }} €</b>.
+
+        <hr>
+
         <h2>Toutes les recettes de {{ user.login }}</h2>
 
-        <ul>
+        <ul class="media-list list-inline recipelist">
             {% for recipe in recipes %}
-            <li><a href="{{ url_for('recipe', id=recipe.recipeID) }}">{{ recipe.recipeName }}</a></li>
+            <li class="media">
+                <a href="{{ url_for('recipe', id=recipe.recipeID) }}">
+                  <div class="media-left">
+                    <img width="100" class="media-object img-responsive img-circle" src="{{ images[recipe.recipeID] }}" />
+                  </div>
+                  <div class="media-body">
+                    <h4 class="media-heading">{{ recipe.recipeName }}</h4>
+                    {% for i in range(recipe.avgScore) %}
+                    <i class="fa fa-star"></i>
+                    {% endfor %}
+                    {% if recipe.avgScore > recipe.avgScore|round %}
+                    <i class="fa fa-star-half-o"></i>
+                    {% endif %}
+                    {% for i in range(5 - recipe.avgScore) %}
+                    <i class="fa fa-star-o"></i>
+                    {% endfor %}
+                  </div>
+                </a>
+            </li>
             {% endfor %}
         </ul>
     </div>

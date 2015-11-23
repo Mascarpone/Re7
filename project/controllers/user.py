@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from project import app, login_manager
+from project import app, login_manager, gallery
 from flask import g, render_template, request, redirect, url_for, abort, flash
 from project.model.default import model
 from project.model.user import User
@@ -52,7 +52,7 @@ def register():
             flash('You have registered the username {0}. Please login'.format(login))
             return redirect(url_for('login'))
         else:
-            flash('The username {0} is already in use.  Please try a new username.'.format(login))
+            flash('The username {0} is already in use. Please try a new username.'.format(login))
             return redirect(url_for('register'))
 
     return render_template('register.html', form = form)
@@ -62,6 +62,15 @@ def user(id):
     user = model.getUserById(id)
     if user is not None:
         recipes = model.getRecipesByUserID(id)
-        return render_template('user.html', user=user, recipes=recipes)
+        priceAvg = model.getUserPriceAvg(id)
+
+        images = {}
+        for recipe in recipes:
+            image = gallery.url(recipe['image'])
+            if not recipe['image']:
+                image += 'recipe.png'
+            images[recipe['recipeID']] = image
+
+        return render_template('user.html', user=user, recipes=recipes, priceAvg=priceAvg, images=images)
 
     return abort(404)
