@@ -19,6 +19,7 @@
                 <img class="img-responsive" src="{{ image }}" alt="{{ recipe.image }}" />
             </div>
             <div class="col-md-4">
+                <h3>Résumé</h3>
                 <ul>
                     <li>Auteur : <a href="{{ url_for('user', id=recipe.userID) }}">{{ recipe.login }}</a></li>
                     <li>Catégorie : {{ recipe.categoryName }}</li>
@@ -26,14 +27,21 @@
                     <li>Difficulté : {{ recipe.difficulty }}/5</li>
                     <li>Temps de préparation : ~{{ recipe.preparationTime }}min</li>
                     <li>Temps de cuisson : ~{{ recipe.cookingTime }}min</li>
-                    <br>
-                    <li>Qualité des instructions : <i class="fa fa-star-o"></i></li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h3>Moyennes des scores</h3>
+                <ul>
+                    <li>Qualité gastronomique : <i class="fa fa-star-o"></i></li>
+                    <li>Respect du budget : <i class="fa fa-star-o"></i></li>
+                    <li>Clareté des instructions : <i class="fa fa-star-o"></i></li>
                 </ul>
             </div>
         </div>
+        <br><br>
         <div class=row>
             <div class="col-md-3">
-                <div class="panel panel-default">
+                <div class="panel panel-info">
                     <div class="panel-heading"><strong>Ingrédients</strong></div>
                     <ul class="list-group">
                         {% for ingredient in ingredients %}
@@ -43,7 +51,7 @@
                 </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-8">
                 <div class="panel panel-primary">
                     <div class="panel-heading"><strong>Préparation</strong></div>
                     <div class="panel-body">
