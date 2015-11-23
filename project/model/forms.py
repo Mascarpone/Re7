@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from default import model
 from flask.ext.wtf import Form
-from wtforms import FormField, SelectField, TextField, TextAreaField, IntegerField, FieldList, PasswordField, BooleanField, validators
+from wtforms import FormField, SelectField, TextField, RadioField, TextAreaField, IntegerField, FieldList, PasswordField, BooleanField, validators
 from flask_wtf.file import FileField, FileAllowed
 from project import gallery
 
@@ -14,8 +14,6 @@ class ContainForm(Form):
     quantity = IntegerField(u'Quantité')
     unitID = SelectField(u'Mesure', choices = [(a['unitID'], a['unitName']) for a in model.getUnits()],
         coerce=int, validators=[validators.Required()])
-    #ingredientID = SelectField(u'Ingrédient', choices = [a.values() for a in model.getIngredients()],
-    #    coerce=int, validators=[validators.Required()])
     ingredientName = TextField(u'Ingrédient', validators=[validators.Required()])
 
 class RecipeForm(Form):
@@ -46,6 +44,6 @@ class LoginForm(Form):
 
 class CommentForm(Form):
     comment = TextAreaField('Commentaire')
-    tasteScore = IntegerField(u'Qualité gastronomique', [validators.Required(), validators.NumberRange(min=1, max=5)])
-    priceScore = IntegerField(u'Respect du budget', [validators.Required(), validators.NumberRange(min=1, max=5)])
-    instructionScore = IntegerField(u'Clareté des instructions', [validators.Required(), validators.NumberRange(min=1, max=5)])
+    tasteScore = RadioField(u'Qualité gastronomique', choices=[(i+1, i+1) for i in range(5)], coerce=int, validators=[validators.Required()])
+    priceScore = RadioField(u'Respect du budget', choices=[(i+1, i+1) for i in range(5)], coerce=int, validators=[validators.Required()])
+    instructionScore = RadioField(u'Clareté des instructions', choices=[(i+1, i+1) for i in range(5)], coerce=int, validators=[validators.Required()])

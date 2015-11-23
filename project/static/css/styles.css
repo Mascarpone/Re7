@@ -29,6 +29,9 @@ footer {
 
 }
 
+textarea {
+  resize: vertical;
+}
 
 #masthead {
     min-height:199px;
@@ -137,10 +140,10 @@ footer {
 }
 
 .img-container img {
-  min-width:280px;
-  min-height:180px;
-  max-width:380px;
-  max-height:280px;
+  min-width:200px;
+  min-height:200px;
+  max-width:200px;
+  max-height:200px;
 }
 
 .txt-container {
@@ -176,11 +179,6 @@ footer {
     top: -2px;
     right: 0px;
 }
-
-.form-group textarea.form-control {
-    resize: none;
-}
-
 
 .p-img-container {
     height:350px;
@@ -267,8 +265,8 @@ footer {
 }
 
 .bestrecipes ul.img-list li img {
-    height:200px;
-    margin-left: -50px;
+  height: 200px;
+  width: 200px;
 }
 
 .bestrecipes span.text-content span {
@@ -296,8 +294,17 @@ footer {
     transition: opacity 500ms;
 }
 
-.bestrecipes ul.img-list li:hover span.text-content {
+.bestrecipes ul.img-list li .img-container:hover span.text-content {
     opacity: 1;
+}
+
+.bestrecipes ul.img-list li a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.bestrecipes ul.img-list li a:hover {
+  color: #FF4500;
 }
 
 span.content {
@@ -412,7 +419,7 @@ ul.recipelist li {
 }
 
 ul.recipelist li.media .media-body {
-  width:100px;
+  width:150px;
   vertical-align: middle;
 }
 
@@ -457,3 +464,65 @@ li.active{
 
 .btn-google-plus a {text-decoration:none; color:inherit;}
 .btn-google-plus a:hover {color:#d34836;}
+
+
+.star-rating {
+  padding: 0;
+  font-size: 0;
+  white-space: nowrap;
+  display: inline-block;
+  /* width: 250px; remove this */
+  height: 20px;
+  overflow: hidden;
+  position: relative;
+  background: url('data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMjBweCIgaGVpZ2h0PSIyMHB4IiB2aWV3Qm94PSIwIDAgMjAgMjAiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDIwIDIwIiB4bWw6c3BhY2U9InByZXNlcnZlIj48cG9seWdvbiBmaWxsPSIjREREREREIiBwb2ludHM9IjEwLDAgMTMuMDksNi41ODMgMjAsNy42MzkgMTUsMTIuNzY0IDE2LjE4LDIwIDEwLDE2LjU4MyAzLjgyLDIwIDUsMTIuNzY0IDAsNy42MzkgNi45MSw2LjU4MyAiLz48L3N2Zz4=');
+  background-size: contain;
+}
+.star-rating i {
+  opacity: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  /* width: 20%; remove this */
+  z-index: 1;
+  background: url('data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMjBweCIgaGVpZ2h0PSIyMHB4IiB2aWV3Qm94PSIwIDAgMjAgMjAiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDIwIDIwIiB4bWw6c3BhY2U9InByZXNlcnZlIj48cG9seWdvbiBmaWxsPSIjRkZERjg4IiBwb2ludHM9IjEwLDAgMTMuMDksNi41ODMgMjAsNy42MzkgMTUsMTIuNzY0IDE2LjE4LDIwIDEwLDE2LjU4MyAzLjgyLDIwIDUsMTIuNzY0IDAsNy42MzkgNi45MSw2LjU4MyAiLz48L3N2Zz4=');
+  background-size: contain;
+}
+.star-rating input {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  opacity: 0;
+  display: inline-block;
+  /* width: 20%; remove this */
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  z-index: 2;
+  position: relative;
+}
+.star-rating input:hover + i,
+.star-rating input:checked + i {
+  opacity: 1;
+}
+.star-rating i ~ i {
+  width: 40%;
+}
+.star-rating i ~ i ~ i {
+  width: 60%;
+}
+.star-rating i ~ i ~ i ~ i {
+  width: 80%;
+}
+.star-rating i ~ i ~ i ~ i ~ i {
+  width: 100%;
+}
+
+
+.star-rating.star-5 {width: 100px;}
+.star-rating.star-5 input,
+.star-rating.star-5 i {width: 20%;}
+.star-rating.star-5 i ~ i {width: 40%;}
+.star-rating.star-5 i ~ i ~ i {width: 60%;}
+.star-rating.star-5 i ~ i ~ i ~ i {width: 80%;}
+.star-rating.star-5 i ~ i ~ i ~ i ~i {width: 100%;}

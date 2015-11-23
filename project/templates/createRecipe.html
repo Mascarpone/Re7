@@ -16,7 +16,7 @@
             </div>
             {{ render_field(form.image, class="", onchange="previewFile();") }}
             {{ render_field(form.recipeName, required="true") }}
-            {{ render_field(form.budget, required="true", type="number", min="0.01") }}
+            {{ render_field(form.budget, required="true", type="number", min="0") }}
             {{ render_field(form.difficulty, required="true", type="number", min="1", max="5") }}
             {{ render_field(form.preparationTime, required="true", type="number", min="0") }}
             {{ render_field(form.cookingTime, required="true", type="number", min="0") }}

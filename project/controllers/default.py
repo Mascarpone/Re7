@@ -14,20 +14,27 @@ def page_not_found(e):
 
 @app.route("/")
 def index():
+    categories = model.getCategories()
+
+    categoriesCount = {}
+    for cat in categories:
+        categoriesCount[cat['categoryID']] = model.getCategoryCountById(cat['categoryID'])
+
     recipes = {}
-    for i in range(model.getCategoriesNb()):
-        r = model.getBestRecipeByCategoryId(id)
-        if r is not None:
-            recipes[i] = r
+    for cat in categories:
+        recipes[cat['categoryID']] = model.getBestRecipeByCategoryId(cat['categoryID'])
 
     images = {}
-    for recipe in recipes:
-        image = gallery.url(recipe['image'])
-        if not recipe['image']:
-            image += 'recipe.png'
-        images[recipe['recipeID']] = image
+    for cat in categories:
+        if recipes[cat['categoryID']] is None:
+            image = 'recipe.png'
+        else:
+            image = gallery.url(recipes[cat['categoryID']]['image'])
+            if not recipes[cat['categoryID']]['image']:
+                image += 'recipe.png'
+        images[cat['categoryID']] = image
 
-    return render_template("index.html", recipes=recipes, images=images)
+    return render_template("index.html", categories=categories, categoriesCount=categoriesCount, recipes=recipes, images=images)
 
 @app.route("/about")
 def about():

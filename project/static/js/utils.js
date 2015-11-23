@@ -15,9 +15,9 @@ function previewFile() {
 }
 
 $(document).ready(function() {
-    var max_fields      = 10;
-    var wrapperSteps    = $(".input_steps");
-    var wrapperIngredient    = $(".input_ingredients");
+    var max_fields = 10;
+    var wrapperSteps = $(".input_steps");
+    var wrapperIngredient = $(".input_ingredients");
     var c = 1;
     var v = 1;
 
@@ -49,7 +49,6 @@ $(document).ready(function() {
              $(this).find("select[name$='unitID']").attr('name', 'contains-'+i+'-unitID')
              $(this).find("select[name$='unitID']").attr('id', 'contains-'+i+'-unitID')
 
-             console.log("sa mere");
              $('#contains-'+i+'-ingredientName').autocomplete({
                  source: ingredients,
                  delay: 0
@@ -79,7 +78,10 @@ $(document).ready(function() {
             var block = $self.parent().prev().clone();
             if(v == 1)
                 $(block).append('<a href="#" class="remove_field btn btn-primary btn-danger col-sm-1">Supprimer</a>')
+
             $self.parent().before(block);
+            $(block).find(':input').not(':button, :submit, :reset, :hidden, :checkbox, :radio').val('');
+            $(block).find(':checkbox, :radio').prop('checked', false);
             v++;
         }
         numberingIngredients();

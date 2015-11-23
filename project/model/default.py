@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 from  MySQLdb.cursors import DictCursor
 from project import mysql
 import sys
@@ -23,10 +24,10 @@ class Model(object):
         rows = self.cursor.fetchall()
         return rows
 
-    def getCategoriesNb(self):
-        self.cursor.execute("SELECT count(*) FROM Category")
+    def getCategoryCountById(self, id):
+        self.cursor.execute("SELECT count(*) AS categoryCount FROM Recipe WHERE categoryID = %s", (id,))
         row = self.cursor.fetchone()
-        return row['count(*)']
+        return row
 
     ########################### Recipe ###########################
     def getRecipes(self):
@@ -68,26 +69,15 @@ class Model(object):
 
     def getBestRecipeByCategoryId(self, id):
         sql = """
-              SELECT Recipe.recipeID, recipeName, image, categoryName, login
+              SELECT Recipe.recipeID, recipeName, image, login, averageScore
               FROM Recipe
-              JOIN
-              (
-              SELECT recipeID, avgScore
-              FROM
-              (
-               SELECT recipeID, ((IFNULL(AVG(tasteScore), 0) + IFNULL(AVG(priceScore), 0) + IFNULL(AVG(instructionScore), 0)) / 3) AS avgScore
-               FROM Comment
-               ORDER BY recipeID
-              ) commentScore
-              GROUP BY avgScore
-              HAVING avgScore = MAX(avgScore)
-              ) bestScore
-              ON Recipe.recipeID = bestScore.recipeID
-              JOIN User ON User.userID = Recipe.userID
-              JOIN Category ON Category.categoryID = Recipe.categoryID
-              WHERE Recipe.categoryID = %s
+              JOIN User on User.userID = Recipe.userID
+              JOIN Average ON Average.recipeID = Recipe.recipeID
+              WHERE categoryID = %s
+              GROUP BY averageScore
+              HAVING averageScore = (SELECT MAX(averageScore) FROM Average JOIN Recipe ON Average.recipeID = Recipe.recipeID WHERE Recipe.categoryID = %s)
               """
-        self.cursor.execute(sql, (id,))
+        self.cursor.execute(sql, (id,id,))
         row = self.cursor.fetchone()
         return row
 
@@ -104,6 +94,16 @@ class Model(object):
         except:
             print("Error in {0}".format(sql))
             self.conn.rollback()
+
+    ########################### Average ###########################
+    def getAverageByRecipeID(self, recipeID):
+        sql = """
+            SELECT averageScore
+            FROM Average
+            WHERE recipeID = %s"""
+        self.cursor.execute(sql, (recipeID,))
+        row = self.cursor.fetchone()
+        return row
 
     ########################### Step ###########################
     def getStepsByRecipeID(self, recipeID):
@@ -182,10 +182,35 @@ class Model(object):
             print("Error in {0}".format(sql))
             self.conn.rollback()
 
+    ########################### Comment ###########################
+    def insertComment(self, comment, tasteScore, priceScore, instructionScore, userID, recipeID):
+        try:
+            sql = """
+            INSERT INTO Comment (comment, tasteScore, priceScore, instructionScore, userID, recipeID)
+            VALUES (%s, %s, %s, %s, %s, %s)"""
+            self.cursor.execute(sql, (comment, tasteScore, priceScore, instructionScore, userID, recipeID))
+            self.conn.commit()
+            return self.cursor.lastrowid
+        except:
+            print("Error in {0}".format(sql))
+            self.conn.rollback()
+
+    def getCommentsByRecipeID(self, recipeID):
+        sql = """
+        SELECT comment, tasteScore, priceScore, instructionScore, commentDate, login
+        FROM Comment
+        JOIN User on User.userID = Comment.userID
+        WHERE recipeID = %s
+        ORDER BY commentDate DESC"""
+        self.cursor.execute(sql, (recipeID,))
+        rows = self.cursor.fetchall()
+        return rows
+
+
     ########################### User ###########################
     def getUsers(self):
         sql = """SELECT userID, login FROM User"""
-        self.cursor.execute(sql, (id,))
+        self.cursor.execute(sql)
         rows = self.cursor.fetchall()
         return rows
 

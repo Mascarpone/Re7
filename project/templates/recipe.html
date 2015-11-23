@@ -1,3 +1,4 @@
+{% from "_macros.html" import render_field, render_stars %}
 {% extends template %}
 {% block title %}- {{ recipe.recipeName }}{% endblock %}
 {% block content %}
@@ -54,5 +55,71 @@
                 </div>
             </div>
         </div>
+        <hr>
+          <h2>Commentaires</h2>
+          {% for comment in comments %}
+          <div class="container">
+            <div class="col-md-2">
+                <br>
+                Qualité gastronomique <br>
+                Respect du budget <br>
+                Clareté des instructions
+            </div>
+            <div class="col-md-2">
+                <br>
+                {{ render_stars(5, comment.tasteScore) }}<br>
+                {{ render_stars(5, comment.priceScore) }}<br>
+                {{ render_stars(5, comment.instructionScore) }}
+            </div>
+            <div class="col-md-7">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                            <a href="{{ url_for('user', id=recipe.userID) }}">{{ comment.login }}</a><br>
+                            {{ comment.comment}}<br><br>
+                            <small>{{ comment.commentDate }}</small>
+                    </div>
+                </div>
+            </div>
+          </div>
+          {% endfor %}
+        <hr>
+          <h2>Ajouter un commentaire</h2>
+          <div class='col-md-12'>
+              <form data-toggle="validator" role=form class="form-horizontal" method="POST" action="{{ url_for('recipe', id=recipe.recipeID) }}">
+                  {{ form.hidden_tag() }}
+                  <div class="form-group">
+                      {{ form.tasteScore.label(class="col-sm-2 control-label") }}
+                      <div class='col-sm-4 star-rating star-5'>
+                          {% for subfield in form.tasteScore %}
+                              {{ subfield }}<i></i>
+                          {% endfor %}
+                      </div>
+                  </div>
+                  <br>
+                  <div class="form-group">
+                      {{ form.priceScore.label(class="col-sm-2 control-label") }}
+                      <div class='col-sm-4 star-rating star-5'>
+                          {% for subfield in form.priceScore %}
+                              {{ subfield }}<i></i>
+                          {% endfor %}
+                      </div>
+                  </div>
+                  <br>
+                  <div class="form-group">
+                      {{ form.instructionScore.label(class="col-sm-2 control-label") }}
+                      <div class='col-sm-4 star-rating star-5'>
+                          {% for subfield in form.instructionScore %}
+                              {{ subfield }}<i></i>
+                          {% endfor %}
+                      </div>
+                  </div>
+                  {{ render_field(form.comment) }}
+
+                  <div class="col-sm-offset-3">
+                      <button type="submit" class="btn btn-success btn-lg">Commenter</button>
+                  </div>
+              </form>
+          </div>
+        <br>
     </div>
 {% endblock %}
