@@ -98,7 +98,7 @@ class Model(object):
     ########################### Average ###########################
     def getAverageByRecipeID(self, recipeID):
         sql = """
-            SELECT averageScore
+            SELECT averageScore, tasteAvgScore, instructionAvgScore, priceAvgScore
             FROM Average
             WHERE recipeID = %s"""
         self.cursor.execute(sql, (recipeID,))

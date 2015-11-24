@@ -14,7 +14,7 @@
           </h4>
         <hr>
 
-        <div class=row>
+        <div class="row recipe-infos">
             <div class="col-md-3">
                 <img class="img-responsive" src="{{ image }}" alt="{{ recipe.image }}" />
             </div>
@@ -32,10 +32,12 @@
             <div class="col-md-4">
                 <h3>Moyennes des scores</h3>
                 <ul>
-                    <li>Qualité gastronomique : <i class="fa fa-star-o"></i></li>
-                    <li>Respect du budget : <i class="fa fa-star-o"></i></li>
-                    <li>Clareté des instructions : <i class="fa fa-star-o"></i></li>
+                    <li>Qualité gastronomique : {{ "Pas encore de note" if averages is none else render_stars(5, averages.tasteAvgScore) }}</li>
+                    <li>Respect du budget : {{ "Pas encore de note" if averages is none else render_stars(5, averages.priceAvgScore) }}</li>
+                    <li>Clareté des instructions : {{ "Pas encore de note" if averages is none else render_stars(5, averages.instructionAvgScore) }}</li>
                 </ul>
+                <h3>Moyenne globale</h3>
+                <ul><li>{{ "Pas encore de note" if averages is none else render_stars(5, averages.averageScore) }}</li></ul>
             </div>
         </div>
         <br><br>

@@ -159,7 +159,7 @@ CREATE TABLE IF NOT EXISTS re7.Contain (
 -- -----------------------------------------------------
 DROP VIEW IF EXISTS Average;
 CREATE VIEW Average AS
-SELECT recipeID, (AVG(tasteScore)+AVG(priceScore)+AVG(instructionScore))/3 AS averageScore
+SELECT recipeID, (AVG(tasteScore)+AVG(priceScore)+AVG(instructionScore))/3 AS averageScore, AVG(tasteScore) AS tasteAvgScore, AVG(priceScore) AS priceAvgScore, AVG(instructionScore) AS instructionAvgScore
 FROM Comment
 GROUP BY recipeID;
 

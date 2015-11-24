@@ -48,13 +48,13 @@ def recipe(id):
         image = gallery.url(recipe['image'])
         ingredients = model.getContainsByRecipeID(id)
         comments = model.getCommentsByRecipeID(id)
-        average = model.getAverageByRecipeID(id)
+        averages = model.getAverageByRecipeID(id)
 
         if not recipe['image']:
             image += 'recipe.png'
 
         return render_template('recipe.html', recipe=recipe, steps=steps, image=image,
-            ingredients=ingredients, form=form, comments=comments, average=average)
+            ingredients=ingredients, form=form, comments=comments, averages=averages)
 
     return abort(404)
 

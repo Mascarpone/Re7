@@ -1,8 +1,12 @@
-{% macro render_field(field) %}
+{% macro render_field(field, unit=None) %}
     <div class="form-group">
         {{ field.label(class="col-sm-2 control-label") }}
         <div class="col-sm-4">
-        {{ field(class_="form-control", **kwargs)|safe }}
+          {% if unit %}
+            <div class="input-group">{{ field(class_="form-control", **kwargs)|safe }}<span class="input-group-addon">{{ unit }}</span></div>
+          {% else %}
+            {{ field(class_="form-control", **kwargs)|safe }}
+          {% endif %}
         <div class="help-block with-errors"></div>
         {% if field.errors %}
                 {% for error in field.errors %}
@@ -17,11 +21,13 @@
 {% endmacro %}
 
 {% macro render_stars(max, n) %}
-    {% for i in range(max) %}
-        {% if i < n %}
-            <i class="fa fa-star"></i>
-        {% else %}
-            <i class="fa fa-star-o"></i>
-        {% endif %}
+    {% for i in range(n) %}
+    <i class="fa fa-star"></i>
+    {% endfor %}
+    {% if n > n|round(0, 'floor') %}
+    <i class="fa fa-star-half-o"></i>
+    {% endif %}
+    {% for i in range(max - n) %}
+    <i class="fa fa-star-o"></i>
     {% endfor %}
 {% endmacro %}

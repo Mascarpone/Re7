@@ -1,3 +1,4 @@
+{% from "_macros.html" import render_stars %}
 {% extends template %}
 {% block title %}{% endblock %}
 {% block content %}
@@ -67,15 +68,7 @@
                               <br>
                               {{ recipes[cat['categoryID']].login }}
                               <br>
-                              {% for i in range(recipes[cat['categoryID']].averageScore) %}
-                              <i class="fa fa-star"></i>
-                              {% endfor %}
-                              {% if recipes[cat['categoryID']].averageScore > recipes[cat['categoryID']].averageScore|round %}
-                              <i class="fa fa-star-half-o"></i>
-                              {% endif %}
-                              {% for i in range(5 - recipes[cat['categoryID']].averageScore) %}
-                              <i class="fa fa-star-o"></i>
-                              {% endfor %}
+                              {{ render_stars(5, recipes[cat['categoryID']].averageScore) }}
                           </span>
                       </span>
                   </a>

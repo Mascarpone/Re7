@@ -526,3 +526,8 @@ li.active{
 .star-rating.star-5 i ~ i ~ i {width: 60%;}
 .star-rating.star-5 i ~ i ~ i ~ i {width: 80%;}
 .star-rating.star-5 i ~ i ~ i ~ i ~i {width: 100%;}
+
+.recipe-infos ul {
+  list-style-type: none;
+  padding-left: 0px;
+}

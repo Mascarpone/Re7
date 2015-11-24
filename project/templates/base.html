@@ -58,7 +58,7 @@
                             </span>{{ current_user.login }} <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Profil</a></li>
+                                <li><a href="{{ url_for('user', id=current_user.id) }}">Profil</a></li>
                                 <li><a href="{{ url_for('logout') }}">Déconnection</a></li>
                             </ul>
                         </li>
