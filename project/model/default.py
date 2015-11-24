@@ -206,6 +206,17 @@ class Model(object):
         rows = self.cursor.fetchall()
         return rows
 
+    def getCommentsByRecipeIDAndUserID(self, recipeID, userID):
+        sql = """
+        SELECT comment, tasteScore, priceScore, instructionScore, commentDate, login
+        FROM Comment
+        JOIN User ON User.userID = Comment.userID
+        WHERE recipeID = %s and User.userID = %s
+        ORDER BY commentDate DESC"""
+        self.cursor.execute(sql, (recipeID, userID))
+        row = self.cursor.fetchone()
+        return row
+
 
     ########################### User ###########################
     def getUsers(self):
