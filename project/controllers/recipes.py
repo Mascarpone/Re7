@@ -36,13 +36,18 @@ def recipe(id):
         form = CommentForm()
         if form.validate_on_submit():
             if current_user.is_authenticated:
-                model.insertComment(form.comment.data, form.tasteScore.data,
-                    form.priceScore.data, form.instructionScore.data,
-                     current_user.get_id(), id)
+                comment = model.getCommentsByRecipeIDAndUserID(id, current_user.get_id())
+                if comment is None:
+                    model.insertComment(form.comment.data, form.tasteScore.data,
+                        form.priceScore.data, form.instructionScore.data,
+                         current_user.get_id(), id)
+                else:
+                    flash(u"Vous avez déjà commenté cette recette")
 
                 return redirect(url_for('recipe', id=id))
             else :
-                return redirect(url_for('register'))
+                flash(u"Connectez-vous pour pouvoir commenter les recettes")
+                return redirect(url_for('login'))
 
         steps = model.getStepsByRecipeID(id)
         image = gallery.url(recipe['image'])
