@@ -415,11 +415,11 @@ span.content span.content-cell {
 
 
 ul.recipelist li {
-  margin: 30px;
+  margin: 20px;
 }
 
 ul.recipelist li.media .media-body {
-  width:150px;
+  width:120px;
   vertical-align: middle;
 }
 
@@ -530,4 +530,30 @@ li.active{
 .recipe-infos ul {
   list-style-type: none;
   padding-left: 0px;
+}
+
+.img-circle {
+    border-radius: 50%;
+    position: relative;
+    height: 100px;
+    width: 100px;
+    overflow: hidden;
+
+    float: left;
+}
+
+.img-circle.hor img {
+    position: absolute;
+    left: 50%;
+    width: auto;
+    height: 100px;
+    transform: translateX(-50%);
+ }
+
+.img-circle.vert img {
+    position: absolute;
+    top: 50%;
+    width: 100px;
+    height: auto;
+    transform: translateY(-50%);
 }

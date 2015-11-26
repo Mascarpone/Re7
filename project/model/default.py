@@ -108,7 +108,7 @@ class Model(object):
     ########################### Step ###########################
     def getStepsByRecipeID(self, recipeID):
         sql = """
-            SELECT stepID, stepCount, stepDescription
+            SELECT stepCount, stepDescription
             FROM Step
             WHERE recipeID = %s
             ORDER BY stepCount"""
