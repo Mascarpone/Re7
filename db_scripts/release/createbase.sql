@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS re7.Recipe (
   recipeName VARCHAR(45) NOT NULL,
   image VARCHAR(60) NOT NULL,
   numberPerson INT(3),
-  budget INT(3) NOT NULL,
+  budget FLOAT(5, 2) NOT NULL,
   difficulty INT(1) NOT NULL,
   preparationTime INT NOT NULL,
   cookingTime INT NOT NULL,

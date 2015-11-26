@@ -49,10 +49,10 @@ def register():
         user = model.getUserByLogin(login)
         if user is None:
             model.insertUser(login, password)
-            flash('You have registered the username {0}. Please login'.format(login))
+            flash('Vous vous êtes enregistré avec le nom d\'utilisateur {0}. Veuillez vous connecter.'.format(login))
             return redirect(url_for('login'))
         else:
-            flash('The username {0} is already in use. Please try a new username.'.format(login))
+            flash('Le nom d\'utilisateur {0} est déjà utilisé. Veuillez choisir un autre nom.'.format(login))
             return redirect(url_for('register'))
 
     return render_template('register.html', form = form)
