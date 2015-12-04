@@ -97,5 +97,6 @@ $(document).ready(function() {
         numberingSteps();
     })
 
+    numberingSteps();
 
 });

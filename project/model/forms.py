@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from default import model
 from flask.ext.wtf import Form
-from wtforms import FormField, SelectField, TextField, RadioField, TextAreaField, IntegerField, FieldList, PasswordField, BooleanField, validators
+from wtforms import FormField, SelectField, TextField, RadioField, TextAreaField, IntegerField, FloatField, FieldList, PasswordField, BooleanField, validators
 from flask_wtf.file import FileField, FileAllowed
 from project import gallery
 
@@ -19,7 +19,7 @@ class ContainForm(Form):
 class RecipeForm(Form):
     image = FileField('Image', [validators.optional(), FileAllowed(gallery, "Images only!")])
     recipeName = TextField(u'Nom de la recette', [validators.Required()])
-    budget = IntegerField(u'Budget')
+    budget = FloatField(u'Budget')
     difficulty = IntegerField(u'Difficulté', [validators.Required(), validators.NumberRange(min=1, max=5)])
     preparationTime = IntegerField(u'Temps de préparation')
     cookingTime = IntegerField(u'Temps de cuisson')

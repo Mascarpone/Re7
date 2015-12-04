@@ -4,7 +4,7 @@ from flask import g, render_template, request, redirect, url_for, abort, flash
 from project.model.default import model
 from project.model.user import User
 from project.model.forms import RegisterForm, LoginForm
-from flask.ext.login import login_user, logout_user, login_required
+from flask.ext.login import login_user, logout_user, login_required, current_user
 
 @login_manager.user_loader
 def user_loader(user_id):
@@ -74,3 +74,9 @@ def user(id):
         return render_template('user.html', user=user, recipes=recipes, priceAvg=priceAvg, images=images)
 
     return abort(404)
+
+@app.route('/user/manage')
+@login_required
+def manage():
+    recipes = model.getRecipesByUserID(current_user.get_id())
+    return render_template('manage.html', recipes=recipes)

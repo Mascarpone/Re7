@@ -57,7 +57,7 @@ class Model(object):
     def getRecipe(self, id):
         sql = """
               SELECT recipeID, recipeName, image, budget, difficulty, categoryName,
-              preparationTime, cookingTime, Recipe.userID, login
+              preparationTime, cookingTime, Recipe.userID, login, Recipe.categoryID
               FROM Recipe
               JOIN User on User.userID = Recipe.userID
               JOIN Category on Category.categoryID = Recipe.categoryID
@@ -83,6 +83,7 @@ class Model(object):
 
     def insertRecipe(self, recipeName, image, budget, difficulty, preparationTime, cookingTime, userID, categoryID):
         try:
+            self.cursor = self.conn.cursor(DictCursor)
             sql = """
                 INSERT INTO Recipe (recipeName, image, budget, difficulty,
                 preparationTime, cookingTime, userID, categoryID)
@@ -94,6 +95,58 @@ class Model(object):
         except:
             print("Error in {0}".format(sql))
             self.conn.rollback()
+
+    def updateRecipe(self, id, recipeName, budget, difficulty, preparationTime, cookingTime, categoryID):
+        try:
+            self.cursor = self.conn.cursor(DictCursor)
+            sql = """
+                UPDATE Recipe
+                SET recipeName = %s,
+                    budget = %s,
+                    difficulty = %s,
+                    preparationTime = %s,
+                    cookingTime = %s,
+                    categoryID = %s
+                WHERE recipeID = %s
+                """
+            self.cursor.execute(sql, (recipeName, budget, difficulty, preparationTime, cookingTime, categoryID, id))
+            self.conn.commit()
+        except:
+            print self.conn.error()
+            print("Error in {0}".format(sql))
+            print sql %(recipeName, budget, difficulty, preparationTime, cookingTime, categoryID, id)
+            self.conn.rollback()
+
+
+    def deleteRecipe(self, id):
+        try:
+            self.cursor = self.conn.cursor(DictCursor)
+            sql1 = """
+                DELETE FROM Comment
+                WHERE recipeID = %s
+                """
+            sql2 = """
+                DELETE FROM Step
+                WHERE recipeID = %s
+                """
+            sql3 = """
+                DELETE FROM Contain
+                WHERE recipeID = %s
+                """
+            sql4 = """
+                DELETE FROM Recipe
+                WHERE recipeID = %s
+                """
+            self.cursor.execute(sql1, (id,))
+            self.cursor.execute(sql2, (id,))
+            self.cursor.execute(sql3, (id,))
+            self.cursor.execute(sql4, (id,))
+            self.conn.commit()
+            return True
+        except:
+            print("Error in {0}".format(sql1 + sql2 + sql3 + sql4))
+            self.conn.rollback()
+            return False
 
     ########################### Average ###########################
     def getAverageByRecipeID(self, recipeID):
@@ -118,6 +171,7 @@ class Model(object):
 
     def insertStep(self, stepCount, stepDescription, recipeID):
         try:
+            self.cursor = self.conn.cursor(DictCursor)
             sql = """
                 INSERT INTO Step (stepCount, stepDescription, recipeID)
                 VALUES (%s, %s, %s)
@@ -132,6 +186,7 @@ class Model(object):
     ########################### Contain ###########################
     def insertContain(self, recipeID, ingredientID, quantity, isMain, unitID):
         try:
+            self.cursor = self.conn.cursor(DictCursor)
             sql = """
                 INSERT INTO Contain (recipeID, ingredientID, quantity, isMain, unitID)
                 VALUES (%s, %s, %s, %s, %s)
@@ -145,7 +200,7 @@ class Model(object):
 
     def getContainsByRecipeID(self, recipeID):
         sql = """
-            SELECT recipeID, quantity, isMain, ingredientName, unitName
+            SELECT recipeID, quantity, isMain, ingredientName, unitName, Contain.unitID
             FROM Contain
             JOIN Ingredient ON Ingredient.ingredientID = Contain.ingredientID
             JOIN Unit ON Unit.unitID = Contain.unitID
@@ -174,6 +229,7 @@ class Model(object):
 
     def insertIngredient(self, ingredientName):
         try:
+            self.cursor = self.conn.cursor(DictCursor)
             sql = """INSERT INTO Ingredient (ingredientName) VALUES (%s)"""
             self.cursor.execute(sql, (ingredientName,))
             self.conn.commit()
@@ -185,6 +241,7 @@ class Model(object):
     ########################### Comment ###########################
     def insertComment(self, comment, tasteScore, priceScore, instructionScore, userID, recipeID):
         try:
+            self.cursor = self.conn.cursor(DictCursor)
             sql = """
             INSERT INTO Comment (comment, tasteScore, priceScore, instructionScore, userID, recipeID)
             VALUES (%s, %s, %s, %s, %s, %s)"""
@@ -255,6 +312,7 @@ class Model(object):
 
     def insertUser(self, login, password):
         try:
+            self.cursor = self.conn.cursor(DictCursor)
             sql = """INSERT INTO User (login, password) VALUES (%s, %s)"""
             self.cursor.execute(sql, (login, password))
             self.conn.commit()

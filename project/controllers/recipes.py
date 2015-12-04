@@ -2,7 +2,8 @@
 from project import app, gallery
 from flask import render_template, redirect, url_for, abort, flash, jsonify
 from project.model.default import model
-from project.model.forms import RecipeForm, CommentForm
+from project.model.forms import RecipeForm, CommentForm, ContainForm
+from wtforms import FormField, TextAreaField, FieldList, validators
 from flask.ext.login import current_user, login_required
 from werkzeug import secure_filename
 from flask.ext.uploads import UploadNotAllowed
@@ -105,3 +106,72 @@ def createRecipe():
 
         return redirect(url_for('recipe', id=recipeID))
     return render_template('createRecipe.html', form=form, ingredients=ingredients)
+
+
+@app.route('/recipes/edit/<int:id>', methods=('GET', 'POST'))
+@login_required
+def editRecipe(id):
+    recipe = model.getRecipe(id)
+    if recipe is not None:
+        if recipe['userID'] == int(current_user.get_id()):
+            ingredients = [i['ingredientName'] for i in model.getIngredients()]
+            form = RecipeForm(csrf_enabled=False)
+
+            if form.validate_on_submit():
+                model.updateRecipe(id, form.recipeName.data, form.budget.data,
+                    form.difficulty.data, form.preparationTime.data,
+                    form.cookingTime.data, form.categoryID.data)
+
+                return redirect(url_for('recipe', id=id))
+
+
+            steps = model.getStepsByRecipeID(id)
+            image = gallery.url(recipe['image'])
+            contains = model.getContainsByRecipeID(id)
+            comments = model.getCommentsByRecipeID(id)
+            averages = model.getAverageByRecipeID(id)
+
+
+            form.recipeName.data = recipe['recipeName']
+            form.budget.data = recipe['budget']
+            form.difficulty.data = recipe['difficulty']
+            form.preparationTime.data = recipe['preparationTime']
+            form.cookingTime.data = recipe['cookingTime']
+            form.categoryID.data = recipe['categoryID']
+            form.contains.pop_entry()
+
+            for contain in contains:
+                containform = ContainForm()
+                containform.isMain = contain['isMain']
+                containform.quantity = int(contain['quantity'])
+                containform.unitID = contain['unitID']
+                containform.ingredientName = contain['ingredientName']
+                form.contains.append_entry(containform)
+
+            for step in steps:
+                form.steps.append_entry(step['stepDescription'])
+
+
+
+
+            return render_template('editRecipe.html', form=form, ingredients=ingredients, id=id)
+
+
+    return abort(404)
+
+
+@app.route('/recipes/delete/<int:id>')
+@login_required
+def deleteRecipe(id):
+    recipe = model.getRecipe(id)
+    if recipe is not None:
+        if recipe['userID'] == int(current_user.get_id()):
+
+            if model.deleteRecipe(id) :
+                flash(u'La recette {} a bien été supprimée.'.format(recipe['recipeName']))
+            else:
+                flash(u"La recette {} n'a pas pu être supprimée.".format(recipe['recipeName']))
+
+            return redirect(url_for('manage'))
+
+    return abort(404)
