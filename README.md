@@ -1,39 +1,56 @@
-#RE7
+# RE7
 
-##Install
-  $ sudo apt-get install libmysqlclient-dev
+## Version
 
-Firstly, make you sure you installed the packet python-pip (http://pip.readthedocs.org/en/stable/installing/).
-Pip is a module installer for python.
+1.0
 
-You will use virtualenv, so the modules you're using are not installed on your current system, but only in a directory. The virtual-env module is often used in python, because it creates a very clean environnement not depending on the system.
+## Prérequis d'installation
 
-Now if you want to run the project load your virtual environnement (where can install any module with pip):
-    $ . /path_to_env/bin/activate
+* Un système Unix
 
-Install the dependencies:
-    $ pip install -r requirements.txt
+* Une base de données MySQL à laquelle se connecter
 
-And run the server:
-    $ python app.py
+* La bibliothèque `libmysqlclient-dev`, obtenable classiquement avec `sudo apt-get install libmysqlclient-dev`
 
-You can find the website on http://localhost:8000
+* Python avec le gestionnaire de modules python `pip` : `sudo apt-get install python-pip`
 
-#Git
+  Si besoin, une procédure d'installation plus détaillée de pip peut être trouvée ici : http://pip.readthedocs.org/en/stable/installing/
 
-The git equivalent to svn update is:
-    $ git pull
-Or, a safer way:
-    $ git fetch #this lines retrieves the changes locally, but doesn't modify the current branch
-    $ git merge #this line merges the previously fetched changes, and the current branch
+* Le gestionnaire d'environnement virtuel pour python `virtualenv`. Installé par défaut avec les dernières verions de python, mais disponible, s'il n'est pas déjà installé, via votre gestionnaire de paquet préféré, sous le nom `python-virtualenv`, ou via `pip`.
 
-The git equivalent to svn commit is:
-    $ git commit -m <message> #commits only locally, can be done as many times as wanted
-    $ git push # sends all previous commits to the server
+  `sudo apt-get install python-virtualenv`
+
+  ou `sudo pip install virtualenv`
+
+## Installation
+
+Placez vous dans un nouveau dossier dédié au projet re7. Nous l'appellerons `projet_re7` dans la suite.
+
+Décompressez l'archive du projet dans un sous-dossier `re7` ou clonez le dépôt du projet (privé pour l'instant) : `git clone https://github.com/gbea/re7.git`
+
+Éditez la section `# MySQL configurations` du fichier `re7/project/__init__.py` pour donner les bons identifiants d'accès à la base de données MySQL.
+
+Si vous envisagez de travailler sur le dépôt git, désactivez les mises à jour de ce fichier avec `git update-index --assume-unchanged __init__.py`
+
+Le dossier `re7/db_scripts` contient un fichier `createbase.sql` pour créer les tables nécessaires au bon fonctionnement du site, ainsi que `populate.sql` pour ajouter des données d'exemple à la base de données.
+
+Afin de ne pas installer les modules requis directement sur vôtre système, et de ne pas dépendre de la configuration actuelle de celui-ci, nous allons créer un environnement virtuel avec `virtualenv`. Pour cela, utilisez la commande suivante : `virtualenv venv`
+
+Nous disposons donc maintenant d'un environnement situé dans le dossier `venv`. Pour le lancer, utilisez la commande : `. venv/bin/activate` (ne pas oublier le point seul au début)
+
+Pour vous assurer de la bonne activation de l'environnement virtuel, vérifiez que l'invite de commande a bien été modifiée et commence maintenant par `(venv)`. Par exemple `(venv)utilisateur@machine:~/projet_re7`
+
+Nous pouvons maintenant installer toutes les dépendances dans l'environnement virtuel : `pip install -r re7/requirements.txt`
+
+Puis lancer le serveur : `python re7/app.py` (Utilisez Ctrl+C pour le quitter)
+
+Le site re7 est maintenant disponible à l'adresse http://localhost:8000
+
+Bon appétit !
 
 
 
-##Some reading
+## Un peu de lecture
 
 http://flask.pocoo.org/docs/0.10/quickstart/
 
