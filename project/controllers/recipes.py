@@ -1,19 +1,21 @@
 # -*- coding: utf-8 -*-
 from project import app, gallery
-from flask import render_template, redirect, url_for, abort, flash, jsonify
+from flask import request, render_template, redirect, url_for, abort, flash, jsonify
 from project.model.default import model
-from project.model.forms import RecipeForm, CommentForm, ContainForm
+from project.model.forms import RecipeForm, CommentForm, ContainForm, SearchForm
 from wtforms import FormField, TextAreaField, FieldList, validators
 from flask.ext.login import current_user, login_required
 from werkzeug import secure_filename
 from flask.ext.uploads import UploadNotAllowed
 
-@app.route('/recipes')
+@app.route('/recipes', methods=('GET', 'POST'))
 def recipes():
+    max = model.getMaxBudget()
+    max = int(max['MAX(budget)'])
+    min = model.getMinBudget()
+    min = int(min['MIN(budget)'])
+    form = SearchForm(csrf_enabled=False)
     recipes = model.getRecipes()
-    ingredients = model.getIngredients()
-    categories = model.getCategories()
-
     images = {}
     averages = {}
     for recipe in recipes:
@@ -21,12 +23,13 @@ def recipes():
         if not recipe['image']:
             image += 'recipe.png'
         images[recipe['recipeID']] = image
-
         averages[recipe['recipeID']] = model.getAverageByRecipeID(recipe['recipeID'])
+        if form.validate_on_submit():
+            recipes = model.getRecipesSearch(form.data['minprice'], form.data['maxprice'],
+                form.data['ingredients'], form.data['categories'], form.data['query'])
 
 
-    return render_template('recipes.html', recipes=recipes, ingredients=ingredients, categories=categories, images=images, averages=averages)
-    pass
+    return render_template('recipes.html', form=form, recipes=recipes, images=images, averages=averages, max=max, min=min)
 
 
 

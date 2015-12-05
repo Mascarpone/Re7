@@ -1,9 +1,30 @@
 # -*- coding: utf-8 -*-
 from default import model
 from flask.ext.wtf import Form
-from wtforms import FormField, SelectField, TextField, RadioField, TextAreaField, IntegerField, FloatField, FieldList, PasswordField, BooleanField, validators
+from wtforms import widgets, FormField, SelectField, SelectMultipleField, TextField, RadioField, TextAreaField, IntegerField, FloatField, FieldList, PasswordField, BooleanField, validators
 from flask_wtf.file import FileField, FileAllowed
 from project import gallery
+
+class SearchForm(Form):
+    categories = SelectMultipleField(
+        u'Catégories',
+        choices=[(a['categoryID'], a['categoryName']) for a in model.getCategories()],
+        coerce=int,
+        option_widget=widgets.CheckboxInput(),
+        widget=widgets.ListWidget(prefix_label=False)
+    )
+    ingredients = SelectMultipleField(
+        u'Ingrédients',
+        choices=[(a['ingredientID'], a['ingredientName']) for a in model.getIngredients()],
+        coerce=int,
+        option_widget=widgets.CheckboxInput(),
+        widget=widgets.ListWidget(prefix_label=False)
+    )
+    max = model.getMaxBudget()
+    min = model.getMinBudget()
+    minprice = IntegerField(u'Min', default=int(min['MIN(budget)']))
+    maxprice = IntegerField(u'Max', default=int(max['MAX(budget)']))
+    query = TextField(u'Recherche')
 
 class ContainForm(Form):
     def __init__(self, *args, **kwargs):

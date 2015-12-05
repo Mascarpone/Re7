@@ -2,48 +2,48 @@
 {% extends template %}
 {% block title %}- Recettes{% endblock %}
 {% block content %}
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/ui-lightness/jquery-ui.css" media="screen" title="no title" charset="utf-8">
 <div class="container">
     <h1>Recherche avancée</h1>
     <hr>
 
-    <form>
+    <form data-toggle="validator" role=form method="POST" action="{{ url_for('recipes') }}">
+        {{ form.hidden_tag() }}
         <h2>Filtrer par catégories</h2>
-
         <div class="form-inline filter">
-            {% for category in categories %}
-            <input type="checkbox" value="cat{{ category.categoryID }}" name="cat{{ category.categoryID }}" id="cat{{ category.categoryID }}">
-            <label for="cat{{ category.categoryID }}">{{ category.categoryName }}</label>
+            {% for category in form.categories %}
+                {{ category() }}
+                {{ category.label }}
             {% endfor %}
         </div>
-
         <br>
         <br>
 
         <h2>Filtrer par ingrédients principaux</h2>
-
         <div class="form-inline filter">
-            {% for ingredient in ingredients %}
-            <input type="checkbox" value="ing{{ ingredient.ingredientID }}" name="ing{{ ingredient.ingredientID }}" id="ing{{ ingredient.ingredientID }}">
-            <label for="ing{{ ingredient.ingredientID }}">{{ ingredient.ingredientName }}</label>
+            {% for ingredient in form.ingredients %}
+                {{ ingredient() }}
+                {{ ingredient.label }}
             {% endfor %}
         </div>
-
         <br>
         <br>
 
         <h2>Filtrer par intervalle de prix</h2>
-
         <div class="form-inline filter">
             <div class="form-group">
-                <label>min</label>
-                <input type="number" class="form-control" id="minprice">
+                {{ form.minprice.label }}
+                {{ form.minprice(class="form-control sliderValue", type="number", min=min, max=max, **{'data-index' : '0'}) }}
             </div>
             <div class="form-group">
-                <label>max</label>
-                <input type="number" class="form-control" id="maxprice">
+                {{ form.maxprice.label }}
+                {{ form.maxprice(class="form-control sliderValue", type="number", min=min, max=max, **{'data-index' : '1'}) }}
             </div>
-        </div>
+            <div class="row">
 
+            </div>
+            <div id="slider" class="col-md-3"></div>
+        </div>
         <br>
         <br>
         <br>
@@ -51,20 +51,19 @@
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Filtrer par titre ou auteur ..." id="usr" />
+                    {{ form.query(class="form-control", placeholder="Filtrer par titre ou auteur ...") }}
                 </div>
             </div>
         </div>
 
-        <br>
 
         <div class="row">
             <div class="col-md-6 col-md-offset-3" align="center">
                 <button type="submit" class="btn btn-primary btn-sm-1">Rechercher</button>
             </div>
         </div>
-
     </form>
+
 
     <br>
     <hr>
@@ -86,4 +85,31 @@
         {% endfor %}
     </ul>
 </div>
+
+{% endblock %}
+
+{% block js_footer %}
+    {{ super() }}
+    <script>
+    $(document).ready(function() {
+        $("#slider").slider({
+            min: {{ min }},
+            max: {{ max }},
+            step: 1,
+            range: true,
+            values: [{{ form.minprice.data}}, {{ form.maxprice.data}}],
+            slide: function(event, ui) {
+                for (var i = 0; i < ui.values.length; ++i) {
+                    $("input.sliderValue[data-index=" + i + "]").val(ui.values[i]);
+                }
+            }
+        });
+
+        $("input.sliderValue").change(function() {
+            var $this = $(this);
+            $("#slider").slider("values", $this.data("index"), $this.val());
+        });
+    });
+    </script>
+
 {% endblock %}

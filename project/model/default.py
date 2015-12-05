@@ -30,6 +30,29 @@ class Model(object):
         return row
 
     ########################### Recipe ###########################
+    def getRecipesSearch(self, minprice, maxprice, ingredients, categories, query):
+        cat = ""
+        if categories:
+            cat = "AND categoryID in ({0})".format( ', '.join([str(i) for i in categories]))
+
+        ingr = ""
+        if ingredients:
+            ingr = "AND ingredientID in ({0})".format( ', '.join([str(i) for i in ingredients]))
+
+        sql = """
+            SELECT DISTINCT Recipe.recipeID, recipeName, image, login, ((IFNULL(AVG(tasteScore), 0) + IFNULL(AVG(priceScore), 0) + IFNULL(AVG(instructionScore), 0)) / 3) AS avgScore
+            FROM Recipe
+            JOIN User ON User.userID = Recipe.userID
+            JOIN Contain ON Contain.recipeID = Recipe.recipeID
+            LEFT OUTER JOIN Comment ON Comment.recipeID = Recipe.recipeID
+            WHERE (recipeName like %s OR login like %s) AND budget BETWEEN %s AND %s {0} {1}
+            GROUP BY Recipe.recipeID
+            """.format(cat, ingr)
+        #assert False
+        self.cursor.execute(sql, ("%"+query+"%", "%"+query+"%", minprice, maxprice))
+        rows = self.cursor.fetchall()
+        return rows
+
     def getRecipes(self):
         sql = """
             SELECT Recipe.recipeID, recipeName, image, login, ((IFNULL(AVG(tasteScore), 0) + IFNULL(AVG(priceScore), 0) + IFNULL(AVG(instructionScore), 0)) / 3) AS avgScore
@@ -93,6 +116,7 @@ class Model(object):
             self.conn.commit()
             return self.cursor.lastrowid
         except:
+            print self.conn.error()
             print("Error in {0}".format(sql))
             self.conn.rollback()
 
@@ -144,6 +168,7 @@ class Model(object):
             self.conn.commit()
             return True
         except:
+            print self.conn.error()
             print("Error in {0}".format(sql1 + sql2 + sql3 + sql4))
             self.conn.rollback()
             return False
@@ -180,6 +205,7 @@ class Model(object):
             self.conn.commit()
             return self.cursor.lastrowid
         except:
+            print self.conn.error()
             print("Error in {0}".format(sql))
             self.conn.rollback()
 
@@ -195,6 +221,7 @@ class Model(object):
             self.conn.commit()
             return self.cursor.lastrowid
         except:
+            print self.conn.error()
             print("Error in {0}".format(sql))
             self.conn.rollback()
 
@@ -235,6 +262,7 @@ class Model(object):
             self.conn.commit()
             return self.cursor.lastrowid
         except:
+            print self.conn.error()
             print("Error in {0}".format(sql))
             self.conn.rollback()
 
@@ -249,6 +277,7 @@ class Model(object):
             self.conn.commit()
             return self.cursor.lastrowid
         except:
+            print self.conn.error()
             print("Error in {0}".format(sql))
             self.conn.rollback()
 
@@ -318,10 +347,23 @@ class Model(object):
             self.conn.commit()
             return self.cursor.lastrowid
         except:
+            print self.conn.error()
             print("Error in {0}".format(sql))
             self.conn.rollback()
 
     ########################### Ranking ###########################
+    def getMaxBudget(self):
+        sql = "SELECT MAX(budget) FROM Recipe"
+        self.cursor.execute(sql)
+        row = self.cursor.fetchone()
+        return row
+
+    def getMinBudget(self):
+        sql = "SELECT MIN(budget) FROM Recipe"
+        self.cursor.execute(sql)
+        row = self.cursor.fetchone()
+        return row
+
     def getRanking_QP(self, id):
         sql = """
               SELECT Recipe.recipeID, recipeName, image, login, ((IFNULL(AVG(tasteScore), 0) + IFNULL(AVG(priceScore), 0) + IFNULL(AVG(instructionScore), 2)) / (3 * budget)) AS QP
