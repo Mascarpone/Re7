@@ -84,7 +84,7 @@
             <div class="col-md-7">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                            <a href="{{ url_for('user', id=recipe.userID) }}">{{ comment.login }}</a><br>
+                            <a href="{{ url_for('user', id=comment.userID) }}">{{ comment.login }}</a><br>
                             {{ comment.comment}}<br><br>
                             <small>{{ comment.commentDate }}</small>
                     </div>

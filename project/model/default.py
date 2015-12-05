@@ -32,7 +32,7 @@ class Model(object):
     ########################### Recipe ###########################
     def getRecipes(self):
         sql = """
-            SELECT Recipe.recipeID, recipeName, image, login, ((IFNULL(AVG(tasteScore), 0) + IFNULL(AVG(priceScore), 0) + IFNULL(AVG(instructionScore), 0)) / 3) AS avgScore
+            SELECT Recipe.recipeID, recipeName, image, login
             FROM Recipe
             JOIN User ON User.userID = Recipe.userID
             LEFT OUTER JOIN Comment ON Comment.recipeID = Recipe.recipeID
@@ -44,7 +44,7 @@ class Model(object):
 
     def getRecipesByUserID(self, userID):
         sql = """
-              SELECT Recipe.recipeID, recipeName, image, ((IFNULL(AVG(tasteScore), 0) + IFNULL(AVG(priceScore), 0) + IFNULL(AVG(instructionScore), 0)) / 3) AS avgScore
+              SELECT Recipe.recipeID, recipeName, image
               FROM Recipe
               LEFT OUTER JOIN Comment ON Comment.recipeID = Recipe.recipeID
               WHERE Recipe.userID = %s
@@ -254,7 +254,7 @@ class Model(object):
 
     def getCommentsByRecipeID(self, recipeID):
         sql = """
-        SELECT comment, tasteScore, priceScore, instructionScore, commentDate, login
+        SELECT comment, tasteScore, priceScore, instructionScore, commentDate, login, Comment.userID
         FROM Comment
         JOIN User on User.userID = Comment.userID
         WHERE recipeID = %s
@@ -290,7 +290,7 @@ class Model(object):
 
     def getUserPriceAvg(self, id):
         sql = """
-              SELECT AVG(budget) as priceAvg
+              SELECT IFNULL(AVG(budget), 0) as priceAvg
               FROM Recipe
               WHERE userID = %s
               """
@@ -324,11 +324,10 @@ class Model(object):
     ########################### Ranking ###########################
     def getRanking_QP(self, id):
         sql = """
-              SELECT Recipe.recipeID, recipeName, image, login, ((IFNULL(AVG(tasteScore), 0) + IFNULL(AVG(priceScore), 0) + IFNULL(AVG(instructionScore), 2)) / (3 * budget)) AS QP
+              SELECT Recipe.recipeID, recipeName, image, login, averageScore / budget AS QP
               FROM Recipe
               JOIN User ON User.userID = Recipe.userID
-              LEFT OUTER JOIN Comment ON Comment.recipeID = Recipe.recipeID
-              GROUP BY Recipe.recipeID
+              JOIN Average ON Recipe.recipeID = Average.recipeID
               ORDER BY QP DESC
               LIMIT %s
               """
@@ -363,5 +362,31 @@ class Model(object):
         self.cursor.execute(sql, (id,))
         rows = self.cursor.fetchall()
         return rows
+
+    def getBestCommentator(self):
+        sql = """
+              SELECT User.userID, login, SQRT(sum(pow(ecart, 2))/count(*)) AS ecarttype
+              FROM User
+              JOIN
+               (SELECT userID, ABS((tasteScore + instructionScore + priceScore)/3 - averageScore) AS ecart
+                FROM Comment
+                JOIN Average ON Comment.recipeID = Average.recipeID) AS Ecarts
+              ON Ecarts.userID = User.userID
+              GROUP BY User.userID
+              HAVING ecarttype = (SELECT MIN(ecarttype)
+                                  FROM
+                                  (SELECT User.userID, login, SQRT(sum(pow(ecart, 2))/count(*)) AS ecarttype
+                                  FROM User
+                                  JOIN
+                                   (SELECT userID, ABS((tasteScore + instructionScore + priceScore)/3 - averageScore) AS ecart
+                                    FROM Comment
+                                    JOIN Average ON Comment.recipeID = Average.recipeID) AS Ecarts
+                                  ON Ecarts.userID = User.userID
+                                  GROUP BY User.userID) AS MinEcarttype
+                                  )
+              """
+        self.cursor.execute(sql)
+        row = self.cursor.fetchone()
+        return row
 
 model = Model(mysql)

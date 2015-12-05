@@ -17,6 +17,9 @@
         <br>
         <h4>Bon appétit !</h4>
         <br>
+        {% if bestcommentator %}
+        <h4><a href="{{ url_for('user', id=bestcommentator.userID) }}">{{ bestcommentator.login }}</a> détient le prix du critique gastronomique le plus fiable</h4>
+        {% endif %}
     </div>
 </div>
 </div>

@@ -14,6 +14,8 @@ def page_not_found(e):
 
 @app.route("/")
 def index():
+    bestcommentator = model.getBestCommentator();
+
     categories = model.getCategories()
 
     categoriesCount = {}
@@ -34,7 +36,7 @@ def index():
                 image += 'recipe.png'
         images[cat['categoryID']] = image
 
-    return render_template("index.html", categories=categories, categoriesCount=categoriesCount, recipes=recipes, images=images)
+    return render_template("index.html", categories=categories, categoriesCount=categoriesCount, recipes=recipes, images=images, bestcommentator=bestcommentator)
 
 @app.route("/about")
 def about():

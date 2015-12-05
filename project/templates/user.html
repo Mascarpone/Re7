@@ -1,3 +1,4 @@
+{% from "_macros.html" import render_stars %}
 {% extends template %}
 {% block title %}- {{ user.login }}{% endblock %}
 {% block content %}
@@ -20,15 +21,7 @@
                   </div>
                   <div class="media-body">
                     <h4 class="media-heading">{{ recipe.recipeName }}</h4>
-                    {% for i in range(recipe.avgScore) %}
-                    <i class="fa fa-star"></i>
-                    {% endfor %}
-                    {% if recipe.avgScore > recipe.avgScore|round %}
-                    <i class="fa fa-star-half-o"></i>
-                    {% endif %}
-                    {% for i in range(5 - recipe.avgScore) %}
-                    <i class="fa fa-star-o"></i>
-                    {% endfor %}
+                    {{ "Pas encore de note" if averages[recipe.recipeID] is none else render_stars(5, averages[recipe.recipeID].averageScore) }}
                   </div>
                 </a>
             </li>
