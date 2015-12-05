@@ -1,10 +1,48 @@
 {% extends template %}
 {% block title %}- À propos{% endblock %}
 {% block content %}
-    <div class="container">
-        <h1>À propos</h1>
-        <hr>
-        <span class="icon-search" aria-hidden="true"></span>
-        ~scassiau | ~bgea | ~flevern
-    </div>
+<div class="container">
+    <h1>À propos</h1>
+    <hr>
+
+    Ce site web a été réalisé dans le cadre d'un projet de SGBD proposé aux élèves de deuxième année en Informatique dans l'école d'ingénieur l'Enseirb-Matméca.
+    <br>
+    Voici la dreamteam qui a créé ce site :
+
+    <ul class="media-list list-inline recipelist" style="text-align:center;">
+      <li class="media">
+        <a href="mailto:scassiau@enseirb-matmeca.fr?subject=[Re7]">
+          <div class="media-left">
+            <img width="100" class="media-object img-responsive img-circle" src="{{ url_for('static', filename='images/scassiau.jpg') }}" />
+          </div>
+          <div class="media-body" style="text-align:left;">
+            <h4 class="media-heading">Sylvain Cassiau</h4>
+            <span class="recipeAuthor">~scassiau</span>
+          </div>
+        </a>
+      </li>
+      <li class="media">
+        <a href="mailto:gbea@enseirb-matmeca.fr?subject=[Re7]">
+          <div class="media-left">
+            <img width="100" class="media-object img-responsive img-circle" src="{{ url_for('static', filename='images/gbea.jpg') }}" />
+          </div>
+          <div class="media-body" style="text-align:left;">
+            <h4 class="media-heading">Guillaume Béa</h4>
+            <span class="recipeAuthor">~gbea</span>
+          </div>
+        </a>
+      </li>
+      <li class="media">
+        <a href="mailto:flevern@enseirb-matmeca.fr?subject=[Re7]">
+          <div class="media-left">
+            <img width="100" class="media-object img-responsive img-circle" src="{{ url_for('static', filename='images/flevern.JPG') }}" />
+          </div>
+          <div class="media-body" style="text-align:left;">
+            <h4 class="media-heading">Florian Le Vern</h4>
+            <span class="recipeAuthor">~flevern</span>
+          </div>
+        </a>
+      </li>
+    </ul>
+</div>
 {% endblock %}

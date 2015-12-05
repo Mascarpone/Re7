@@ -7,8 +7,8 @@ __pycache__/
 *.so
 
 # Images
-project/static/gallery/
-!project/static/gallery/recipe.png
+# project/static/gallery/
+# !project/static/gallery/recipe.png
 
 # Distribution / packaging
 .Python
