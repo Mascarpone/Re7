@@ -30,17 +30,20 @@
         <span class="p-content">
             <span class="p-content-cell">
                 Rechercher une recette
+                <form data-toggle="validator" role=form method="POST" action="{{ url_for('recipes') }}">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Rechercher ...">
+                    <input id="query" name="query" type="text" class="form-control" placeholder="Rechercher ...">
                     <span class="input-group-btn">
                         <a href="{{ url_for('index') }}">
-                            <button class="btn btn-default" type="button">
+                            <button type="submit" class="btn btn-default">
                                 <i class="fa fa-search"></i>
                             </button>
                         </a>
                     </span>
                 </div>
                 <p align="right"><a href="{{ url_for('recipes') }}"><u>Recherche avancée</u></a></p>
+            </form>
+
             </span>
         </span>
     </div>
@@ -81,7 +84,7 @@
                   </span>
                 {% endif %}
               </div>
-              <h3><a href="{{ url_for('recipes', cat=cat.categoryID) }}">{{ cat.categoryName }} <span class="badge">{{ categoriesCount[cat['categoryID']].categoryCount }}</span></a></h3>
+              <h3><a href="{{ url_for('recipes', category=cat.categoryID) }}">{{ cat.categoryName }} <span class="badge">{{ categoriesCount[cat['categoryID']].categoryCount }}</span></a></h3>
           </li>
           {% endfor %}
       </ul>

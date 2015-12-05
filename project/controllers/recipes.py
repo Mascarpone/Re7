@@ -9,13 +9,17 @@ from werkzeug import secure_filename
 from flask.ext.uploads import UploadNotAllowed
 
 @app.route('/recipes', methods=('GET', 'POST'))
-def recipes():
+@app.route('/recipes/<int:category>', methods=('GET', 'POST'))
+def recipes(category=None):
     max = model.getMaxBudget()
     max = int(max['MAX(budget)'])
     min = model.getMinBudget()
     min = int(min['MIN(budget)'])
     form = SearchForm(csrf_enabled=False)
-    recipes = model.getRecipes()
+    if category is not None:
+        form.categories.data = [category]
+    recipes = model.getRecipesSearch(form.data['minprice'], form.data['maxprice'],
+            form.data['ingredients'], form.data['categories'], form.data['query'])
     images = {}
     averages = {}
     for recipe in recipes:
@@ -24,13 +28,8 @@ def recipes():
             image += 'recipe.png'
         images[recipe['recipeID']] = image
         averages[recipe['recipeID']] = model.getAverageByRecipeID(recipe['recipeID'])
-        if form.validate_on_submit():
-            recipes = model.getRecipesSearch(form.data['minprice'], form.data['maxprice'],
-                form.data['ingredients'], form.data['categories'], form.data['query'])
-
 
     return render_template('recipes.html', form=form, recipes=recipes, images=images, averages=averages, max=max, min=min)
-
 
 
 @app.route('/recipes/<int:id>', methods=('GET', 'POST'))
@@ -66,7 +65,6 @@ def recipe(id):
             ingredients=ingredients, form=form, comments=comments, averages=averages)
 
     return abort(404)
-
 
 
 @app.route('/recipes/create', methods=('GET', 'POST'))

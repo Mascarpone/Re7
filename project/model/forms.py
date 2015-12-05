@@ -24,7 +24,7 @@ class SearchForm(Form):
     min = model.getMinBudget()
     minprice = IntegerField(u'Min', default=int(min['MIN(budget)']))
     maxprice = IntegerField(u'Max', default=int(max['MAX(budget)']))
-    query = TextField(u'Recherche')
+    query = TextField(u'Recherche', default="")
 
 class ContainForm(Form):
     def __init__(self, *args, **kwargs):

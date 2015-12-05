@@ -38,6 +38,7 @@ class Model(object):
         ingr = ""
         if ingredients:
             ingr = "AND ingredientID in ({0})".format( ', '.join([str(i) for i in ingredients]))
+            
 
         sql = """
             SELECT DISTINCT Recipe.recipeID, recipeName, image, login, ((IFNULL(AVG(tasteScore), 0) + IFNULL(AVG(priceScore), 0) + IFNULL(AVG(instructionScore), 0)) / 3) AS avgScore
