@@ -46,6 +46,8 @@ Puis lancer le serveur : `python re7/app.py` (Utilisez Ctrl+C pour le quitter)
 
 Le site re7 est maintenant disponible à l'adresse http://localhost:8000
 
+Pour quitter l'environnement virtuel, Utilisez la commande `deactivate`
+
 Bon appétit !
 
 
