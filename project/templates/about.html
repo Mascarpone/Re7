@@ -10,8 +10,8 @@
     Voici la dreamteam qui a créé ce site :
 
     <ul class="media-list list-inline recipelist" style="text-align:center;">
-      <li class="media">
-        <a href="mailto:scassiau@enseirb-matmeca.fr?subject=[Re7]">
+      <li class="media mbrContainer">
+        <a class="mbrMail" data="scassiau" href="">
           <div class="media-left">
             <img width="100" class="media-object img-responsive img-circle" src="{{ url_for('static', filename='images/scassiau.jpg') }}" />
           </div>
@@ -21,8 +21,8 @@
           </div>
         </a>
       </li>
-      <li class="media">
-        <a href="mailto:gbea@enseirb-matmeca.fr?subject=[Re7]">
+      <li class="media mbrContainer">
+        <a class="mbrMail" data="gbea" href="">
           <div class="media-left">
             <img width="100" class="media-object img-responsive img-circle" src="{{ url_for('static', filename='images/gbea.jpg') }}" />
           </div>
@@ -32,8 +32,8 @@
           </div>
         </a>
       </li>
-      <li class="media">
-        <a href="mailto:flevern@enseirb-matmeca.fr?subject=[Re7]">
+      <li class="media mbrContainer">
+        <a class="mbrMail" data="flevern" href="">
           <div class="media-left">
             <img width="100" class="media-object img-responsive img-circle" src="{{ url_for('static', filename='images/flevern.JPG') }}" />
           </div>
@@ -45,4 +45,14 @@
       </li>
     </ul>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+        $('.mbrContainer').mouseenter(function(){
+            var link = this.getElementsByClassName('mbrMail')[0];
+            link.href = "mailto:"+link.getAttribute("data")+'@enseirb-matmeca.fr?subject=[Re7]';
+        });
+    });
+</script>
+
 {% endblock %}
