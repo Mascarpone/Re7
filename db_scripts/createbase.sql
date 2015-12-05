@@ -58,45 +58,6 @@ CREATE TABLE IF NOT EXISTS re7.Recipe (
 
 
 -- -----------------------------------------------------
--- Table re7.Comment
--- -----------------------------------------------------
-DROP TABLE IF EXISTS re7.Comment ;
-
-CREATE TABLE IF NOT EXISTS re7.Comment (
-    commentID         INT           NOT NULL  AUTO_INCREMENT
-,   comment           VARCHAR(300)
-,   tasteScore        INT(1)        NOT NULL
-,   priceScore        INT(1)        NOT NULL
-,   instructionScore  INT(1)        NOT NULL
-,   commentDate       TIMESTAMP     NOT NULL  DEFAULT CURRENT_TIMESTAMP
-,   userID            INT           NOT NULL
-,   recipeID          INT           NOT NULL
-
-,   CONSTRAINT      pk_comment              PRIMARY KEY (commentID)
-,   CONSTRAINT      fk_commet_user          FOREIGN KEY (userID) REFERENCES Re7.User(userID)
-,   CONSTRAINT      fk_comment_recipe       FOREIGN KEY (recipeID) REFERENCES Re7.Recipe(recipeID)
-,   CONSTRAINT      chk_tasteScore          CHECK (tasteScore >= 1 AND tasteScore <= 5)
-,   CONSTRAINT      chk_priceScore          CHECK (priceScore >= 1 AND priceScore <= 5)
-,   CONSTRAINT      chk_instructionScore    CHECK (instructionScore >= 1 AND instructionScore <= 5)
-);
-
-
--- -----------------------------------------------------
--- Table re7.Step
--- -----------------------------------------------------
-DROP TABLE IF EXISTS re7.Step ;
-
-CREATE TABLE IF NOT EXISTS re7.Step (
-    stepCount       INT             NOT NULL
-,   stepDescription VARCHAR(300)    NOT NULL
-,   recipeID        INT             NOT NULL
-
-,   CONSTRAINT      pk_step         PRIMARY KEY (recipeID, stepCount)
-,   CONSTRAINT      fk_step_recipe  FOREIGN KEY (recipeID) REFERENCES Re7.Recipe(recipeID)
-);
-
-
--- -----------------------------------------------------
 -- Table re7.Unit
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS re7.Unit ;
@@ -135,17 +96,56 @@ CREATE TABLE IF NOT EXISTS re7.Contain (
 ,   unitID          INT         NOT NULL
 
 ,   CONSTRAINT      pk_contain                PRIMARY KEY (recipeID, ingredientID, unitID)
-,   CONSTRAINT      fk_contain_recipe         FOREIGN KEY (recipeID) REFERENCES Re7.Recipe(recipeID)
-,   CONSTRAINT      fk_contain_ingredient     FOREIGN KEY (ingredientID) REFERENCES Re7.Ingredient(ingredientID)
+,   CONSTRAINT      fk_contain_recipe         FOREIGN KEY (recipeID) REFERENCES re7.Recipe (recipeID)
+,   CONSTRAINT      fk_contain_ingredient     FOREIGN KEY (ingredientID) REFERENCES re7.Ingredient (ingredientID)
 ,   CONSTRAINT      fk_contain_unit           FOREIGN KEY (unitID) REFERENCES re7.Unit (unitID)
 );
 
 
 -- -----------------------------------------------------
--- View re7.Contain
+-- Table re7.Comment
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS re7.Comment ;
+
+CREATE TABLE IF NOT EXISTS re7.Comment (
+    commentID         INT           NOT NULL  AUTO_INCREMENT
+,   comment           VARCHAR(300)
+,   tasteScore        INT(1)        NOT NULL
+,   priceScore        INT(1)        NOT NULL
+,   instructionScore  INT(1)        NOT NULL
+,   commentDate       TIMESTAMP     NOT NULL  DEFAULT CURRENT_TIMESTAMP
+,   userID            INT           NOT NULL
+,   recipeID          INT           NOT NULL
+
+,   CONSTRAINT      pk_comment              PRIMARY KEY (commentID)
+,   CONSTRAINT      fk_comment_user         FOREIGN KEY (userID) REFERENCES re7.User(userID)
+,   CONSTRAINT      fk_comment_recipe       FOREIGN KEY (recipeID) REFERENCES re7.Recipe(recipeID)
+,   CONSTRAINT      chk_tasteScore          CHECK (tasteScore >= 1 AND tasteScore <= 5)
+,   CONSTRAINT      chk_priceScore          CHECK (priceScore >= 1 AND priceScore <= 5)
+,   CONSTRAINT      chk_instructionScore    CHECK (instructionScore >= 1 AND instructionScore <= 5)
+);
+
+
+-- -----------------------------------------------------
+-- View re7.Average
 -- -----------------------------------------------------
 DROP VIEW IF EXISTS Average;
 CREATE VIEW Average AS
 SELECT recipeID, (AVG(tasteScore)+AVG(priceScore)+AVG(instructionScore))/3 AS averageScore, AVG(tasteScore) AS tasteAvgScore, AVG(priceScore) AS priceAvgScore, AVG(instructionScore) AS instructionAvgScore
 FROM Comment
 GROUP BY recipeID;
+
+
+-- -----------------------------------------------------
+-- Table re7.Step
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS re7.Step ;
+
+CREATE TABLE IF NOT EXISTS re7.Step (
+    stepCount       INT             NOT NULL
+,   stepDescription VARCHAR(300)    NOT NULL
+,   recipeID        INT             NOT NULL
+
+,   CONSTRAINT      pk_step         PRIMARY KEY (recipeID, stepCount)
+,   CONSTRAINT      fk_step_recipe  FOREIGN KEY (recipeID) REFERENCES re7.Recipe(recipeID)
+);
