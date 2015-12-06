@@ -15,7 +15,7 @@ INSERT INTO Recipe VALUES
 (2, "Tartiflette classique", "tartiflette.jpg", 10, 2, 15, 15, 4, 3),
 (3, "Soupe de champagne aux framboises", "champagne.jpg", 16, 1, 5, 0, 4, 1),
 (4, "Makis simples", "makis.jpg", 5, 3, 20, 15, 4, 6),
-(5, "Tiramisu maison", "tiramisu.jpg", 4.50, 4, 20, 4, 4);
+(5, "Tiramisu maison", "tiramisu.jpg", 4.50, 4, 20, 0, 4, 4);
 
 INSERT INTO Step VALUES
 (1, "Coupez les blancs de poulet en petits morceaux ainsi que l'oignon.", 1),
