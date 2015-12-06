@@ -14,6 +14,8 @@
             This website gather the best recipes the ENSEIRB-MATMECA students have ever cooked. <br>
             Find your favorite meal and don't forget to grade it.<br>
              -->
+            <br>
+            <h4>Bon appétit !</h4>
         </div>
         {% if bestcommentator %}
         <div class="col-md-offset-2 col-md-2" align="center">
@@ -24,12 +26,6 @@
             <h2><a href="{{ url_for('user', id=bestcommentator.userID) }}">{{ bestcommentator.login }}</a></h2>
         </div>
         {% endif %}
-    </div>
-    <div class="row">
-        <div class="col-md-8">
-          <br>
-            <h4>Bon appétit !</h4>
-        </div>
     </div>
 </div>
 
