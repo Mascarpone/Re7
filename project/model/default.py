@@ -6,6 +6,7 @@ import sys
 class Model(object):
     def __init__(self, mysql):
         self.conn = mysql.connect()
+        self.conn.ping(True)
         self.cursor = self.conn.cursor(DictCursor)
         pass
 
