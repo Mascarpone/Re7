@@ -4,27 +4,33 @@
 {% block content %}
 
 <div class="container">
-<div class="row">
-    <div class="col-md-8">
-        <h1>Bienvenue sur Re7 !</h1>
-        <br>
-        Ce site internet rassemble les meilleures recettes que les étudiants de l'ENSEIRB-MATMECA ont jamais cuisinées. <br>
-        Trouve ton plat favoris et n'oublie pas de lui donner une note. <br>
-        <!--
-        This website gather the best recipes the ENSEIRB-MATMECA students have ever cooked. <br>
-        Find your favorite meal and don't forget to grade it.<br>
-         -->
+    <div class="row">
+        <div class="col-md-8">
+            <h1>Bienvenue sur Re7 !</h1>
+            <br>
+            Ce site internet rassemble les meilleures recettes que les étudiants de l'ENSEIRB-MATMECA ont jamais cuisinées. <br>
+            Trouve ton plat favoris et n'oublie pas de lui donner une note. <br>
+            <!--
+            This website gather the best recipes the ENSEIRB-MATMECA students have ever cooked. <br>
+            Find your favorite meal and don't forget to grade it.<br>
+             -->
+        </div>
         {% if bestcommentator %}
-        <br>
-        Si vous souhaitez avoir le meilleur avis sur une recette,
-        <br>
-        sachez que <a href="{{ url_for('user', id=bestcommentator.userID) }}">{{ bestcommentator.login }}</a> détient le prix du critique gastronomique le plus fiable.
-        <br>
+        <div class="col-md-offset-2 col-md-2" align="center">
+            <img src="{{ url_for('static', filename='images/médaille.png') }}" height="100px">
+            <br>
+            le prix du critique gastronomique le plus fiable est décerné à
+            <br>
+            <h2><a href="{{ url_for('user', id=bestcommentator.userID) }}">{{ bestcommentator.login }}</a></h2>
+        </div>
         {% endif %}
-        <br>
-        <h4>Bon appétit !</h4>
     </div>
-</div>
+    <div class="row">
+        <div class="col-md-8">
+          <br>
+            <h4>Bon appétit !</h4>
+        </div>
+    </div>
 </div>
 
 

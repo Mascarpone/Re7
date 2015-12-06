@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="keywords" content="Re7, re7, recette, étudiants, enseirb, enseirb-matmeca">
-    <meta name="description" content="Students love cooking">
+    <meta name="description" content="Les étudiants aiment la cuisine">
     <meta name="author" content="gbea scassiau flevern">
 
     <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
@@ -87,22 +87,24 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h1 class="lead"><a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='images/logo.png') }}" width="150px">&nbsp;&nbsp;Students love cooking</a></h1>
+                    <h1 class="lead"><a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='images/logo.png') }}" width="150px">&nbsp;&nbsp;Les étudiants aiment la cuisine</a></h1>
                 </div>
             </div>
         </div>
     </div>
 
     <br />
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            {% for message in messages %}
-                <div class="col-md-12">
-                    <div class="alert alert-info" role="alert">{{ message }}</div>
-                </div>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
+    <div class="container">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="col-md-12">
+                        <div class="alert alert-info" role="alert">{{ message }}</div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
 
     <div class="container-fluid">
         {% block content %}

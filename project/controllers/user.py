@@ -34,7 +34,7 @@ def login():
             flash(u'Bienvenue {0}'.format(login))
             return redirect(url_for('index'))
         else:
-            flash(u'Invalid login')
+            flash(u'Nom d\'utilisateur invalide')
             return redirect(url_for('login'))
 
     return render_template('login.html', form = form)
@@ -49,10 +49,10 @@ def register():
         user = model.getUserByLogin(login)
         if user is None:
             model.insertUser(login, password)
-            flash(u'Vous vous etes enregistre avec le nom d utilisateur {0}. Veuillez vous connecter.'.format(login))
+            flash(u'Vous vous êtes enregistrés avec le nom d\'utilisateur {0}. Veuillez vous connecter.'.format(login))
             return redirect(url_for('login'))
         else:
-            flash(u'Le nom d utilisateur {0} est deja utilise. Veuillez choisir un autre nom.'.format(login))
+            flash(u'Le nom d\'utilisateur {0} est déjà utilisé. Veuillez choisir un autre nom.'.format(login))
             return redirect(url_for('register'))
 
     return render_template('register.html', form = form)
