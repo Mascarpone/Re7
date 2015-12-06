@@ -4,27 +4,39 @@
 {% block content %}
 
 <div class="container">
-<div class="row">
-    <div class="col-md-8">
-        <h1>Bienvenue sur Re7 !</h1>
-        <br>
-        Ce site internet rassemble les meilleures recettes que les étudiants de l'ENSEIRB-MATMECA ont jamais cuisinées. <br>
-        Trouve ton plat favoris et n'oublie pas de lui donner une note. <br>
-        <!--
-        This website gather the best recipes the ENSEIRB-MATMECA students have ever cooked. <br>
-        Find your favorite meal and don't forget to grade it.<br>
-         -->
-        {% if bestcommentator %}
-        <br>
-        Si tu veux avoir le meilleur avis sur une recette,
-        <br>
-        sache que <a href="{{ url_for('user', id=bestcommentator.userID) }}">{{ bestcommentator.login }}</a> détient le prix du critique gastronomique le plus fiable.
-        <br>
-        {% endif %}
-        <br>
-        <h4>Bon appétit !</h4>
+    <div class="row">
+        <div class="col-md-8">
+            <h1>Bienvenue sur Re7 !</h1>
+            <br>
+            Ce site internet rassemble les meilleures recettes que les étudiants de l'ENSEIRB-MATMECA ont jamais cuisinées. <br>
+            Trouve ton plat favoris et n'oublie pas de lui donner une note. <br>
+            <!--
+            This website gather the best recipes the ENSEIRB-MATMECA students have ever cooked. <br>
+            Find your favorite meal and don't forget to grade it.<br>
+             -->
+        </div>
     </div>
-</div>
+    {% if bestcommentator %}
+    <div class="row">
+        <div class="col-sm-1" style="text-align:right;">
+            <br>
+            <img src="{{ url_for('static', filename='images/médaille.png') }}" height="45px">
+        </div>
+        <div class="col-md-6">
+            <br>
+            Si tu veux avoir le meilleur avis sur une recette,
+            <br>
+            sache que <a href="{{ url_for('user', id=bestcommentator.userID) }}">{{ bestcommentator.login }}</a> détient le prix du critique gastronomique le plus fiable.
+            <br>
+        </div>
+    </div>
+    {% endif %}
+    <div class="row">
+        <div class="col-md-8">
+          <br>
+            <h4>Bon appétit !</h4>
+        </div>
+    </div>
 </div>
 
 
