@@ -32,7 +32,7 @@ def recipes(category=None):
     return render_template('recipes.html', form=form, recipes=recipes, images=images, averages=averages, max=max, min=min)
 
 
-@app.route('/recipes/<int:id>', methods=('GET', 'POST'))
+@app.route('/recipes/recipe/<int:id>', methods=('GET', 'POST'))
 def recipe(id):
     recipe = model.getRecipe(id)
     if recipe is not None:
@@ -98,12 +98,8 @@ def createRecipe():
                     contain['quantity'], contain['isMain'],
                     contain['unitID'] )
 
-        i = 1;
-        print form.steps.data
-        for step in form.steps.data:
-            print step
-            model.insertStep(i, step, recipeID)
-            i += 1;
+        for i, step in enumerate(form.steps.data):
+            model.insertStep(i+1, step, recipeID)
 
         return redirect(url_for('recipe', id=recipeID))
     return render_template('createRecipe.html', form=form, ingredients=ingredients)
@@ -122,6 +118,20 @@ def editRecipe(id):
                 model.updateRecipe(id, form.recipeName.data, form.budget.data,
                     form.difficulty.data, form.preparationTime.data,
                     form.cookingTime.data, form.categoryID.data)
+
+                for i, step in enumerate(form.steps.data):
+                    model.updateStep(i+1, step, id)
+
+                #for contain in form.contains.data:
+                #    ingredient = model.getIngredientByName(contain['ingredientName'])
+                #    if ingredient is not None:
+                #        ingredientID = ingredient['ingredientID']
+                #    else:
+                #        ingredientID = model.insertIngredient(contain['ingredientName'])
+
+                #    model.updateContain(recipeID, ingredientID,
+                #            contain['quantity'], contain['isMain'],
+                #            contain['unitID'] )
 
                 return redirect(url_for('recipe', id=id))
 

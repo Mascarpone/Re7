@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-# -*- coding: utf-8 -*-
 from  MySQLdb.cursors import DictCursor
 from project import mysql
 import sys
@@ -38,7 +37,7 @@ class Model(object):
         ingr = ""
         if ingredients:
             ingr = "AND ingredientID in ({0})".format( ', '.join([str(i) for i in ingredients]))
-            
+
 
         sql = """
             SELECT DISTINCT Recipe.recipeID, recipeName, image, login, ((IFNULL(AVG(tasteScore), 0) + IFNULL(AVG(priceScore), 0) + IFNULL(AVG(instructionScore), 0)) / 3) AS avgScore
@@ -210,6 +209,22 @@ class Model(object):
             print("Error in {0}".format(sql))
             self.conn.rollback()
 
+    def updateStep(self, stepCount, stepDescription, recipeID):
+        try:
+            self.cursor = self.conn.cursor(DictCursor)
+            sql = """
+                UPDATE Step
+                SET stepDescription = %s
+                WHERE stepCount = %s AND recipeID = %s
+                """
+            self.cursor.execute(sql, (stepDescription, stepCount, recipeID))
+            self.conn.commit()
+            return self.cursor.lastrowid
+        except:
+            print self.conn.error()
+            print("Error in {0}".format(sql))
+            self.conn.rollback()
+
     ########################### Contain ###########################
     def insertContain(self, recipeID, ingredientID, quantity, isMain, unitID):
         try:
@@ -217,6 +232,25 @@ class Model(object):
             sql = """
                 INSERT INTO Contain (recipeID, ingredientID, quantity, isMain, unitID)
                 VALUES (%s, %s, %s, %s, %s)
+                """
+            self.cursor.execute(sql, (recipeID, ingredientID, quantity, isMain, unitID))
+            self.conn.commit()
+            return self.cursor.lastrowid
+        except:
+            print self.conn.error()
+            print("Error in {0}".format(sql))
+            self.conn.rollback()
+
+    def updateContain(self, recipeID, ingredientID, quantity, isMain, unitID):
+        try:
+            self.cursor = self.conn.cursor(DictCursor)
+            sql = """
+                UPDATE Contain
+                SET ingredientID = %s,
+                    quantity = %s,
+                    isMain = %s,
+                    unitID = %s)
+                WHERE
                 """
             self.cursor.execute(sql, (recipeID, ingredientID, quantity, isMain, unitID))
             self.conn.commit()
