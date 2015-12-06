@@ -14,9 +14,15 @@
         This website gather the best recipes the ENSEIRB-MATMECA students have ever cooked. <br>
         Find your favorite meal and don't forget to grade it.<br>
          -->
+        {% if bestcommentator %}
+        <br>
+        Si vous souhaitez avoir le meilleur avis sur une recette,
+        <br>
+        sachez que <a href="{{ url_for('user', id=bestcommentator.userID) }}">{{ bestcommentator.login }}</a> détient le prix du critique gastronomique le plus fiable.
+        <br>
+        {% endif %}
         <br>
         <h4>Bon appétit !</h4>
-        <br>
     </div>
 </div>
 </div>

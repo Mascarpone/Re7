@@ -49,10 +49,10 @@ def register():
         user = model.getUserByLogin(login)
         if user is None:
             model.insertUser(login, password)
-            flash('Vous vous êtes enregistré avec le nom d\'utilisateur {0}. Veuillez vous connecter.'.format(login))
+            flash('Vous vous etes enregistre avec le nom d utilisateur {0}. Veuillez vous connecter.'.format(login))
             return redirect(url_for('login'))
         else:
-            flash('Le nom d\'utilisateur {0} est déjà utilisé. Veuillez choisir un autre nom.'.format(login))
+            flash('Le nom d utilisateur {0} est deja utilise. Veuillez choisir un autre nom.'.format(login))
             return redirect(url_for('register'))
 
     return render_template('register.html', form = form)
@@ -65,13 +65,16 @@ def user(id):
         priceAvg = model.getUserPriceAvg(id)
 
         images = {}
+        averages = {}
         for recipe in recipes:
             image = gallery.url(recipe['image'])
             if not recipe['image']:
                 image += 'recipe.png'
             images[recipe['recipeID']] = image
 
-        return render_template('user.html', user=user, recipes=recipes, priceAvg=priceAvg, images=images)
+            averages[recipe['recipeID']] = model.getAverageByRecipeID(recipe['recipeID'])
+
+        return render_template('user.html', user=user, recipes=recipes, priceAvg=priceAvg, images=images, averages=averages)
 
     return abort(404)
 
