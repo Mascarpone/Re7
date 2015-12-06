@@ -8,10 +8,22 @@ USE re7 ;
 
 
 -- -----------------------------------------------------
--- Table re7.User
+-- Clean base
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS re7.Step ;
+DROP VIEW IF EXISTS Average;
+DROP TABLE IF EXISTS re7.Comment ;
+DROP TABLE IF EXISTS re7.Contain ;
+DROP TABLE IF EXISTS re7.Ingredient ;
+DROP TABLE IF EXISTS re7.Unit ;
+DROP TABLE IF EXISTS re7.Recipe ;
+DROP TABLE IF EXISTS re7.Category ;
 DROP TABLE IF EXISTS re7.User ;
 
+
+-- -----------------------------------------------------
+-- Table re7.User
+-- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS re7.User (
     userID        INT           NOT NULL    AUTO_INCREMENT
 ,   login         VARCHAR(45)   NOT NULL
@@ -24,8 +36,6 @@ CREATE TABLE IF NOT EXISTS re7.User (
 -- -----------------------------------------------------
 -- Table re7.Category
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS re7.Category ;
-
 CREATE TABLE IF NOT EXISTS re7.Category (
     categoryID    INT           NOT NULL    AUTO_INCREMENT
 ,   categoryName  VARCHAR(45)   NOT NULL
@@ -37,8 +47,6 @@ CREATE TABLE IF NOT EXISTS re7.Category (
 -- -----------------------------------------------------
 -- Table re7.Recipe
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS re7.Recipe ;
-
 CREATE TABLE IF NOT EXISTS re7.Recipe (
     recipeID          INT         NOT NULL  AUTO_INCREMENT
 ,   recipeName        VARCHAR(45) NOT NULL
@@ -60,8 +68,6 @@ CREATE TABLE IF NOT EXISTS re7.Recipe (
 -- -----------------------------------------------------
 -- Table re7.Unit
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS re7.Unit ;
-
 CREATE TABLE IF NOT EXISTS re7.Unit (
     unitID      INT           NOT NULL    AUTO_INCREMENT
 ,   unitName    VARCHAR(45)   NOT NULL
@@ -73,8 +79,6 @@ CREATE TABLE IF NOT EXISTS re7.Unit (
 -- -----------------------------------------------------
 -- Table re7.Ingredient
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS re7.Ingredient ;
-
 CREATE TABLE IF NOT EXISTS re7.Ingredient (
     ingredientID    INT             NOT NULL    AUTO_INCREMENT
 ,   ingredientName  VARCHAR(45)     NOT NULL
@@ -86,8 +90,6 @@ CREATE TABLE IF NOT EXISTS re7.Ingredient (
 -- -----------------------------------------------------
 -- Table re7.Contain
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS re7.Contain ;
-
 CREATE TABLE IF NOT EXISTS re7.Contain (
     recipeID        INT         NOT NULL
 ,   ingredientID    INT         NOT NULL
@@ -105,8 +107,6 @@ CREATE TABLE IF NOT EXISTS re7.Contain (
 -- -----------------------------------------------------
 -- Table re7.Comment
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS re7.Comment ;
-
 CREATE TABLE IF NOT EXISTS re7.Comment (
     commentID         INT           NOT NULL  AUTO_INCREMENT
 ,   comment           VARCHAR(300)
@@ -129,7 +129,6 @@ CREATE TABLE IF NOT EXISTS re7.Comment (
 -- -----------------------------------------------------
 -- View re7.Average
 -- -----------------------------------------------------
-DROP VIEW IF EXISTS Average;
 CREATE VIEW Average AS
 SELECT recipeID, (AVG(tasteScore)+AVG(priceScore)+AVG(instructionScore))/3 AS averageScore, AVG(tasteScore) AS tasteAvgScore, AVG(priceScore) AS priceAvgScore, AVG(instructionScore) AS instructionAvgScore
 FROM Comment
@@ -139,8 +138,6 @@ GROUP BY recipeID;
 -- -----------------------------------------------------
 -- Table re7.Step
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS re7.Step ;
-
 CREATE TABLE IF NOT EXISTS re7.Step (
     stepCount       INT             NOT NULL
 ,   stepDescription VARCHAR(300)    NOT NULL
