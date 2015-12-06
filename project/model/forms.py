@@ -52,15 +52,15 @@ class RecipeForm(Form):
     contains = FieldList(FormField(ContainForm), min_entries=1)
 
 class RegisterForm(Form):
-    login = TextField(u'Login', [validators.Required()])
+    login = TextField(u'Non d\'utilisateur', [validators.Required()])
     password = PasswordField('Mot de passe', [
         validators.Required(),
         validators.EqualTo('confirm', message=u'Les mots de passe doivent être identiques')
     ])
-    confirm = PasswordField(u'Répétez mot de passe')
+    confirm = PasswordField(u'Répétez le mot de passe')
 
 class LoginForm(Form):
-    login = TextField(u'Login', [validators.Required()])
+    login = TextField(u'Nom d\'utilisateur', [validators.Required()])
     password = PasswordField('Mot de passe', [validators.Required()])
 
 

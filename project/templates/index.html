@@ -16,9 +16,9 @@
          -->
         {% if bestcommentator %}
         <br>
-        Si vous souhaitez avoir le meilleur avis sur une recette,
+        Si tu veux avoir le meilleur avis sur une recette,
         <br>
-        sachez que <a href="{{ url_for('user', id=bestcommentator.userID) }}">{{ bestcommentator.login }}</a> détient le prix du critique gastronomique le plus fiable.
+        sache que <a href="{{ url_for('user', id=bestcommentator.userID) }}">{{ bestcommentator.login }}</a> détient le prix du critique gastronomique le plus fiable.
         <br>
         {% endif %}
         <br>
