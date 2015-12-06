@@ -15,22 +15,16 @@
             Find your favorite meal and don't forget to grade it.<br>
              -->
         </div>
-    </div>
-    {% if bestcommentator %}
-    <div class="row">
-        <div class="col-sm-1" style="text-align:right;">
+        {% if bestcommentator %}
+        <div class="col-md-offset-2 col-md-2" align="center">
+            <img src="{{ url_for('static', filename='images/médaille.png') }}" height="100px">
             <br>
-            <img src="{{ url_for('static', filename='images/médaille.png') }}" height="45px">
+            le prix du critique gastronomique le plus fiable est décerné à
+            <br>
+            <h2><a href="{{ url_for('user', id=bestcommentator.userID) }}">{{ bestcommentator.login }}</a></h2>
         </div>
-        <div class="col-md-6">
-            <br>
-            Si tu veux avoir le meilleur avis sur une recette,
-            <br>
-            sache que <a href="{{ url_for('user', id=bestcommentator.userID) }}">{{ bestcommentator.login }}</a> détient le prix du critique gastronomique le plus fiable.
-            <br>
-        </div>
+        {% endif %}
     </div>
-    {% endif %}
     <div class="row">
         <div class="col-md-8">
           <br>
