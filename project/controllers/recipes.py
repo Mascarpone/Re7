@@ -13,9 +13,9 @@ import math
 @app.route('/recipes/<int:category>', methods=('GET', 'POST'))
 def recipes(category=None):
     max = model.getMaxBudget()
-    max = math.ceil(max['MAX(budget)'])
+    max = int(math.ceil(max['MAX(budget)']))
     min = model.getMinBudget()
-    min = math.floor(min['MIN(budget)'])
+    min = int(math.floor(min['MIN(budget)']))
     form = SearchForm(csrf_enabled=False)
     if category is not None:
         form.categories.data = [category]
