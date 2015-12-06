@@ -40,7 +40,7 @@ Nous disposons donc maintenant d'un environnement situé dans le dossier `venv`.
 
 Pour vous assurer de la bonne activation de l'environnement virtuel, vérifiez que l'invite de commande a bien été modifiée et commence maintenant par `(venv)`. Par exemple `(venv)utilisateur@machine:~/projet_re7`
 
-Nous pouvons maintenant installer toutes les dépendances dans l'environnement virtuel : `pip install -r re7/requirements.txt`
+Nous pouvons maintenant installer toutes les dépendances dans l'environnement virtuel : `pip install -r re7/requirements.txt` (il est possible que les droits d'administrateur soient requis pour cela)
 
 Puis lancer le serveur : `python re7/app.py` (Utilisez Ctrl+C pour le quitter)
 
