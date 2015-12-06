@@ -47,7 +47,7 @@
                     <div class="panel-heading"><strong>Ingrédients</strong></div>
                     <ul class="list-group">
                         {% for ingredient in ingredients %}
-                            <li class="list-group-item">{{ ingredient.quantity|int }} {% if ingredient.unitName != "(Rien)" %} {{ ingredient.unitName }} de {% endif %} {{ ingredient.ingredientName }}</li>
+                            <li class="list-group-item">{{ ingredient.quantity }} {% if ingredient.unitName != "(Rien)" %} {{ ingredient.unitName }} de {% endif %} {{ ingredient.ingredientName }}</li>
                         {% endfor %}
                     </ul>
                 </div>
