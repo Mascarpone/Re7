@@ -246,13 +246,11 @@ class Model(object):
             self.cursor = self.conn.cursor(DictCursor)
             sql = """
                 UPDATE Contain
-                SET ingredientID = %s,
-                    quantity = %s,
-                    isMain = %s,
-                    unitID = %s)
-                WHERE
+                SET quantity = %s,
+                    isMain = %s
+                WHERE recipeID = %s AND ingredientID = %s AND unitID = %s
                 """
-            self.cursor.execute(sql, (recipeID, ingredientID, quantity, isMain, unitID))
+            self.cursor.execute(sql, (quantity, isMain, recipeID, ingredientID, unitID))
             self.conn.commit()
             return self.cursor.lastrowid
         except:
