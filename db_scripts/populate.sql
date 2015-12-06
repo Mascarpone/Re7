@@ -1,6 +1,6 @@
 use re7;
 
-INSERT INTO Category VALUES (1,'Apéritif'),(2,'Entrée'),(3,'Plat'),(4,'Dessert'),(5,'Viande'),(6,'Poisson'),(7,'Légume'),(8,'Fruit'),(9,'Fromage');
+INSERT INTO Category VALUES (1,'Apéritif'),(2,'Entrée'),(3,'Plat'),(4,'Dessert'),(5,'Viande'),(6,'Poisson');
 
 INSERT INTO User VALUES (1,'admin','root'),(2,'scassiau','okok'), (3,'gbea','okok'),(4,'flevern','okok'),(5,'test','test');
 
