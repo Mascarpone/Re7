@@ -28,6 +28,8 @@
                 <div class="row input_ingredients">
                     <div class="col-md-8 col-md-offset-1">
                         {{ contain.hidden_tag() }}
+                        {{ contain.unitID(style="display:none;") }}
+                        {{ contain.ingredientName(type="hidden") }}
                         <div class="col-md-1">
                             {{ contain.isMain(class_="checkbox") }}
                         </div>
@@ -35,10 +37,10 @@
                             {{ contain.quantity(class_="form-control", required="true", type="number") }}
                         </div>
                         <div class="col-md-3">
-                            {{ contain.unitID(class_="form-control") }}
+                            {{ choices[contain.unitID.data] }}
                         </div>
                         <div class="col-md-4">
-                            {{ contain.ingredientName(class_="form-control autocomplete") }}
+                            {{ contain.ingredientName.data }}
                         </div>
                     </div>
                 </div>

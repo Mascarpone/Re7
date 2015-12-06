@@ -13,9 +13,9 @@ import math
 @app.route('/recipes/<int:category>', methods=('GET', 'POST'))
 def recipes(category=None):
     max = model.getMaxBudget()
-    max = math.ceil(max['MAX(budget)'])
+    max = int(math.ceil(max['MAX(budget)']))
     min = model.getMinBudget()
-    min = math.floor(min['MIN(budget)'])
+    min = int(math.floor(min['MIN(budget)']))
     form = SearchForm(csrf_enabled=False)
     if category is not None:
         form.categories.data = [category]
@@ -114,7 +114,8 @@ def editRecipe(id):
         if recipe['userID'] == int(current_user.get_id()):
             ingredients = [i['ingredientName'] for i in model.getIngredients()]
             form = RecipeForm(csrf_enabled=False)
-
+            choices = { c[0] : c[1] for c in form.contains.entries[0].form.unitID.choices}
+            #assert False
             if form.validate_on_submit():
                 model.updateRecipe(id, form.recipeName.data, form.budget.data,
                     form.difficulty.data, form.preparationTime.data,
@@ -123,16 +124,12 @@ def editRecipe(id):
                 for i, step in enumerate(form.steps.data):
                     model.updateStep(i+1, step, id)
 
-                #for contain in form.contains.data:
-                #    ingredient = model.getIngredientByName(contain['ingredientName'])
-                #    if ingredient is not None:
-                #        ingredientID = ingredient['ingredientID']
-                #    else:
-                #        ingredientID = model.insertIngredient(contain['ingredientName'])
-
-                #    model.updateContain(recipeID, ingredientID,
-                #            contain['quantity'], contain['isMain'],
-                #            contain['unitID'] )
+                for contain in form.contains.data:
+                    ingredient = model.getIngredientByName(contain['ingredientName'])
+                    ingredientID = ingredient['ingredientID']
+                    model.updateContain(id, ingredientID,
+                            contain['quantity'], contain['isMain'],
+                            contain['unitID'] )
 
                 return redirect(url_for('recipe', id=id))
 
@@ -163,11 +160,7 @@ def editRecipe(id):
             for step in steps:
                 form.steps.append_entry(step['stepDescription'])
 
-
-
-
-            return render_template('editRecipe.html', form=form, ingredients=ingredients, id=id)
-
+            return render_template('editRecipe.html', form=form, ingredients=ingredients, id=id, choices=choices)
 
     return abort(404)
 

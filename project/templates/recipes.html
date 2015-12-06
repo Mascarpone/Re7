@@ -9,16 +9,16 @@
 
     <form data-toggle="validator" role=form method="POST" action="{{ url_for('recipes') }}">
         {{ form.hidden_tag() }}
+        <div class="row">
         <h2>Filtrer par catégories</h2>
-        <div class="form-inline filter">
-            {% for category in form.categories %}
-                {{ category() }}
-                {{ category.label }}
-            {% endfor %}
+          <div class="form-inline filter">
+              {% for category in form.categories %}
+                  {{ category() }}
+                  {{ category.label }}
+              {% endfor %}
+          </div>
         </div>
-        <br>
-        <br>
-
+        <div class="row">
         <h2>Filtrer par ingrédients principaux</h2>
         <div class="form-inline filter">
             {% for ingredient in form.ingredients %}
@@ -26,9 +26,8 @@
                 {{ ingredient.label }}
             {% endfor %}
         </div>
-        <br>
-        <br>
-
+        </div>
+        <div class="row">
         <h2>Filtrer par intervalle de prix</h2>
         <div class="form-inline filter">
             <div class="form-group">
@@ -44,7 +43,7 @@
             </div>
             <div id="slider" class="col-md-3"></div>
         </div>
-        <br>
+        </div>
         <br>
         <br>
 
@@ -85,7 +84,6 @@
         {% endfor %}
     </ul>
 </div>
-
 {% endblock %}
 
 {% block js_footer %}

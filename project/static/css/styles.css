@@ -248,12 +248,12 @@ textarea {
 .bestrecipes ul.img-list {
     list-style-type: none;
     margin-left: auto;
-    padding-left: 120px;
+    padding-left: 60px;
 }
 
 .bestrecipes ul.img-list li {
     display: inline-block;
-    margin: 0 120px 120px 0;
+    margin: 0 60px 60px 0;
     position: relative;
 }
 
