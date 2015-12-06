@@ -4,6 +4,7 @@ from flask.ext.wtf import Form
 from wtforms import widgets, FormField, SelectField, SelectMultipleField, TextField, RadioField, TextAreaField, IntegerField, FloatField, FieldList, PasswordField, BooleanField, validators
 from flask_wtf.file import FileField, FileAllowed
 from project import gallery
+import math
 
 class SearchForm(Form):
     categories = SelectMultipleField(
@@ -22,8 +23,8 @@ class SearchForm(Form):
     )
     max = model.getMaxBudget()
     min = model.getMinBudget()
-    minprice = IntegerField(u'Min', default=int(min['MIN(budget)']))
-    maxprice = IntegerField(u'Max', default=int(max['MAX(budget)']))
+    minprice = IntegerField(u'Min', default=math.floor(min['MIN(budget)']))
+    maxprice = IntegerField(u'Max', default=math.ceil(max['MAX(budget)']))
     query = TextField(u'Recherche', default="")
 
 class ContainForm(Form):
