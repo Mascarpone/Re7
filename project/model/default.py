@@ -98,7 +98,7 @@ class Model(object):
               JOIN User on User.userID = Recipe.userID
               JOIN Average ON Average.recipeID = Recipe.recipeID
               WHERE categoryID = %s
-              GROUP BY averageScore
+              GROUP BY averageScore, Recipe.recipeID
               HAVING averageScore = (SELECT MAX(averageScore) FROM Average JOIN Recipe ON Average.recipeID = Recipe.recipeID WHERE Recipe.categoryID = %s)
               """
         self.cursor.execute(sql, (id,id,))
